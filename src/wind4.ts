@@ -159,7 +159,210 @@ export const LAYOUT: Rule[] = [
 	["relative", "position: relative;"],
 	["sticky", "position: sticky;"],
 
-	// TODO: top / right / bottom / left
+	// top / right / bottom / left
+	// inset
+	[
+		/^(-)?inset-(\d+)/,
+		([, neg, num]) =>
+			`inset: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
+	],
+	[
+		/^(-)?inset-(\d+\/\d+)/,
+		([, neg, frac]) => `inset: calc(${frac} * ${neg ? "-" : ""}100%);`,
+	],
+	["inset-px", "inset: 1px;"],
+	["-inset-px", "inset: -1px;"],
+	["inset-full", "inset: 100%;"],
+	["-inset-full", "inset: -100%;"],
+	["inset-auto", "inset: auto;"],
+	[/inset-\((.+)\)/, ([, prop]) => `inset: var(${prop});`],
+	[/inset-\[(.+)\]/, ([, value]) => `inset: ${value};`],
+
+	// inset-x (inline)
+	[
+		/^(-)?inset-x-(\d+)/,
+		([, neg, num]) =>
+			`inset-inline: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
+	],
+	[
+		/^(-)?inset-x-(\d+\/\d+)/,
+		([, neg, frac]) =>
+			`inset-inline: calc(${frac} * ${neg ? "-" : ""}100%);`,
+	],
+	["inset-x-px", "inset-inline: 1px;"],
+	["-inset-x-px", "inset-inline: -1px;"],
+	["inset-x-full", "inset-inline: 100%;"],
+	["-inset-x-full", "inset-inline: -100%;"],
+	["inset-x-auto", "inset-inline: auto;"],
+	[/inset-x-\((.+)\)/, ([, prop]) => `inset-inline: var(${prop});`],
+	[/inset-x-\[(.+)\]/, ([, value]) => `inset-inline: ${value};`],
+
+	// inset-y (block)
+	[
+		/^(-)?inset-y-(\d+)/,
+		([, neg, num]) =>
+			`inset-block: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
+	],
+	[
+		/^(-)?inset-y-(\d+\/\d+)/,
+		([, neg, frac]) =>
+			`inset-block: calc(${frac} * ${neg ? "-" : ""}100%);`,
+	],
+	["inset-y-px", "inset-block: 1px;"],
+	["-inset-y-px", "inset-block: -1px;"],
+	["inset-y-full", "inset-block: 100%;"],
+	["-inset-y-full", "inset-block: -100%;"],
+	["inset-y-auto", "inset-block: auto;"],
+	[/inset-y-\((.+)\)/, ([, prop]) => `inset-block: var(${prop});`],
+	[/inset-y-\[(.+)\]/, ([, value]) => `inset-block: ${value};`],
+
+	// inset-s (inline-start)
+	[
+		/^(-)?inset-s-(\d+)/,
+		([, neg, num]) =>
+			`inset-inline-start: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
+	],
+	[
+		/^(-)?inset-s-(\d+\/\d+)/,
+		([, neg, frac]) =>
+			`inset-inline-start: calc(${frac} * ${neg ? "-" : ""}100%);`,
+	],
+	["inset-s-px", "inset-inline-start: 1px;"],
+	["-inset-s-px", "inset-inline-start: -1px;"],
+	["inset-s-full", "inset-inline-start: 100%;"],
+	["-inset-s-full", "inset-inline-start: -100%;"],
+	["inset-s-auto", "inset-inline-start: auto;"],
+	[/inset-s-\((.+)\)/, ([, prop]) => `inset-inline-start: var(${prop});`],
+	[/inset-s-\[(.+)\]/, ([, value]) => `inset-inline-start: ${value};`],
+
+	// inset-e (inline-end)
+	[
+		/^(-)?inset-e-(\d+)/,
+		([, neg, num]) =>
+			`inset-inline-end: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
+	],
+	[
+		/^(-)?inset-e-(\d+\/\d+)/,
+		([, neg, frac]) =>
+			`inset-inline-end: calc(${frac} * ${neg ? "-" : ""}100%);`,
+	],
+	["inset-e-px", "inset-inline-end: 1px;"],
+	["-inset-e-px", "inset-inline-end: -1px;"],
+	["inset-e-full", "inset-inline-end: 100%;"],
+	["-inset-e-full", "inset-inline-end: -100%;"],
+	["inset-e-auto", "inset-inline-end: auto;"],
+	[/inset-e-\((.+)\)/, ([, prop]) => `inset-inline-end: var(${prop});`],
+	[/inset-e-\[(.+)\]/, ([, value]) => `inset-inline-end: ${value};`],
+
+	// inset-bs (block-start)
+	[
+		/^(-)?inset-bs-(\d+)/,
+		([, neg, num]) =>
+			`inset-block-start: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
+	],
+	[
+		/^(-)?inset-bs-(\d+\/\d+)/,
+		([, neg, frac]) =>
+			`inset-block-start: calc(${frac} * ${neg ? "-" : ""}100%);`,
+	],
+	["inset-bs-px", "inset-block-start: 1px;"],
+	["-inset-bs-px", "inset-block-start: -1px;"],
+	["inset-bs-full", "inset-block-start: 100%;"],
+	["-inset-bs-full", "inset-block-start: -100%;"],
+	["inset-bs-auto", "inset-block-start: auto;"],
+	[/inset-bs-\((.+)\)/, ([, prop]) => `inset-block-start: var(${prop});`],
+	[/inset-bs-\[(.+)\]/, ([, value]) => `inset-block-start: ${value};`],
+
+	// inset-be (block-end)
+	[
+		/^(-)?inset-be-(\d+)/,
+		([, neg, num]) =>
+			`inset-block-end: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
+	],
+	[
+		/^(-)?inset-be-(\d+\/\d+)/,
+		([, neg, frac]) =>
+			`inset-block-end: calc(${frac} * ${neg ? "-" : ""}100%);`,
+	],
+	["inset-be-px", "inset-block-end: 1px;"],
+	["-inset-be-px", "inset-block-end: -1px;"],
+	["inset-be-full", "inset-block-end: 100%;"],
+	["-inset-be-full", "inset-block-end: -100%;"],
+	["inset-be-auto", "inset-block-end: auto;"],
+	[/inset-be-\((.+)\)/, ([, prop]) => `inset-block-end: var(${prop});`],
+	[/inset-be-\[(.+)\]/, ([, value]) => `inset-block-end: ${value};`],
+
+	// top
+	[
+		/^(-)?top-(\d+)/,
+		([, neg, num]) =>
+			`top: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
+	],
+	[
+		/^(-)?top-(\d+\/\d+)/,
+		([, neg, frac]) => `top: calc(${frac} * ${neg ? "-" : ""}100%);`,
+	],
+	["top-px", "top: 1px;"],
+	["-top-px", "top: -1px;"],
+	["top-full", "top: 100%;"],
+	["-top-full", "top: -100%;"],
+	["top-auto", "top: auto;"],
+	[/top-\((.+)\)/, ([, prop]) => `top: var(${prop});`],
+	[/top-\[(.+)\]/, ([, value]) => `top: ${value};`],
+
+	// right
+	[
+		/^(-)?right-(\d+)/,
+		([, neg, num]) =>
+			`right: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
+	],
+	[
+		/^(-)?right-(\d+\/\d+)/,
+		([, neg, frac]) => `right: calc(${frac} * ${neg ? "-" : ""}100%);`,
+	],
+	["right-px", "right: 1px;"],
+	["-right-px", "right: -1px;"],
+	["right-full", "right: 100%;"],
+	["-right-full", "right: -100%;"],
+	["right-auto", "right: auto;"],
+	[/right-\((.+)\)/, ([, prop]) => `right: var(${prop});`],
+	[/right-\[(.+)\]/, ([, value]) => `right: ${value};`],
+
+	// bottom
+	[
+		/^(-)?bottom-(\d+)/,
+		([, neg, num]) =>
+			`bottom: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
+	],
+	[
+		/^(-)?bottom-(\d+\/\d+)/,
+		([, neg, frac]) => `bottom: calc(${frac} * ${neg ? "-" : ""}100%);`,
+	],
+	["bottom-px", "bottom: 1px;"],
+	["-bottom-px", "bottom: -1px;"],
+	["bottom-full", "bottom: 100%;"],
+	["-bottom-full", "bottom: -100%;"],
+	["bottom-auto", "bottom: auto;"],
+	[/bottom-\((.+)\)/, ([, prop]) => `bottom: var(${prop});`],
+	[/bottom-\[(.+)\]/, ([, value]) => `bottom: ${value};`],
+
+	// left
+	[
+		/^(-)?left-(\d+)/,
+		([, neg, num]) =>
+			`left: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
+	],
+	[
+		/^(-)?left-(\d+\/\d+)/,
+		([, neg, frac]) => `left: calc(${frac} * ${neg ? "-" : ""}100%);`,
+	],
+	["left-px", "left: 1px;"],
+	["-left-px", "left: -1px;"],
+	["left-full", "left: 100%;"],
+	["-left-full", "left: -100%;"],
+	["left-auto", "left: auto;"],
+	[/left-\((.+)\)/, ([, prop]) => `left: var(${prop});`],
+	[/left-\[(.+)\]/, ([, value]) => `left: ${value};`],
 
 	// visibility
 	["visible", "visibility: visible;"],

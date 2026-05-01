@@ -1,5 +1,6 @@
 import type { Config } from "./config.ts"
 import { escapeClassname } from "./css.ts"
+import { LAYOUT } from "./wind4.ts"
 
 export class Generator {
 	config: Config
@@ -16,7 +17,6 @@ export class Generator {
 			})
 			.join("|")
 		this.#matcher = new RegExp(`^(${rawMatcher})$`)
-		console.log(this.#matcher)
 
 		this.#cache = new Map()
 	}
@@ -73,8 +73,8 @@ function getIndex(match: RegExpMatchArray) {
 }
 
 const generator = new Generator({
-	rules: [],
+	rules: [...LAYOUT],
 })
 
-generator.consume("z-[7] -z-4")
+generator.consume("top-0")
 console.log(generator.utilities())
