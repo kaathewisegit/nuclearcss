@@ -1,5 +1,5 @@
 {
-	"name": "nuclearcss",
+	"name": "@kaathewise/nuclearcss",
 	"version": "0.1.0-alpha.0",
 	"description": "Basic atomic CSS engine",
 	"license": "MPL-2.0",
