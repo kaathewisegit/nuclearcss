@@ -108,12 +108,25 @@ export class Generator {
 	}
 
 	utilities(): string {
-		let out = ""
+		let out = "@layer utilities {\n"
 
 		for (const [name, value] of this.#cache) {
-			out += `.${escapeClassname(name)} { ${value} }\n`
+			out += `  .${escapeClassname(name)} { ${value} }\n`
 		}
 
+		out += "}"
+		return out
+	}
+
+	theme(): string {
+		let out = "@layer theme {\n  :root, :host {\n"
+
+		// TODO: only select variables which are being used
+		for (const [variable, value] of Object.entries(this.config.theme)) {
+			out += `    ${variable}: ${value};\n`
+		}
+
+		out += "  }\n}"
 		return out
 	}
 }
@@ -123,4 +136,5 @@ const generator = Generator.from_options({
 })
 
 generator.consume("nth-[3n+1]:p-4")
+console.log(generator.theme())
 console.log(generator.utilities())

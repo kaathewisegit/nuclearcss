@@ -1003,9 +1003,19 @@ export const WIND4_STATES: State[] = [
 	["read-only", (content, _) => `&:read-only { ${content} }`],
 ]
 
+export const WIND4_THEME = {
+	"--font-sans":
+		"ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
+	"--font-mono":
+		"ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+
+	"--spacing": "0.25rem",
+}
+
 const PRESET: ConfigOptions = {
 	rules: WIND4_RULES,
 	states: WIND4_STATES,
+	theme: WIND4_THEME,
 }
 
 export default PRESET
