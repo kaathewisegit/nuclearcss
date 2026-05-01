@@ -376,7 +376,297 @@ export const LAYOUT: Rule[] = [
 	[/z-\[(.+)\]/, ([, value]) => `z-index: ${value};`],
 ]
 
-export const FLEXBOX_GRID: Rule[] = []
+export const FLEXBOX_GRID: Rule[] = [
+	// flex-basis
+	[/basis-(\d+)/, ([, num]) => `flex-basis: calc(var(--spacing) * ${num});`],
+	[/basis-(\d+\/\d+)/, ([, frac]) => `flex-basis: calc(${frac} * 100%);`],
+	["basis-full", "flex-basis: 100%;"],
+	["basis-auto", "flex-basis: auto;"],
+	["basis-3xs", "flex-basis: var(--container-3xs);"],
+	["basis-2xs", "flex-basis: var(--container-2xs);"],
+	["basis-xs", "flex-basis: var(--container-xs);"],
+	["basis-sm", "flex-basis: var(--container-sm);"],
+	["basis-md", "flex-basis: var(--container-md);"],
+	["basis-lg", "flex-basis: var(--container-lg);"],
+	["basis-xl", "flex-basis: var(--container-xl);"],
+	["basis-2xl", "flex-basis: var(--container-2xl);"],
+	["basis-3xl", "flex-basis: var(--container-3xl);"],
+	["basis-4xl", "flex-basis: var(--container-4xl);"],
+	["basis-5xl", "flex-basis: var(--container-5xl);"],
+	["basis-6xl", "flex-basis: var(--container-6xl);"],
+	["basis-7xl", "flex-basis: var(--container-7xl);"],
+	[/basis-\((.+)\)/, ([, prop]) => `flex-basis: var(${prop});`],
+	[/basis-\[(.+)\]/, ([, value]) => `flex-basis: ${value};`],
+
+	// flex-direction
+	["flex-row", "flex-direction: row;"],
+	["flex-row-reverse", "flex-direction: row-reverse;"],
+	["flex-col", "flex-direction: column;"],
+	["flex-col-reverse", "flex-direction: column-reverse;"],
+
+	// flex-wrap
+	["flex-nowrap", "flex-wrap: nowrap;"],
+	["flex-wrap", "flex-wrap: wrap;"],
+	["flex-wrap-reverse", "flex-wrap: wrap-reverse;"],
+
+	// flex
+	[/flex-(\d+)/, ([, num]) => `flex: ${num};`],
+	[/flex-(\d+\/\d+)/, ([, frac]) => `flex: calc(${frac} * 100%);`],
+	["flex-auto", "flex: auto;"],
+	["flex-initial", "flex: 0 auto;"],
+	["flex-none", "flex: none;"],
+	[/flex-\((.+)\)/, ([, prop]) => `flex: var(${prop});`],
+	[/flex-\[(.+)\]/, ([, value]) => `flex: ${value};`],
+
+	// flex-grow
+	["grow", "flex-grow: 1;"],
+	[/grow-(\d+)/, ([, num]) => `flex-grow: ${num};`],
+	[/grow-\((.+)\)/, ([, prop]) => `flex-grow: var(${prop});`],
+	[/grow-\[(.+)\]/, ([, value]) => `flex-grow: ${value};`],
+
+	// flex-shrink
+	["shrink", "flex-shrink: 1;"],
+	[/shrink-(\d+)/, ([, num]) => `flex-shrink: ${num};`],
+	[/shrink-\((.+)\)/, ([, prop]) => `flex-shrink: var(${prop});`],
+	[/shrink-\[(.+)\]/, ([, value]) => `flex-shrink: ${value};`],
+
+	// order
+	[
+		/^(-)?order-(\d+)/,
+		([, neg, num]) => `order: ${neg ? `calc(${num} * -1)` : num};`,
+	],
+	["order-first", "order: -9999;"],
+	["order-last", "order: 9999;"],
+	["order-none", "order: 0;"],
+	[/order-\((.+)\)/, ([, prop]) => `order: var(${prop});`],
+	[/order-\[(.+)\]/, ([, value]) => `order: ${value};`],
+
+	// grid-template-columns
+	[
+		/grid-cols-(\d+)/,
+		([, num]) => `grid-template-columns: repeat(${num}, minmax(0, 1fr));`,
+	],
+	["grid-cols-none", "grid-template-columns: none;"],
+	["grid-cols-subgrid", "grid-template-columns: subgrid;"],
+	[
+		/grid-cols-\((.+)\)/,
+		([, prop]) => `grid-template-columns: var(${prop});`,
+	],
+	[/grid-cols-\[(.+)\]/, ([, value]) => `grid-template-columns: ${value};`],
+
+	// grid-column
+	[/col-span-(\d+)/, ([, num]) => `grid-column: span ${num} / span ${num};`],
+	["col-span-full", "grid-column: 1 / -1;"],
+	[
+		/col-span-\((.+)\)/,
+		([, prop]) => `grid-column: span var(${prop}) / span var(${prop});`,
+	],
+	[
+		/col-span-\[(.+)\]/,
+		([, value]) => `grid-column: span ${value} / span ${value};`,
+	],
+
+	[
+		/^(-)?col-start-(\d+)/,
+		([, neg, num]) =>
+			`grid-column-start: ${neg ? `calc(${num} * -1)` : num};`,
+	],
+	["col-start-auto", "grid-column-start: auto;"],
+	[/col-start-\((.+)\)/, ([, prop]) => `grid-column-start: var(${prop});`],
+	[/col-start-\[(.+)\]/, ([, value]) => `grid-column-start: ${value};`],
+
+	[
+		/^(-)?col-end-(\d+)/,
+		([, neg, num]) =>
+			`grid-column-end: ${neg ? `calc(${num} * -1)` : num};`,
+	],
+	["col-end-auto", "grid-column-end: auto;"],
+	[/col-end-\((.+)\)/, ([, prop]) => `grid-column-end: var(${prop});`],
+	[/col-end-\[(.+)\]/, ([, value]) => `grid-column-end: ${value};`],
+
+	["col-auto", "grid-column: auto;"],
+	[
+		/^(-)?col-(\d+)/,
+		([, neg, num]) => `grid-column: ${neg ? `calc(${num} * -1)` : num};`,
+	],
+	[/col-\((.+)\)/, ([, prop]) => `grid-column: var(${prop});`],
+	[/col-\[(.+)\]/, ([, value]) => `grid-column: ${value};`],
+
+	// grid-template-rows
+	[
+		/grid-rows-(\d+)/,
+		([, num]) => `grid-template-rows: repeat(${num}, minmax(0, 1fr));`,
+	],
+	["grid-rows-none", "grid-template-rows: none;"],
+	["grid-rows-subgrid", "grid-template-rows: subgrid;"],
+	[/grid-rows-\((.+)\)/, ([, prop]) => `grid-template-rows: var(${prop});`],
+	[/grid-rows-\[(.+)\]/, ([, value]) => `grid-template-rows: ${value};`],
+
+	// grid-row
+	[/row-span-(\d+)/, ([, num]) => `grid-row: span ${num} / span ${num};`],
+	["row-span-full", "grid-row: 1 / -1;"],
+	[
+		/row-span-\((.+)\)/,
+		([, prop]) => `grid-row: span var(${prop}) / span var(${prop});`,
+	],
+	[
+		/row-span-\[(.+)\]/,
+		([, value]) => `grid-row: span ${value} / span ${value};`,
+	],
+
+	[
+		/^(-)?row-start-(\d+)/,
+		([, neg, num]) => `grid-row-start: ${neg ? `calc(${num} * -1)` : num};`,
+	],
+	["row-start-auto", "grid-row-start: auto;"],
+	[/row-start-\((.+)\)/, ([, prop]) => `grid-row-start: var(${prop});`],
+	[/row-start-\[(.+)\]/, ([, value]) => `grid-row-start: ${value};`],
+
+	[
+		/^(-)?row-end-(\d+)/,
+		([, neg, num]) => `grid-row-end: ${neg ? `calc(${num} * -1)` : num};`,
+	],
+	["row-end-auto", "grid-row-end: auto;"],
+	[/row-end-\((.+)\)/, ([, prop]) => `grid-row-end: var(${prop});`],
+	[/row-end-\[(.+)\]/, ([, value]) => `grid-row-end: ${value};`],
+
+	["row-auto", "grid-row: auto;"],
+	[
+		/^(-)?row-(\d+)/,
+		([, neg, num]) => `grid-row: ${neg ? `calc(${num} * -1)` : num};`,
+	],
+	[/row-\((.+)\)/, ([, prop]) => `grid-row: var(${prop});`],
+	[/row-\[(.+)\]/, ([, value]) => `grid-row: ${value};`],
+
+	// grid-auto-flow
+	["grid-flow-row", "grid-auto-flow: row;"],
+	["grid-flow-col", "grid-auto-flow: column;"],
+	["grid-flow-dense", "grid-auto-flow: dense;"],
+	["grid-flow-row-dense", "grid-auto-flow: row dense;"],
+	["grid-flow-col-dense", "grid-auto-flow: column dense;"],
+
+	// grid-auto-columns
+	["auto-cols-auto", "grid-auto-columns: auto;"],
+	["auto-cols-min", "grid-auto-columns: min-content;"],
+	["auto-cols-max", "grid-auto-columns: max-content;"],
+	["auto-cols-fr", "grid-auto-columns: minmax(0, 1fr);"],
+	[/auto-cols-\((.+)\)/, ([, prop]) => `grid-auto-columns: var(${prop});`],
+	[/auto-cols-\[(.+)\]/, ([, value]) => `grid-auto-columns: ${value};`],
+
+	// grid-auto-rows
+	["auto-rows-auto", "grid-auto-rows: auto;"],
+	["auto-rows-min", "grid-auto-rows: min-content;"],
+	["auto-rows-max", "grid-auto-rows: max-content;"],
+	["auto-rows-fr", "grid-auto-rows: minmax(0, 1fr);"],
+	[/auto-rows-\((.+)\)/, ([, prop]) => `grid-auto-rows: var(${prop});`],
+	[/auto-rows-\[(.+)\]/, ([, value]) => `grid-auto-rows: ${value};`],
+
+	// gap
+	[/gap-(\d+)/, ([, num]) => `gap: calc(var(--spacing) * ${num});`],
+	[/gap-\((.+)\)/, ([, prop]) => `gap: var(${prop});`],
+	[/gap-\[(.+)\]/, ([, value]) => `gap: ${value};`],
+
+	[/gap-x-(\d+)/, ([, num]) => `column-gap: calc(var(--spacing) * ${num});`],
+	[/gap-x-\((.+)\)/, ([, prop]) => `column-gap: var(${prop});`],
+	[/gap-x-\[(.+)\]/, ([, value]) => `column-gap: ${value};`],
+
+	[/gap-y-(\d+)/, ([, num]) => `row-gap: calc(var(--spacing) * ${num});`],
+	[/gap-y-\((.+)\)/, ([, prop]) => `row-gap: var(${prop});`],
+	[/gap-y-\[(.+)\]/, ([, value]) => `row-gap: ${value};`],
+
+	// justify-content
+	["justify-start", "justify-content: flex-start;"],
+	["justify-end", "justify-content: flex-end;"],
+	["justify-end-safe", "justify-content: safe flex-end;"],
+	["justify-center", "justify-content: center;"],
+	["justify-center-safe", "justify-content: safe center;"],
+	["justify-between", "justify-content: space-between;"],
+	["justify-around", "justify-content: space-around;"],
+	["justify-evenly", "justify-content: space-evenly;"],
+	["justify-stretch", "justify-content: stretch;"],
+	["justify-baseline", "justify-content: baseline;"],
+	["justify-normal", "justify-content: normal;"],
+
+	// justify-items
+	["justify-items-start", "justify-items: start;"],
+	["justify-items-end", "justify-items: end;"],
+	["justify-items-end-safe", "justify-items: safe end;"],
+	["justify-items-center", "justify-items: center;"],
+	["justify-items-center-safe", "justify-items: safe center;"],
+	["justify-items-stretch", "justify-items: stretch;"],
+	["justify-items-normal", "justify-items: normal;"],
+
+	// justify-self
+	["justify-self-auto", "justify-self: auto;"],
+	["justify-self-start", "justify-self: start;"],
+	["justify-self-center", "justify-self: center;"],
+	["justify-self-center-safe", "justify-self: safe center;"],
+	["justify-self-end", "justify-self: end;"],
+	["justify-self-end-safe", "justify-self: safe end;"],
+	["justify-self-stretch", "justify-self: stretch;"],
+
+	// align-content
+	["content-normal", "align-content: normal;"],
+	["content-center", "align-content: center;"],
+	["content-start", "align-content: flex-start;"],
+	["content-end", "align-content: flex-end;"],
+	["content-between", "align-content: space-between;"],
+	["content-around", "align-content: space-around;"],
+	["content-evenly", "align-content: space-evenly;"],
+	["content-baseline", "align-content: baseline;"],
+	["content-stretch", "align-content: stretch;"],
+
+	// align-items
+	["items-start", "align-items: flex-start;"],
+	["items-end", "align-items: flex-end;"],
+	["items-end-safe", "align-items: safe flex-end;"],
+	["items-center", "align-items: center;"],
+	["items-center-safe", "align-items: safe center;"],
+	["items-baseline", "align-items: baseline;"],
+	["items-baseline-last", "align-items: last baseline;"],
+	["items-stretch", "align-items: stretch;"],
+
+	// align-self
+	["self-auto", "align-self: auto;"],
+	["self-start", "align-self: flex-start;"],
+	["self-end", "align-self: flex-end;"],
+	["self-end-safe", "align-self: safe flex-end;"],
+	["self-center", "align-self: center;"],
+	["self-center-safe", "align-self: safe center;"],
+	["self-stretch", "align-self: stretch;"],
+	["self-baseline", "align-self: baseline;"],
+	["self-baseline-last", "align-self: last baseline;"],
+
+	// place-content
+	["place-content-center", "place-content: center;"],
+	["place-content-center-safe", "place-content: safe center;"],
+	["place-content-start", "place-content: start;"],
+	["place-content-end", "place-content: end;"],
+	["place-content-end-safe", "place-content: safe end;"],
+	["place-content-between", "place-content: space-between;"],
+	["place-content-around", "place-content: space-around;"],
+	["place-content-evenly", "place-content: space-evenly;"],
+	["place-content-baseline", "place-content: baseline;"],
+	["place-content-stretch", "place-content: stretch;"],
+
+	// place-items
+	["place-items-start", "place-items: start;"],
+	["place-items-end", "place-items: end;"],
+	["place-items-end-safe", "place-items: safe end;"],
+	["place-items-center", "place-items: center;"],
+	["place-items-center-safe", "place-items: safe center;"],
+	["place-items-baseline", "place-items: baseline;"],
+	["place-items-stretch", "place-items: stretch;"],
+
+	// place-self
+	["place-self-auto", "place-self: auto;"],
+	["place-self-start", "place-self: start;"],
+	["place-self-end", "place-self: end;"],
+	["place-self-end-safe", "place-self: safe end;"],
+	["place-self-center", "place-self: center;"],
+	["place-self-center-safe", "place-self: safe center;"],
+	["place-self-stretch", "place-self: stretch;"],
+]
 
 export const SPACING: Rule[] = []
 
@@ -385,3 +675,6 @@ export const SIZING: Rule[] = []
 export const TYPOGRAPHY: Rule[] = []
 
 export const TABLES: Rule[] = []
+
+const RULES: Rule[] = [...LAYOUT, ...FLEXBOX_GRID]
+export default RULES
