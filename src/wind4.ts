@@ -930,6 +930,37 @@ export const WIND4_STATES: State[] = [
 	["active", (content, _) => `&:active { ${content} }`],
 	["target", (content, _) => `&:target { ${content} }`],
 
+	[/\*/, (content, _) => `&:is(& > *) { ${content} }`],
+	[/\*\*/, (content, _) => `&:is(& *) { ${content} }`],
+
+	[
+		/has-\[(.*)\]/,
+		(content, matches) => `&:has(*:is(${matches[1]})) { ${content} }`,
+	],
+	[
+		/group-\[(.*)\]/,
+		(content, matches) =>
+			`&:is(:where(.group):is(${matches[1]}) *) { ${content} }`,
+	],
+	[
+		/peer-\[(.*)\]/,
+		(content, matches) =>
+			`&:is(:where(.peer):is(${matches[1]}) ~ *) { ${content} }`,
+	],
+	[
+		/in-\[(.*)\]/,
+		(content, matches) => `:where(*:is(${matches[1]})) & { ${content} }`,
+	],
+	[
+		/not-\[(.*)\]/,
+		(content, matches) => `&:not(*:is(${matches[1]})) { ${content} }`,
+	],
+	[
+		/peer-has-\[(.*)\]/,
+		(content, matches) =>
+			`&:is(:where(.peer):has(*:is(${matches[1]})) ~ *) { ${content} }`,
+	],
+
 	["first", (content, _) => `&:first-child { ${content} }`],
 	["last", (content, _) => `&:last-child { ${content} }`],
 	["only", (content, _) => `&:only-child { ${content} }`],
@@ -1001,6 +1032,65 @@ export const WIND4_STATES: State[] = [
 	["details-content", (content, _) => `&::details-content { ${content} }`],
 	["autofill", (content, _) => `&:autofill { ${content} }`],
 	["read-only", (content, _) => `&:read-only { ${content} }`],
+
+	[
+		"dark",
+		(content, _) => `@media (prefers-color-scheme: dark) { ${content} }`,
+	],
+	[
+		"motion-safe",
+		(content, _) =>
+			`@media (prefers-reduced-motion: no-preference) { ${content} }`,
+	],
+	[
+		"motion-reduce",
+		(content, _) =>
+			`@media (prefers-reduced-motion: reduce) { ${content} }`,
+	],
+	[
+		"contrast-more",
+		(content, _) => `@media (prefers-contrast: more) { ${content} }`,
+	],
+	[
+		"contrast-less",
+		(content, _) => `@media (prefers-contrast: less) { ${content} }`,
+	],
+	[
+		"forced-colors",
+		(content, _) => `@media (forced-colors: active) { ${content} }`,
+	],
+	[
+		"inverted-colors",
+		(content, _) => `@media (inverted-colors: inverted) { ${content} }`,
+	],
+	["pointer-fine", (content, _) => `@media (pointer: fine) { ${content} }`],
+	[
+		"pointer-coarse",
+		(content, _) => `@media (pointer: coarse) { ${content} }`,
+	],
+	["pointer-none", (content, _) => `@media (pointer: none) { ${content} }`],
+	[
+		"any-pointer-fine",
+		(content, _) => `@media (any-pointer: fine) { ${content} }`,
+	],
+	[
+		"any-pointer-coarse",
+		(content, _) => `@media (any-pointer: coarse) { ${content} }`,
+	],
+	[
+		"any-pointer-none",
+		(content, _) => `@media (any-pointer: none) { ${content} }`,
+	],
+	[
+		"portrait",
+		(content, _) => `@media (orientation: portrait) { ${content} }`,
+	],
+	[
+		"landscape",
+		(content, _) => `@media (orientation: landscape) { ${content} }`,
+	],
+	["noscript", (content, _) => `@media (scripting: none) { ${content} }`],
+	["print", (content, _) => `@media print { ${content} }`],
 ]
 
 export const WIND4_THEME = {

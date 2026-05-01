@@ -162,5 +162,5 @@ const generator = Generator.from_options({
 	presets: [WIND4],
 })
 
-generator.consume("nth-[3n+1]:p-4")
+generator.consume("in-[input:checked]:block")
 console.log(generator.generate())
