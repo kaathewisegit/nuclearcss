@@ -7,7 +7,6 @@ import {
 } from "./config.ts"
 import { escapeClassname } from "./css.ts"
 import { unreachable } from "./utils.ts"
-import WIND4 from "./wind4.ts"
 
 function rawMatcher(patterns: Rule[] | State[]): string {
 	return patterns
@@ -181,11 +180,3 @@ export class Generator {
 		return `@layer theme, base, utilities;\n${theme}\n${base}\n${utilities}\n${customCSS}`
 	}
 }
-
-const generator = Generator.from_options({
-	presets: [WIND4],
-})
-
-generator.addContent("in-[input:checked]:block")
-generator.addCSS("a { @apply p-4 hover:hidden; }")
-console.log(generator.generate())
