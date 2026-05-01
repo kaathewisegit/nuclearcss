@@ -1,4 +1,4 @@
-import type { Rule } from "./config.ts"
+import type { Rule, State } from "./config.ts"
 
 export const LAYOUT: Rule[] = [
 	// aspect-ratio
@@ -917,5 +917,88 @@ export const TYPOGRAPHY: Rule[] = []
 
 export const TABLES: Rule[] = []
 
-const RULES: Rule[] = [...LAYOUT, ...FLEXBOX_GRID, ...SPACING]
-export default RULES
+export const WIND4_RULES: Rule[] = [...LAYOUT, ...FLEXBOX_GRID, ...SPACING]
+
+export const WIND4_STATES: State[] = [
+	[
+		"hover",
+		(content, _) => `&:hover { @media (hover: hover) { ${content} } }`,
+	],
+	["focus", (content, _) => `&:focus { ${content} }`],
+	["focus-within", (content, _) => `&:focus-within { ${content} }`],
+	["focus-visible", (content, _) => `&:focus-visible { ${content} }`],
+	["active", (content, _) => `&:active { ${content} }`],
+	["target", (content, _) => `&:target { ${content} }`],
+
+	["first", (content, _) => `&:first-child { ${content} }`],
+	["last", (content, _) => `&:last-child { ${content} }`],
+	["only", (content, _) => `&:only-child { ${content} }`],
+
+	["odd", (content, _) => `&:nth-child(odd) { ${content} }`],
+	["even", (content, _) => `&:nth-child(even) { ${content} }`],
+
+	["first-of-type", (content, _) => `&:first-of-type { ${content} }`],
+	["last-of-type", (content, _) => `&:last-of-type { ${content} }`],
+	["only-of-type", (content, _) => `&:only-of-type { ${content} }`],
+
+	[
+		/nth-(\d+)/,
+		(content, matches) => `&:nth-child(${matches[1]}) { ${content} }`,
+	],
+	[
+		/nth-\[(.+)\]/,
+		(content, matches) => `&:nth-child(${matches[1]}) { ${content} }`,
+	],
+	[
+		/nth-(\d+)/,
+		(content, matches) => `&:nth-child(${matches[1]}) { ${content} }`,
+	],
+	[
+		/nth-\[(.+)\]/,
+		(content, matches) => `&:nth-child(${matches[1]}) { ${content} }`,
+	],
+	[
+		/nth-last-(\d+)/,
+		(content, matches) => `&:nth-last-child(${matches[1]}) { ${content} }`,
+	],
+	[
+		/nth-last-\[(.+)\]/,
+		(content, matches) => `&:nth-last-child(${matches[1]}) { ${content} }`,
+	],
+	[
+		/nth-of-type-(\d+)/,
+		(content, matches) => `&:nth-of-type(${matches[1]}) { ${content} }`,
+	],
+	[
+		/nth-of-type-\[(.+)\]/,
+		(content, matches) => `&:nth-of-type(${matches[1]}) { ${content} }`,
+	],
+	[
+		/nth-last-of-type-(\d+)/,
+		(content, matches) =>
+			`&:nth-last-of-type(${matches[1]}) { ${content} }`,
+	],
+	[
+		/nth-last-of-type-\[(.+)\]/,
+		(content, matches) =>
+			`&:nth-last-of-type(${matches[1]}) { ${content} }`,
+	],
+
+	["empty", (content, _) => `&:empty { ${content} }`],
+	["disabled", (content, _) => `&:disabled { ${content} }`],
+	["enabled", (content, _) => `&:enabled { ${content} }`],
+	["checked", (content, _) => `&:checked { ${content} }`],
+	["indeterminate", (content, _) => `&:indeterminate { ${content} }`],
+	["default", (content, _) => `&:default { ${content} }`],
+	["optional", (content, _) => `&:optional { ${content} }`],
+	["valid", (content, _) => `&:valid { ${content} }`],
+	["invalid", (content, _) => `&:invalid { ${content} }`],
+	["user-valid", (content, _) => `&:user-valid { ${content} }`],
+	["user-invalid", (content, _) => `&:user-invalid { ${content} }`],
+	["in-range", (content, _) => `&:in-range { ${content} }`],
+	["out-of-range", (content, _) => `&:out-of-range { ${content} }`],
+	["placeholder-shown", (content, _) => `&:placeholder-shown { ${content} }`],
+	["details-content", (content, _) => `&::details-content { ${content} }`],
+	["autofill", (content, _) => `&:autofill { ${content} }`],
+	["read-only", (content, _) => `&:read-only { ${content} }`],
+]

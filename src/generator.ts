@@ -1,63 +1,15 @@
-import type { Config } from "./config.ts"
+import type { Config, Rule, State } from "./config.ts"
 import { escapeClassname } from "./css.ts"
-import WIND4 from "./wind4.ts"
+import { unreachable } from "./utils.ts"
+import { WIND4_RULES, WIND4_STATES } from "./wind4.ts"
 
-export class Generator {
-	config: Config
-	#matcher: RegExp
-	#cache: Map<string, string>
-
-	constructor(config: Config) {
-		this.config = config
-
-		const rawMatcher = this.config.rules
-			.map(([r, _], i) => {
-				const s = r instanceof RegExp ? r.source : r
-				return `(?<n${i}>${s})`
-			})
-			.join("|")
-		this.#matcher = new RegExp(`^(${rawMatcher})$`)
-
-		this.#cache = new Map()
-	}
-
-	consume(content: string): void {
-		for (const chunk of content.split(/[\s'"`]+/)) {
-			if (this.#cache.has(chunk)) continue
-
-			const match = chunk.match(this.#matcher)
-			if (!match) continue
-
-			const group = getIndex(match)
-			const rule = this.config.rules[group]
-			if (!rule) unreachable()
-			const [ruleMatcher, ruleConstructor] = rule
-
-			const ruleMatch = chunk.match(ruleMatcher)
-			if (!ruleMatch) unreachable()
-
-			const result =
-				typeof ruleConstructor === "string"
-					? ruleConstructor
-					: ruleConstructor(ruleMatch)
-
-			this.#cache.set(chunk, result)
-		}
-	}
-
-	utilities(): string {
-		let out = ""
-
-		for (const [name, value] of this.#cache) {
-			out += `${escapeClassname(name)} { ${value} }\n`
-		}
-
-		return out
-	}
-}
-
-function unreachable(): never {
-	throw Error("unreachable")
+function rawMatcher(patterns: Rule[] | State[]): string {
+	return patterns
+		.map(([r], i) => {
+			const s = r instanceof RegExp ? r.source : r
+			return `(?<n${i}>${s})`
+		})
+		.join("|")
 }
 
 function getIndex(match: RegExpMatchArray) {
@@ -72,9 +24,94 @@ function getIndex(match: RegExpMatchArray) {
 	return parseInt(groupName.substring(1), 10)
 }
 
+export class Generator {
+	config: Config
+	#classMatcher: RegExp
+	#stateMatcher: RegExp
+	#cache: Map<string, string>
+
+	constructor(config: Config) {
+		this.config = config
+
+		this.#classMatcher = new RegExp(`^(${rawMatcher(config.rules)})$`)
+		this.#stateMatcher = new RegExp(`^(${rawMatcher(config.states)}):`)
+
+		this.#cache = new Map()
+	}
+
+	consume(content: string): void {
+		for (const chunk of content.split(/[\s'"`]+/)) {
+			this.#process(chunk)
+		}
+	}
+
+	#process(chunk: string): void {
+		const original = chunk
+
+		if (this.#cache.has(chunk)) return
+
+		const constructors = []
+
+		// cut off the state prefixes
+		while (true) {
+			const match = chunk.match(this.#stateMatcher)
+			if (!match) break
+
+			const stateIndex = getIndex(match)
+			const state = this.config.states[stateIndex]
+			if (!state) unreachable()
+
+			const [stateMatcher, stateConstructor] = state
+
+			const stateMatch = chunk.match(stateMatcher)
+			if (!stateMatch) unreachable()
+
+			constructors.push((content: string) =>
+				stateConstructor(content, stateMatch),
+			)
+
+			chunk = chunk.slice(match[0].length)
+		}
+
+		const match = chunk.match(this.#classMatcher)
+		if (!match) return
+
+		const group = getIndex(match)
+
+		const rule = this.config.rules[group]
+		if (!rule) unreachable()
+
+		const [ruleMatcher, ruleConstructor] = rule
+
+		const ruleMatch = chunk.match(ruleMatcher)
+		if (!ruleMatch) unreachable()
+
+		const result =
+			typeof ruleConstructor === "string"
+				? ruleConstructor
+				: ruleConstructor(ruleMatch)
+
+		this.#cache.set(
+			original,
+			constructors.reduce((acc, fn) => fn(acc), result),
+		)
+	}
+
+	utilities(): string {
+		let out = ""
+
+		for (const [name, value] of this.#cache) {
+			out += `.${escapeClassname(name)} { ${value} }\n`
+		}
+
+		return out
+	}
+}
+
 const generator = new Generator({
-	rules: [...WIND4],
+	rules: [...WIND4_RULES],
+	states: [...WIND4_STATES],
 })
 
-generator.consume("space-x-[10px]")
+generator.consume("nth-[3n+1]:p-4")
 console.log(generator.utilities())
