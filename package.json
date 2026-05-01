@@ -1,14 +1,21 @@
 {
 	"name": "nuclearcss",
 	"version": "0.1.0-alpha.0",
-	"description": "Atomic CSS engine",
+	"description": "Basic atomic CSS engine",
 	"license": "MPL-2.0",
 	"author": "Andrej Kolčin",
 	"type": "module",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/kaathewisegit/ssg.git"
+		"url": "git+https://github.com/kaathewisegit/nuclearcss.git"
 	},
+	"keywords": [
+		"atomic-css",
+		"atomic-css-engine",
+		"css",
+		"tailwind"
+	],
+	"sideEffects": false,
 	"scripts": {
 		"check": "biome check && tsc --noEmit",
 		"fix": "biome check --fix",
