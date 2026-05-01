@@ -42,6 +42,7 @@ export class Generator {
 	#classMatcher: RegExp
 	#stateMatcher: RegExp
 	#cache: Map<string, string>
+	#customCSS: string
 
 	constructor(config: Config) {
 		this.config = config
@@ -50,19 +51,26 @@ export class Generator {
 		this.#stateMatcher = new RegExp(`^(${rawMatcher(config.states)}):`)
 
 		this.#cache = new Map()
+
+		this.#customCSS = ""
 	}
 
 	static from_options(optons: ConfigOptions): Generator {
 		return new Generator(defineConfig(optons))
 	}
 
-	consume(content: string): void {
+	addContent(content: string): void {
 		for (const chunk of content.split(/[\s'"`]+/)) {
-			this.#process(chunk)
+			this.#processChunk(chunk)
 		}
 	}
 
-	#process(chunk: string): void {
+	addCSS(css: string): void {
+		this.#customCSS += "\n"
+		this.#customCSS += css
+	}
+
+	#processChunk(chunk: string): void {
 		const original = chunk
 
 		if (this.#cache.has(chunk)) return
@@ -143,18 +151,34 @@ export class Generator {
 		return out
 	}
 
+	#transform(css: string): string {
+		return css.replace(/@apply\s+(([^\s;]+)\s*)+;/g, match => {
+			const classes = match
+				.replace(/^@apply\s*/, "")
+				.slice(0, -1)
+				.trim()
+				.split(/\s+/)
+			for (const cls of classes) {
+				this.#processChunk(cls)
+			}
+			return classes.map(cls => this.#cache.get(cls)).join(" ")
+		})
+	}
+
 	generate(): string {
 		const variables: Set<string> = new Set()
 
 		const base = this.base()
 		const utilities = this.utilities()
+		const customCSS = this.#transform(this.#customCSS)
 
 		findVariables(base, variables)
 		findVariables(utilities, variables)
+		findVariables(customCSS, variables)
 
 		const theme = this.theme(variables)
 
-		return `@layer theme, base, utilities;\n${theme}\n${base}\n${utilities}`
+		return `@layer theme, base, utilities;\n${theme}\n${base}\n${utilities}\n${customCSS}`
 	}
 }
 
@@ -162,5 +186,6 @@ const generator = Generator.from_options({
 	presets: [WIND4],
 })
 
-generator.consume("in-[input:checked]:block")
+generator.addContent("in-[input:checked]:block")
+generator.addCSS("a { @apply p-4 hover:hidden; }")
 console.log(generator.generate())
