@@ -30,6 +30,13 @@ function getIndex(match: RegExpMatchArray) {
 	return parseInt(groupName.substring(1), 10)
 }
 
+function findVariables(content: string, variables: Set<string>) {
+	for (const match of content.matchAll(/var\(\s*(--[\w-]+)/g)) {
+		if (!match[1]) unreachable()
+		variables.add(match[1])
+	}
+}
+
 export class Generator {
 	config: Config
 	#classMatcher: RegExp
@@ -107,12 +114,14 @@ export class Generator {
 		)
 	}
 
-	theme(): string {
+	theme(variables: Set<string>): string {
 		let out = "@layer theme {\n  :root, :host {\n"
 
-		// TODO: only select variables which are being used
-		for (const [variable, value] of Object.entries(this.config.theme)) {
-			out += `    ${variable}: ${value};\n`
+		for (const variable of variables.keys()) {
+			if (!(variable in this.config.theme)) {
+				continue
+			}
+			out += `    ${variable}: ${this.config.theme[variable]};\n`
 		}
 
 		out += "  }\n}"
@@ -133,6 +142,20 @@ export class Generator {
 		out += "}"
 		return out
 	}
+
+	generate(): string {
+		const variables: Set<string> = new Set()
+
+		const base = this.base()
+		const utilities = this.utilities()
+
+		findVariables(base, variables)
+		findVariables(utilities, variables)
+
+		const theme = this.theme(variables)
+
+		return `@layer theme, base, utilities;\n${theme}\n${base}\n${utilities}`
+	}
 }
 
 const generator = Generator.from_options({
@@ -140,6 +163,4 @@ const generator = Generator.from_options({
 })
 
 generator.consume("nth-[3n+1]:p-4")
-console.log(generator.theme())
-console.log(generator.base())
-console.log(generator.utilities())
+console.log(generator.generate())
