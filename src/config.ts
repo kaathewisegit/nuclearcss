@@ -11,6 +11,7 @@ export type ConfigOptions = {
 	rules?: Rule[]
 	states?: State[]
 	theme?: Record<string, string>
+	base?: string
 	presets?: ConfigOptions[]
 }
 
@@ -18,12 +19,14 @@ export type Config = {
 	rules: Rule[]
 	states: State[]
 	theme: Record<string, string>
+	base: string
 }
 
 export function defineConfig(options: ConfigOptions): Config {
 	const rules: Rule[] = []
 	const states: State[] = []
 	let theme = {}
+	let base = ""
 
 	function addPreset(preset: ConfigOptions): void {
 		if (preset.rules) {
@@ -32,11 +35,14 @@ export function defineConfig(options: ConfigOptions): Config {
 		if (preset.states) {
 			states.push(...preset.states)
 		}
-		if (preset.presets) {
-			preset.presets.map(addPreset)
-		}
 		if (preset.theme) {
 			theme = { ...preset.theme, ...theme }
+		}
+		if (preset.base) {
+			base = preset.base + base
+		}
+		if (preset.presets) {
+			preset.presets.map(addPreset)
 		}
 	}
 
@@ -46,5 +52,6 @@ export function defineConfig(options: ConfigOptions): Config {
 		rules,
 		states,
 		theme,
+		base,
 	}
 }

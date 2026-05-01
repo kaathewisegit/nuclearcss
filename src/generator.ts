@@ -107,17 +107,6 @@ export class Generator {
 		)
 	}
 
-	utilities(): string {
-		let out = "@layer utilities {\n"
-
-		for (const [name, value] of this.#cache) {
-			out += `  .${escapeClassname(name)} { ${value} }\n`
-		}
-
-		out += "}"
-		return out
-	}
-
 	theme(): string {
 		let out = "@layer theme {\n  :root, :host {\n"
 
@@ -129,6 +118,21 @@ export class Generator {
 		out += "  }\n}"
 		return out
 	}
+
+	base(): string {
+		return `@layer base {\n${this.config.base}\n}`
+	}
+
+	utilities(): string {
+		let out = "@layer utilities {\n"
+
+		for (const [name, value] of this.#cache) {
+			out += `  .${escapeClassname(name)} { ${value} }\n`
+		}
+
+		out += "}"
+		return out
+	}
 }
 
 const generator = Generator.from_options({
@@ -137,4 +141,5 @@ const generator = Generator.from_options({
 
 generator.consume("nth-[3n+1]:p-4")
 console.log(generator.theme())
+console.log(generator.base())
 console.log(generator.utilities())
