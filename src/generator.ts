@@ -76,5 +76,5 @@ const generator = new Generator({
 	rules: [...WIND4],
 })
 
-generator.consume("-col-start-1 justify-start")
+generator.consume("space-x-[10px]")
 console.log(generator.utilities())
