@@ -1,0 +1,28 @@
+{
+	"name": "nuclearcss",
+	"version": "0.1.0-alpha.0",
+	"description": "Atomic CSS engine",
+	"license": "MPL-2.0",
+	"author": "Andrej Kolčin",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kaathewisegit/ssg.git"
+	},
+	"scripts": {
+		"check": "biome check && tsc --noEmit",
+		"fix": "biome check --fix",
+		"build": "tsc"
+	},
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"devDependencies": {
+		"@biomejs/biome": "^2.2.3",
+		"@types/node": "^24.3.1",
+		"typescript": "^5.9.2",
+		"typescript-language-server": "^4.4.0"
+	}
+}
