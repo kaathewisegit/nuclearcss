@@ -1,7 +1,13 @@
-import type { Config, Rule, State } from "./config.ts"
+import {
+	type Config,
+	type ConfigOptions,
+	defineConfig,
+	type Rule,
+	type State,
+} from "./config.ts"
 import { escapeClassname } from "./css.ts"
 import { unreachable } from "./utils.ts"
-import { WIND4_RULES, WIND4_STATES } from "./wind4.ts"
+import WIND4 from "./wind4.ts"
 
 function rawMatcher(patterns: Rule[] | State[]): string {
 	return patterns
@@ -37,6 +43,10 @@ export class Generator {
 		this.#stateMatcher = new RegExp(`^(${rawMatcher(config.states)}):`)
 
 		this.#cache = new Map()
+	}
+
+	static from_options(optons: ConfigOptions): Generator {
+		return new Generator(defineConfig(optons))
 	}
 
 	consume(content: string): void {
@@ -108,9 +118,8 @@ export class Generator {
 	}
 }
 
-const generator = new Generator({
-	rules: [...WIND4_RULES],
-	states: [...WIND4_STATES],
+const generator = Generator.from_options({
+	presets: [WIND4],
 })
 
 generator.consume("nth-[3n+1]:p-4")

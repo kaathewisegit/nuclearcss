@@ -1,4 +1,4 @@
-import type { Rule, State } from "./config.ts"
+import type { ConfigOptions, Rule, State } from "./config.ts"
 
 export const LAYOUT: Rule[] = [
 	// aspect-ratio
@@ -1002,3 +1002,10 @@ export const WIND4_STATES: State[] = [
 	["autofill", (content, _) => `&:autofill { ${content} }`],
 	["read-only", (content, _) => `&:read-only { ${content} }`],
 ]
+
+const PRESET: ConfigOptions = {
+	rules: WIND4_RULES,
+	states: WIND4_STATES,
+}
+
+export default PRESET
