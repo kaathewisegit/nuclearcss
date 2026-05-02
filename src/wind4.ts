@@ -1314,7 +1314,359 @@ export const SIZING: Rule[] = [
 	[/^max-block-\[(.+)\]$/, ([, value]) => `max-block-size: ${value};`],
 ]
 
-export const TYPOGRAPHY: Rule[] = []
+export const TYPOGRAPHY: Rule[] = [
+	// font-family
+	["font-sans", "font-family: var(--font-sans);"],
+	["font-serif", "font-family: var(--font-serif);"],
+	["font-mono", "font-family: var(--font-mono);"],
+	[/^font-\((.+)\)$/, ([, prop]) => `font-family: var(${prop});`],
+	[/^font-\[(.+)\]$/, ([, value]) => `font-family: ${value};`],
+
+	// font-size
+	[
+		"text-xs",
+		"font-size: var(--text-xs); line-height: var(--text-xs--line-height);",
+	],
+	[
+		"text-sm",
+		"font-size: var(--text-sm); line-height: var(--text-sm--line-height);",
+	],
+	[
+		"text-base",
+		"font-size: var(--text-base); line-height: var(--text-base--line-height);",
+	],
+	[
+		"text-lg",
+		"font-size: var(--text-lg); line-height: var(--text-lg--line-height);",
+	],
+	[
+		"text-xl",
+		"font-size: var(--text-xl); line-height: var(--text-xl--line-height);",
+	],
+	[
+		"text-2xl",
+		"font-size: var(--text-2xl); line-height: var(--text-2xl--line-height);",
+	],
+	[
+		"text-3xl",
+		"font-size: var(--text-3xl); line-height: var(--text-3xl--line-height);",
+	],
+	[
+		"text-4xl",
+		"font-size: var(--text-4xl); line-height: var(--text-4xl--line-height);",
+	],
+	[
+		"text-5xl",
+		"font-size: var(--text-5xl); line-height: var(--text-5xl--line-height);",
+	],
+	[
+		"text-6xl",
+		"font-size: var(--text-6xl); line-height: var(--text-6xl--line-height);",
+	],
+	[
+		"text-7xl",
+		"font-size: var(--text-7xl); line-height: var(--text-7xl--line-height);",
+	],
+	[
+		"text-8xl",
+		"font-size: var(--text-8xl); line-height: var(--text-8xl--line-height);",
+	],
+	[
+		"text-9xl",
+		"font-size: var(--text-9xl); line-height: var(--text-9xl--line-height);",
+	],
+	[/^text-\((.+)\)$/, ([, prop]) => `font-size: var(${prop});`],
+	[/^text-\[(.+)\]$/, ([, value]) => `font-size: ${value};`],
+
+	// font-smoothing
+	[
+		"antialiased",
+		"-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;",
+	],
+	[
+		"subpixel-antialiased",
+		"-webkit-font-smoothing: auto; -moz-osx-font-smoothing: auto;",
+	],
+
+	// font-style
+	["italic", "font-style: italic;"],
+	["not-italic", "font-style: normal;"],
+
+	// font-weight
+	["font-thin", "font-weight: 100;"],
+	["font-extralight", "font-weight: 200;"],
+	["font-light", "font-weight: 300;"],
+	["font-normal", "font-weight: 400;"],
+	["font-medium", "font-weight: 500;"],
+	["font-semibold", "font-weight: 600;"],
+	["font-bold", "font-weight: 700;"],
+	["font-extrabold", "font-weight: 800;"],
+	["font-black", "font-weight: 900;"],
+	[/^font-\((.+)\)$/, ([, prop]) => `font-weight: var(${prop});`],
+	[/^font-\[(.+)\]$/, ([, value]) => `font-weight: ${value};`],
+
+	// font-stretch
+	["font-stretch-ultra-condensed", "font-stretch: ultra-condensed;"],
+	["font-stretch-extra-condensed", "font-stretch: extra-condensed;"],
+	["font-stretch-condensed", "font-stretch: condensed;"],
+	["font-stretch-semi-condensed", "font-stretch: semi-condensed;"],
+	["font-stretch-normal", "font-stretch: normal;"],
+	["font-stretch-semi-expanded", "font-stretch: semi-expanded;"],
+	["font-stretch-expanded", "font-stretch: expanded;"],
+	["font-stretch-extra-expanded", "font-stretch: extra-expanded;"],
+	["font-stretch-ultra-expanded", "font-stretch: ultra-expanded;"],
+	[/^font-stretch-(\d+%)$/, ([, pct]) => `font-stretch: ${pct};`],
+	[/^font-stretch-\((.+)\)$/, ([, prop]) => `font-stretch: var(${prop});`],
+	[/^font-stretch-\[(.+)\]$/, ([, value]) => `font-stretch: ${value};`],
+
+	// font-variant-numeric
+	["normal-nums", "font-variant-numeric: normal;"],
+	["ordinal", "font-variant-numeric: ordinal;"],
+	["slashed-zero", "font-variant-numeric: slashed-zero;"],
+	["lining-nums", "font-variant-numeric: lining-nums;"],
+	["oldstyle-nums", "font-variant-numeric: oldstyle-nums;"],
+	["proportional-nums", "font-variant-numeric: proportional-nums;"],
+	["tabular-nums", "font-variant-numeric: tabular-nums;"],
+	["diagonal-fractions", "font-variant-numeric: diagonal-fractions;"],
+	["stacked-fractions", "font-variant-numeric: stacked-fractions;"],
+
+	// font-feature-settings
+	[
+		/^font-features-\[(.+)\]$/,
+		([, value]) => `font-feature-settings: ${value};`,
+	],
+	[
+		/^font-features-\((.+)\)$/,
+		([, prop]) => `font-feature-settings: var(${prop});`,
+	],
+
+	// letter-spacing
+	["tracking-tighter", "letter-spacing: var(--tracking-tighter);"],
+	["tracking-tight", "letter-spacing: var(--tracking-tight);"],
+	["tracking-normal", "letter-spacing: var(--tracking-normal);"],
+	["tracking-wide", "letter-spacing: var(--tracking-wide);"],
+	["tracking-wider", "letter-spacing: var(--tracking-wider);"],
+	["tracking-widest", "letter-spacing: var(--tracking-widest);"],
+	[/^tracking-\((.+)\)$/, ([, prop]) => `letter-spacing: var(${prop});`],
+	[/^tracking-\[(.+)\]$/, ([, value]) => `letter-spacing: ${value};`],
+
+	// line-clamp
+	[
+		/^line-clamp-(\d+)$/,
+		([, num]) =>
+			`overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: ${num};`,
+	],
+	[
+		"line-clamp-none",
+		"overflow: visible; display: block; -webkit-box-orient: horizontal; -webkit-line-clamp: unset;",
+	],
+	[
+		/^line-clamp-\((.+)\)$/,
+		([, prop]) =>
+			`overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: var(${prop});`,
+	],
+	[
+		/^line-clamp-\[(.+)\]$/,
+		([, value]) =>
+			`overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: ${value};`,
+	],
+
+	// line-height
+	[
+		/^leading-(\d+)$/,
+		([, num]) => `line-height: calc(var(--spacing) * ${num});`,
+	],
+	["leading-none", "line-height: 1;"],
+	[/^leading-\((.+)\)$/, ([, prop]) => `line-height: var(${prop});`],
+	[/^leading-\[(.+)\]$/, ([, value]) => `line-height: ${value};`],
+	// text-<size>/<ratio> variants
+	[
+		/^text-(.+)\/(\d+)$/,
+		([, size, num]) =>
+			`font-size: var(--text-${size}); line-height: calc(var(--spacing) * ${num});`,
+	],
+	[
+		/^text-(.+)\/\((.+)\)$/,
+		([, size, prop]) =>
+			`font-size: var(--text-${size}); line-height: var(${prop});`,
+	],
+	[
+		/^text-(.+)\/\[(.+)\]$/,
+		([, size, value]) =>
+			`font-size: var(--text-${size}); line-height: ${value};`,
+	],
+
+	// list-style-image
+	[/^list-image-\[(.+)\]$/, ([, value]) => `list-style-image: ${value};`],
+	[/^list-image-\((.+)\)$/, ([, prop]) => `list-style-image: var(${prop});`],
+	["list-image-none", "list-style-image: none;"],
+
+	// list-style-position
+	["list-inside", "list-style-position: inside;"],
+	["list-outside", "list-style-position: outside;"],
+
+	// list-style-type
+	["list-disc", "list-style-type: disc;"],
+	["list-decimal", "list-style-type: decimal;"],
+	["list-none", "list-style-type: none;"],
+	[/^list-\((.+)\)$/, ([, prop]) => `list-style-type: var(${prop});`],
+	[/^list-\[(.+)\]$/, ([, value]) => `list-style-type: ${value};`],
+
+	// text-align
+	["text-left", "text-align: left;"],
+	["text-center", "text-align: center;"],
+	["text-right", "text-align: right;"],
+	["text-justify", "text-align: justify;"],
+	["text-start", "text-align: start;"],
+	["text-end", "text-align: end;"],
+
+	// text-color
+	["text-inherit", "color: inherit;"],
+	["text-current", "color: currentColor;"],
+	["text-transparent", "color: transparent;"],
+	[
+		/^text-([a-z]+(?:-\d+)?)$/,
+		([, color]) => `color: var(--color-${color});`,
+	],
+	[/^text-\((.+)\)$/, ([, prop]) => `color: var(${prop});`],
+	[/^text-\[(.+)\]$/, ([, value]) => `color: ${value};`],
+
+	// text-decoration-line
+	["underline", "text-decoration-line: underline;"],
+	["overline", "text-decoration-line: overline;"],
+	["line-through", "text-decoration-line: line-through;"],
+	["no-underline", "text-decoration-line: none;"],
+
+	// text-decoration-color
+	["decoration-inherit", "text-decoration-color: inherit;"],
+	["decoration-current", "text-decoration-color: currentColor;"],
+	["decoration-transparent", "text-decoration-color: transparent;"],
+	[
+		/^decoration-([a-z]+(?:-\d+)?)$/,
+		([, color]) => `text-decoration-color: var(--color-${color});`,
+	],
+	[
+		/^decoration-\((.+)\)$/,
+		([, prop]) => `text-decoration-color: var(${prop});`,
+	],
+	[
+		/^decoration-\[(.+)\]$/,
+		([, value]) => `text-decoration-color: ${value};`,
+	],
+
+	// text-decoration-style
+	["decoration-solid", "text-decoration-style: solid;"],
+	["decoration-double", "text-decoration-style: double;"],
+	["decoration-dotted", "text-decoration-style: dotted;"],
+	["decoration-dashed", "text-decoration-style: dashed;"],
+	["decoration-wavy", "text-decoration-style: wavy;"],
+
+	// text-decoration-thickness
+	[/^decoration-(\d+)$/, ([, num]) => `text-decoration-thickness: ${num}px;`],
+	["decoration-from-font", "text-decoration-thickness: from-font;"],
+	["decoration-auto", "text-decoration-thickness: auto;"],
+	[
+		/^decoration-\((.+)\)$/,
+		([, prop]) => `text-decoration-thickness: var(${prop});`,
+	],
+	[
+		/^decoration-\[(.+)\]$/,
+		([, value]) => `text-decoration-thickness: ${value};`,
+	],
+
+	// text-underline-offset
+	[
+		/^underline-offset-(\d+)$/,
+		([, num]) => `text-underline-offset: ${num}px;`,
+	],
+	[
+		/^-underline-offset-(\d+)$/,
+		([, num]) => `text-underline-offset: calc(${num}px * -1);`,
+	],
+	["underline-offset-auto", "text-underline-offset: auto;"],
+	[
+		/^underline-offset-\((.+)\)$/,
+		([, prop]) => `text-underline-offset: var(${prop});`,
+	],
+	[
+		/^underline-offset-\[(.+)\]$/,
+		([, value]) => `text-underline-offset: ${value};`,
+	],
+
+	// text-transform
+	["uppercase", "text-transform: uppercase;"],
+	["lowercase", "text-transform: lowercase;"],
+	["capitalize", "text-transform: capitalize;"],
+	["normal-case", "text-transform: none;"],
+
+	// text-overflow
+	[
+		"truncate",
+		"overflow: hidden; text-overflow: ellipsis; white-space: nowrap;",
+	],
+	["text-ellipsis", "text-overflow: ellipsis;"],
+	["text-clip", "text-overflow: clip;"],
+
+	// text-wrap
+	["text-wrap", "text-wrap: wrap;"],
+	["text-nowrap", "text-wrap: nowrap;"],
+	["text-balance", "text-wrap: balance;"],
+	["text-pretty", "text-wrap: pretty;"],
+
+	// text-indent
+	[
+		/^indent-(\d+)$/,
+		([, num]) => `text-indent: calc(var(--spacing) * ${num});`,
+	],
+	[
+		/^-indent-(\d+)$/,
+		([, num]) => `text-indent: calc(var(--spacing) * -${num});`,
+	],
+	["indent-px", "text-indent: 1px;"],
+	["-indent-px", "text-indent: -1px;"],
+	[/^indent-\((.+)\)$/, ([, prop]) => `text-indent: var(${prop});`],
+	[/^indent-\[(.+)\]$/, ([, value]) => `text-indent: ${value};`],
+
+	// vertical-align
+	["align-baseline", "vertical-align: baseline;"],
+	["align-top", "vertical-align: top;"],
+	["align-middle", "vertical-align: middle;"],
+	["align-bottom", "vertical-align: bottom;"],
+	["align-text-top", "vertical-align: text-top;"],
+	["align-text-bottom", "vertical-align: text-bottom;"],
+	["align-sub", "vertical-align: sub;"],
+	["align-super", "vertical-align: super;"],
+	[/^align-\((.+)\)$/, ([, prop]) => `vertical-align: var(${prop});`],
+	[/^align-\[(.+)\]$/, ([, value]) => `vertical-align: ${value};`],
+
+	// white-space
+	["whitespace-normal", "white-space: normal;"],
+	["whitespace-nowrap", "white-space: nowrap;"],
+	["whitespace-pre", "white-space: pre;"],
+	["whitespace-pre-line", "white-space: pre-line;"],
+	["whitespace-pre-wrap", "white-space: pre-wrap;"],
+	["whitespace-break-spaces", "white-space: break-spaces;"],
+
+	// word-break
+	["break-normal", "word-break: normal;"],
+	["break-all", "word-break: break-all;"],
+	["break-keep", "word-break: keep-all;"],
+
+	// overflow-wrap
+	["wrap-break-word", "overflow-wrap: break-word;"],
+	["wrap-anywhere", "overflow-wrap: anywhere;"],
+	["wrap-normal", "overflow-wrap: normal;"],
+
+	// hyphens
+	["hyphens-none", "hyphens: none;"],
+	["hyphens-manual", "hyphens: manual;"],
+	["hyphens-auto", "hyphens: auto;"],
+
+	// content
+	[/^content-\[(.+)\]$/, ([, value]) => `content: ${value};`],
+	[/^content-\((.+)\)$/, ([, prop]) => `content: var(${prop});`],
+	["content-none", "content: none;"],
+]
 
 export const TABLES: Rule[] = []
 
