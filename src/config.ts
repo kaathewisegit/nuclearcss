@@ -3,7 +3,7 @@ export type ClassConstructor = string | ((matches: RegExpMatchArray) => string)
 
 export type State = [RegExp | string, StateConstructor]
 export type StateConstructor = (
-	content: string,
+	css: string,
 	matches: RegExpMatchArray,
 ) => string
 

@@ -920,198 +920,129 @@ export const TABLES: Rule[] = []
 export const WIND4_RULES: Rule[] = [...LAYOUT, ...FLEXBOX_GRID, ...SPACING]
 
 export const WIND4_STATES: State[] = [
-	[
-		"hover",
-		(content, _) => `&:hover { @media (hover: hover) { ${content} } }`,
-	],
-	["focus", (content, _) => `&:focus { ${content} }`],
-	["focus-within", (content, _) => `&:focus-within { ${content} }`],
-	["focus-visible", (content, _) => `&:focus-visible { ${content} }`],
-	["active", (content, _) => `&:active { ${content} }`],
-	["target", (content, _) => `&:target { ${content} }`],
+	["hover", css => `&:hover { @media (hover: hover) { ${css} } }`],
+	["focus", css => `&:focus { ${css} }`],
+	["focus-within", css => `&:focus-within { ${css} }`],
+	["focus-visible", css => `&:focus-visible { ${css} }`],
+	["active", css => `&:active { ${css} }`],
+	["target", css => `&:target { ${css} }`],
 
-	[/\*/, (content, _) => `&:is(& > *) { ${content} }`],
-	[/\*\*/, (content, _) => `&:is(& *) { ${content} }`],
+	[/\*/, css => `&:is(& > *) { ${css} }`],
+	[/\*\*/, css => `&:is(& *) { ${css} }`],
 
-	[
-		/has-\[(.*)\]/,
-		(content, matches) => `&:has(*:is(${matches[1]})) { ${content} }`,
-	],
+	[/has-\[(.*)\]/, (css, [, value]) => `&:has(*:is(${value})) { ${css} }`],
 	[
 		/group-\[(.*)\]/,
-		(content, matches) =>
-			`&:is(:where(.group):is(${matches[1]}) *) { ${content} }`,
+		(css, [, value]) => `&:is(:where(.group):is(${value}) *) { ${css} }`,
 	],
 	[
 		/peer-\[(.*)\]/,
-		(content, matches) =>
-			`&:is(:where(.peer):is(${matches[1]}) ~ *) { ${content} }`,
+		(css, [, value]) => `&:is(:where(.peer):is(${value}) ~ *) { ${css} }`,
 	],
-	[
-		/in-\[(.*)\]/,
-		(content, matches) => `:where(*:is(${matches[1]})) & { ${content} }`,
-	],
-	[
-		/not-\[(.*)\]/,
-		(content, matches) => `&:not(*:is(${matches[1]})) { ${content} }`,
-	],
+	[/in-\[(.*)\]/, (css, [, value]) => `:where(*:is(${value})) & { ${css} }`],
+	[/not-\[(.*)\]/, (css, [, value]) => `&:not(*:is(${value})) { ${css} }`],
 	[
 		/peer-has-\[(.*)\]/,
-		(content, matches) =>
-			`&:is(:where(.peer):has(*:is(${matches[1]})) ~ *) { ${content} }`,
+		(css, [, value]) =>
+			`&:is(:where(.peer):has(*:is(${value})) ~ *) { ${css} }`,
 	],
 
-	["first", (content, _) => `&:first-child { ${content} }`],
-	["last", (content, _) => `&:last-child { ${content} }`],
-	["only", (content, _) => `&:only-child { ${content} }`],
+	["first", css => `&:first-child { ${css} }`],
+	["last", css => `&:last-child { ${css} }`],
+	["only", css => `&:only-child { ${css} }`],
 
-	["odd", (content, _) => `&:nth-child(odd) { ${content} }`],
-	["even", (content, _) => `&:nth-child(even) { ${content} }`],
+	["odd", css => `&:nth-child(odd) { ${css} }`],
+	["even", css => `&:nth-child(even) { ${css} }`],
 
-	["first-of-type", (content, _) => `&:first-of-type { ${content} }`],
-	["last-of-type", (content, _) => `&:last-of-type { ${content} }`],
-	["only-of-type", (content, _) => `&:only-of-type { ${content} }`],
+	["first-of-type", css => `&:first-of-type { ${css} }`],
+	["last-of-type", css => `&:last-of-type { ${css} }`],
+	["only-of-type", css => `&:only-of-type { ${css} }`],
 
-	[
-		/nth-(\d+)/,
-		(content, matches) => `&:nth-child(${matches[1]}) { ${content} }`,
-	],
-	[
-		/nth-\[(.+)\]/,
-		(content, matches) => `&:nth-child(${matches[1]}) { ${content} }`,
-	],
-	[
-		/nth-(\d+)/,
-		(content, matches) => `&:nth-child(${matches[1]}) { ${content} }`,
-	],
-	[
-		/nth-\[(.+)\]/,
-		(content, matches) => `&:nth-child(${matches[1]}) { ${content} }`,
-	],
-	[
-		/nth-last-(\d+)/,
-		(content, matches) => `&:nth-last-child(${matches[1]}) { ${content} }`,
-	],
+	[/nth-(\d+)/, (css, [, num]) => `&:nth-child(${num}) { ${css} }`],
+	[/nth-\[(.+)\]/, (css, [, value]) => `&:nth-child(${value}) { ${css} }`],
+	[/nth-(\d+)/, (css, [, num]) => `&:nth-child(${num}) { ${css} }`],
+	[/nth-\[(.+)\]/, (css, [, value]) => `&:nth-child(${value}) { ${css} }`],
+	[/nth-last-(\d+)/, (css, [, num]) => `&:nth-last-child(${num}) { ${css} }`],
 	[
 		/nth-last-\[(.+)\]/,
-		(content, matches) => `&:nth-last-child(${matches[1]}) { ${content} }`,
+		(css, [, value]) => `&:nth-last-child(${value}) { ${css} }`,
 	],
-	[
-		/nth-of-type-(\d+)/,
-		(content, matches) => `&:nth-of-type(${matches[1]}) { ${content} }`,
-	],
+	[/nth-of-type-(\d+)/, (css, [, num]) => `&:nth-of-type(${num}) { ${css} }`],
 	[
 		/nth-of-type-\[(.+)\]/,
-		(content, matches) => `&:nth-of-type(${matches[1]}) { ${content} }`,
+		(css, [, value]) => `&:nth-of-type(${value}) { ${css} }`,
 	],
 	[
 		/nth-last-of-type-(\d+)/,
-		(content, matches) =>
-			`&:nth-last-of-type(${matches[1]}) { ${content} }`,
+		(css, [, num]) => `&:nth-last-of-type(${num}) { ${css} }`,
 	],
 	[
 		/nth-last-of-type-\[(.+)\]/,
-		(content, matches) =>
-			`&:nth-last-of-type(${matches[1]}) { ${content} }`,
+		(css, [, value]) => `&:nth-last-of-type(${value}) { ${css} }`,
 	],
 
-	["empty", (content, _) => `&:empty { ${content} }`],
-	["disabled", (content, _) => `&:disabled { ${content} }`],
-	["enabled", (content, _) => `&:enabled { ${content} }`],
-	["checked", (content, _) => `&:checked { ${content} }`],
-	["indeterminate", (content, _) => `&:indeterminate { ${content} }`],
-	["default", (content, _) => `&:default { ${content} }`],
-	["optional", (content, _) => `&:optional { ${content} }`],
-	["valid", (content, _) => `&:valid { ${content} }`],
-	["invalid", (content, _) => `&:invalid { ${content} }`],
-	["user-valid", (content, _) => `&:user-valid { ${content} }`],
-	["user-invalid", (content, _) => `&:user-invalid { ${content} }`],
-	["in-range", (content, _) => `&:in-range { ${content} }`],
-	["out-of-range", (content, _) => `&:out-of-range { ${content} }`],
-	["placeholder-shown", (content, _) => `&:placeholder-shown { ${content} }`],
-	["details-content", (content, _) => `&::details-content { ${content} }`],
-	["autofill", (content, _) => `&:autofill { ${content} }`],
-	["read-only", (content, _) => `&:read-only { ${content} }`],
+	["empty", css => `&:empty { ${css} }`],
+	["disabled", css => `&:disabled { ${css} }`],
+	["enabled", css => `&:enabled { ${css} }`],
+	["checked", css => `&:checked { ${css} }`],
+	["indeterminate", css => `&:indeterminate { ${css} }`],
+	["default", css => `&:default { ${css} }`],
+	["optional", css => `&:optional { ${css} }`],
+	["valid", css => `&:valid { ${css} }`],
+	["invalid", css => `&:invalid { ${css} }`],
+	["user-valid", css => `&:user-valid { ${css} }`],
+	["user-invalid", css => `&:user-invalid { ${css} }`],
+	["in-range", css => `&:in-range { ${css} }`],
+	["out-of-range", css => `&:out-of-range { ${css} }`],
+	["placeholder-shown", css => `&:placeholder-shown { ${css} }`],
+	["details-css", css => `&::details-css { ${css} }`],
+	["autofill", css => `&:autofill { ${css} }`],
+	["read-only", css => `&:read-only { ${css} }`],
 
 	// sizes
-	["sm", content => `@media (width >= 40rem) { ${content} }`],
-	["md", content => `@media (width >= 48rem) { ${content} }`],
-	["lg", content => `@media (width >= 64rem) { ${content} }`],
-	["xl", content => `@media (width >= 80rem) { ${content} }`],
-	["2xl", content => `@media (width >= 96rem) { ${content} }`],
+	["sm", css => `@media (width >= 40rem) { ${css} }`],
+	["md", css => `@media (width >= 48rem) { ${css} }`],
+	["lg", css => `@media (width >= 64rem) { ${css} }`],
+	["xl", css => `@media (width >= 80rem) { ${css} }`],
+	["2xl", css => `@media (width >= 96rem) { ${css} }`],
 	[
 		/min-\[(.*)\]/,
-		(content, matches) => `@media (width >= ${matches[1]}) { ${content} }`,
+		(css, [, value]) => `@media (width >= ${value}) { ${css} }`,
 	],
 
-	["max-sm", content => `@media (width < 40rem) { ${content} }`],
-	["max-md", content => `@media (width < 48rem) { ${content} }`],
-	["max-lg", content => `@media (width < 64rem) { ${content} }`],
-	["max-xl", content => `@media (width < 80rem) { ${content} }`],
-	["max-2xl", content => `@media (width < 96rem) { ${content} }`],
+	["max-sm", css => `@media (width < 40rem) { ${css} }`],
+	["max-md", css => `@media (width < 48rem) { ${css} }`],
+	["max-lg", css => `@media (width < 64rem) { ${css} }`],
+	["max-xl", css => `@media (width < 80rem) { ${css} }`],
+	["max-2xl", css => `@media (width < 96rem) { ${css} }`],
 	[
 		/max-\[(.*)\]/,
-		(content, matches) => `@media (width < ${matches[1]}) { ${content} }`,
+		(css, [, value]) => `@media (width < ${value}) { ${css} }`,
 	],
 
-	[
-		"dark",
-		(content, _) => `@media (prefers-color-scheme: dark) { ${content} }`,
-	],
+	["dark", css => `@media (prefers-color-scheme: dark) { ${css} }`],
 	[
 		"motion-safe",
-		(content, _) =>
-			`@media (prefers-reduced-motion: no-preference) { ${content} }`,
+		css => `@media (prefers-reduced-motion: no-preference) { ${css} }`,
 	],
 	[
 		"motion-reduce",
-		(content, _) =>
-			`@media (prefers-reduced-motion: reduce) { ${content} }`,
+		css => `@media (prefers-reduced-motion: reduce) { ${css} }`,
 	],
-	[
-		"contrast-more",
-		(content, _) => `@media (prefers-contrast: more) { ${content} }`,
-	],
-	[
-		"contrast-less",
-		(content, _) => `@media (prefers-contrast: less) { ${content} }`,
-	],
-	[
-		"forced-colors",
-		(content, _) => `@media (forced-colors: active) { ${content} }`,
-	],
-	[
-		"inverted-colors",
-		(content, _) => `@media (inverted-colors: inverted) { ${content} }`,
-	],
-	["pointer-fine", (content, _) => `@media (pointer: fine) { ${content} }`],
-	[
-		"pointer-coarse",
-		(content, _) => `@media (pointer: coarse) { ${content} }`,
-	],
-	["pointer-none", (content, _) => `@media (pointer: none) { ${content} }`],
-	[
-		"any-pointer-fine",
-		(content, _) => `@media (any-pointer: fine) { ${content} }`,
-	],
-	[
-		"any-pointer-coarse",
-		(content, _) => `@media (any-pointer: coarse) { ${content} }`,
-	],
-	[
-		"any-pointer-none",
-		(content, _) => `@media (any-pointer: none) { ${content} }`,
-	],
-	[
-		"portrait",
-		(content, _) => `@media (orientation: portrait) { ${content} }`,
-	],
-	[
-		"landscape",
-		(content, _) => `@media (orientation: landscape) { ${content} }`,
-	],
-	["noscript", (content, _) => `@media (scripting: none) { ${content} }`],
-	["print", (content, _) => `@media print { ${content} }`],
+	["contrast-more", css => `@media (prefers-contrast: more) { ${css} }`],
+	["contrast-less", css => `@media (prefers-contrast: less) { ${css} }`],
+	["forced-colors", css => `@media (forced-colors: active) { ${css} }`],
+	["inverted-colors", css => `@media (inverted-colors: inverted) { ${css} }`],
+	["pointer-fine", css => `@media (pointer: fine) { ${css} }`],
+	["pointer-coarse", css => `@media (pointer: coarse) { ${css} }`],
+	["pointer-none", css => `@media (pointer: none) { ${css} }`],
+	["any-pointer-fine", css => `@media (any-pointer: fine) { ${css} }`],
+	["any-pointer-coarse", css => `@media (any-pointer: coarse) { ${css} }`],
+	["any-pointer-none", css => `@media (any-pointer: none) { ${css} }`],
+	["portrait", css => `@media (orientation: portrait) { ${css} }`],
+	["landscape", css => `@media (orientation: landscape) { ${css} }`],
+	["noscript", css => `@media (scripting: none) { ${css} }`],
+	["print", css => `@media print { ${css} }`],
 ]
 
 export const WIND4_THEME = {
