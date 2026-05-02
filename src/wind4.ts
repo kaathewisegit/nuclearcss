@@ -1033,6 +1033,27 @@ export const WIND4_STATES: State[] = [
 	["autofill", (content, _) => `&:autofill { ${content} }`],
 	["read-only", (content, _) => `&:read-only { ${content} }`],
 
+	// sizes
+	["sm", content => `@media (width >= 40rem) { ${content} }`],
+	["md", content => `@media (width >= 48rem) { ${content} }`],
+	["lg", content => `@media (width >= 64rem) { ${content} }`],
+	["xl", content => `@media (width >= 80rem) { ${content} }`],
+	["2xl", content => `@media (width >= 96rem) { ${content} }`],
+	[
+		/min-\[(.*)\]/,
+		(content, matches) => `@media (width >= ${matches[1]}) { ${content} }`,
+	],
+
+	["max-sm", content => `@media (width < 40rem) { ${content} }`],
+	["max-md", content => `@media (width < 48rem) { ${content} }`],
+	["max-lg", content => `@media (width < 64rem) { ${content} }`],
+	["max-xl", content => `@media (width < 80rem) { ${content} }`],
+	["max-2xl", content => `@media (width < 96rem) { ${content} }`],
+	[
+		/max-\[(.*)\]/,
+		(content, matches) => `@media (width < ${matches[1]}) { ${content} }`,
+	],
+
 	[
 		"dark",
 		(content, _) => `@media (prefers-color-scheme: dark) { ${content} }`,
