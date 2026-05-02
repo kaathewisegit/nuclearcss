@@ -1,4 +1,5 @@
 import type { ConfigOptions, Rule, State } from "./config.ts"
+import { unreachable } from "./utils.ts"
 
 export const LAYOUT: Rule[] = [
 	// aspect-ratio
@@ -1821,6 +1822,260 @@ export const BACKGROUNDS: Rule[] = [
 	["bg-contain", "background-size: contain;"],
 	[/^bg-size-\((.+)\)$/, ([, prop]) => `background-size: var(${prop});`],
 	[/^bg-size-\[(.+)\]$/, ([, value]) => `background-size: ${value};`],
+]
+
+function borderSide(side: string | undefined): string[] {
+	if (!side) unreachable()
+	const out = {
+		s: ["start-start", "end-start"],
+		e: ["start-end", "end-end"],
+		t: ["top-left", "top-right"],
+		r: ["top-right", "bottom-right"],
+		b: ["bottom-right", "bottom-left"],
+		l: ["top-left", "bottom-left"],
+	}[side]
+	if (!out) unreachable()
+	return out
+}
+
+function borderRadius(radius: string | undefined): string {
+	if (!radius) unreachable()
+	const out = {
+		ss: "start-start",
+		se: "start-end",
+		ee: "end-end",
+		es: "end-start",
+		tl: "top-left",
+		tr: "top-right",
+		br: "bottom-right",
+		bl: "bottom-left",
+	}[radius]
+	if (!out) unreachable()
+	return out
+}
+
+function borderSideDir(side: string | undefined): string {
+	if (!side) unreachable()
+	const out = {
+		x: "inline",
+		y: "block",
+		s: "inline-start",
+		e: "inline-end",
+	}[side]
+	if (!out) unreachable()
+	return out
+}
+
+function borderSideBlock(side: string | undefined): string {
+	if (!side) unreachable()
+	const out = {
+		bs: "block-start",
+		be: "block-end",
+		t: "top",
+		r: "right",
+		b: "bottom",
+		l: "left",
+	}[side]
+	if (!out) unreachable()
+	return out
+}
+
+export const BORDERS: Rule[] = [
+	// border-radius (base)
+	[
+		/^rounded-(xs|sm|md|lg|xl|2xl|3xl|4xl)$/,
+		([, size]) => `border-radius: var(--radius-${size});`,
+	],
+	["rounded-none", "border-radius: 0;"],
+	["rounded-full", "border-radius: calc(infinity * 1px);"],
+	[/^rounded-\((.+)\)$/, ([, prop]) => `border-radius: var(${prop});`],
+	[/^rounded-\[(.+)\]$/, ([, value]) => `border-radius: ${value};`],
+	[
+		/^rounded-([setrbl])-none$/,
+		([, side]) =>
+			borderSide(side)
+				.map(p => `border-${p}-radius: 0;`)
+				.join(" "),
+	],
+	[
+		/^rounded-([setrbl])-full$/,
+		([, side]) =>
+			borderSide(side)
+				.map(p => `border-${p}-radius: calc(infinity * 1px);`)
+				.join(" "),
+	],
+	[
+		/^rounded-([setrbl])-(xs|sm|md|lg|xl|2xl|3xl|4xl)$/,
+		([, side, size]) =>
+			borderSide(side)
+				.map(p => `border-${p}-radius: var(--radius-${size});`)
+				.join(" "),
+	],
+	[
+		/^rounded-([setrbl])-\((.+)\)$/,
+		([, side, prop]) =>
+			borderSide(side)
+				.map(p => `border-${p}-radius: var(${prop});`)
+				.join(" "),
+	],
+	[
+		/^rounded-([setrbl])-\[(.+)\]$/,
+		([, side, value]) =>
+			borderSide(side)
+				.map(p => `border-${p}-radius: ${value};`)
+				.join(" "),
+	],
+	[
+		/^rounded-(ss|se|ee|es|tl|tr|br|bl)-none$/,
+		([, br]) => `border-${borderRadius(br)}-radius: 0;`,
+	],
+	[
+		/^rounded-(ss|se|ee|es|tl|tr|br|bl)-full$/,
+		([, br]) => `border-${borderRadius(br)}-radius: calc(infinity * 1px);`,
+	],
+	[
+		/^rounded-(ss|se|ee|es|tl|tr|br|bl)-(xs|sm|md|lg|xl|2xl|3xl|4xl)$/,
+		([, br, size]) =>
+			`border-${borderRadius(br)}-radius: var(--radius-${size});`,
+	],
+	[
+		/^rounded-(ss|se|ee|es|tl|tr|br|bl)-\((.+)\)$/,
+		([, br, prop]) => `border-${borderRadius(br)}-radius: var(${prop});`,
+	],
+	[
+		/^rounded-(ss|se|ee|es|tl|tr|br|bl)-\[(.+)\]$/,
+		([, br, value]) => `border-${borderRadius(br)}-radius: ${value};`,
+	],
+
+	// border-width
+	["border", "border-width: 1px;"],
+	[/^border-(\d+)$/, ([, num]) => `border-width: ${num}px;`],
+	[/^border-\((.+)\)$/, ([, prop]) => `border-width: var(${prop});`],
+	[/^border-\[(.+)\]$/, ([, value]) => `border-width: ${value};`],
+	[
+		/^border-([xyse])(?:-(\d+))?$/,
+		([, side, num]) =>
+			`border-${borderSideDir(side)}-width: ${num ? `${num}px` : "1px"};`,
+	],
+	[
+		/^border-([xyse])-\((.+)\)$/,
+		([, side, prop]) =>
+			`border-${borderSideDir(side)}-width: var(${prop});`,
+	],
+	[
+		/^border-([xyse])-\[(.+)\]$/,
+		([, side, value]) => `border-${borderSideDir(side)}-width: ${value};`,
+	],
+	[
+		/^border-(bs|be|t|r|b|l)(?:-(\d+))?$/,
+		([, side, num]) =>
+			`border-${borderSideBlock(side)}-width: ${num ? `${num}px` : "1px"};`,
+	],
+	[
+		/^border-(bs|be|t|r|b|l)-\((.+)\)$/,
+		([, side, prop]) =>
+			`border-${borderSideBlock(side)}-width: var(${prop});`,
+	],
+	[
+		/^border-(bs|be|t|r|b|l)-\[(.+)\]$/,
+		([, side, value]) => `border-${borderSideBlock(side)}-width: ${value};`,
+	],
+	[
+		/^divide-x(?:-(\d+))?$/,
+		([, num]) =>
+			`& > :not(:last-child) { border-inline-start-width: 0px; border-inline-end-width: ${num || 1}px; }`,
+	],
+	[
+		/^divide-x-\((.+)\)$/,
+		([, prop]) =>
+			`& > :not(:last-child) { border-inline-start-width: 0px; border-inline-end-width: var(${prop}); }`,
+	],
+	[
+		/^divide-x-\[(.+)\]$/,
+		([, value]) =>
+			`& > :not(:last-child) { border-inline-start-width: 0px; border-inline-end-width: ${value}; }`,
+	],
+	[
+		/^divide-y(?:-(\d+))?$/,
+		([, num]) =>
+			`& > :not(:last-child) { border-top-width: 0px; border-bottom-width: ${num || 1}px; }`,
+	],
+	[
+		/^divide-y-\((.+)\)$/,
+		([, prop]) =>
+			`& > :not(:last-child) { border-top-width: 0px; border-bottom-width: var(${prop}); }`,
+	],
+	[
+		/^divide-y-\[(.+)\]$/,
+		([, value]) =>
+			`& > :not(:last-child) { border-top-width: 0px; border-bottom-width: ${value}; }`,
+	],
+	["divide-x-reverse", "--tw-divide-x-reverse: 1;"],
+	["divide-y-reverse", "--tw-divide-y-reverse: 1;"],
+
+	// border-color
+	["border-inherit", "border-color: inherit;"],
+	["border-current", "border-color: currentColor;"],
+	["border-transparent", "border-color: transparent;"],
+	[
+		/^border-([a-z]+(?:-\d+)?)$/,
+		([, color]) => `border-color: var(--color-${color});`,
+	],
+	[/^border-\((.+)\)$/, ([, prop]) => `border-color: var(${prop});`],
+	[/^border-\[(.+)\]$/, ([, value]) => `border-color: ${value};`],
+
+	// border-style
+	["border-solid", "border-style: solid;"],
+	["border-dashed", "border-style: dashed;"],
+	["border-dotted", "border-style: dotted;"],
+	["border-double", "border-style: double;"],
+	["border-hidden", "border-style: hidden;"],
+	["border-none", "border-style: none;"],
+
+	// divide-style
+	["divide-solid", "& > :not(:last-child) { border-style: solid; }"],
+	["divide-dashed", "& > :not(:last-child) { border-style: dashed; }"],
+	["divide-dotted", "& > :not(:last-child) { border-style: dotted; }"],
+	["divide-double", "& > :not(:last-child) { border-style: double; }"],
+	["divide-hidden", "& > :not(:last-child) { border-style: hidden; }"],
+	["divide-none", "& > :not(:last-child) { border-style: none; }"],
+
+	// outline-width
+	["outline", "outline-width: 1px;"],
+	[/^outline-(\d+)$/, ([, num]) => `outline-width: ${num}px;`],
+	[/^outline-\((.+)\)$/, ([, prop]) => `outline-width: var(${prop});`],
+	[/^outline-\[(.+)\]$/, ([, value]) => `outline-width: ${value};`],
+
+	// outline-color
+	["outline-inherit", "outline-color: inherit;"],
+	["outline-current", "outline-color: currentColor;"],
+	["outline-transparent", "outline-color: transparent;"],
+	[
+		/^outline-([a-z]+(?:-\d+)?)$/,
+		([, color]) => `outline-color: var(--color-${color});`,
+	],
+	[/^outline-\((.+)\)$/, ([, prop]) => `outline-color: var(${prop});`],
+	[/^outline-\[(.+)\]$/, ([, value]) => `outline-color: ${value};`],
+
+	// outline-style
+	["outline-solid", "outline-style: solid;"],
+	["outline-dashed", "outline-style: dashed;"],
+	["outline-dotted", "outline-style: dotted;"],
+	["outline-double", "outline-style: double;"],
+	["outline-none", "outline-style: none;"],
+	["outline-hidden", "outline: 2px solid transparent; outline-offset: 2px;"],
+
+	// outline-offset
+	[/^outline-offset-(\d+)$/, ([, num]) => `outline-offset: ${num}px;`],
+	[
+		/^-outline-offset-(\d+)$/,
+		([, num]) => `outline-offset: calc(${num}px * -1);`,
+	],
+	[
+		/^outline-offset-\((.+)\)$/,
+		([, prop]) => `outline-offset: var(${prop});`,
+	],
+	[/^outline-offset-\[(.+)\]$/, ([, value]) => `outline-offset: ${value};`],
 ]
 
 export const TABLES: Rule[] = []
