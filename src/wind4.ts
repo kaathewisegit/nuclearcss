@@ -2080,7 +2080,15 @@ export const BORDERS: Rule[] = [
 
 export const TABLES: Rule[] = []
 
-export const WIND4_RULES: Rule[] = [...LAYOUT, ...FLEXBOX_GRID, ...SPACING]
+export const WIND4_RULES: Rule[] = [
+	...LAYOUT,
+	...FLEXBOX_GRID,
+	...SPACING,
+	...SIZING,
+	...TYPOGRAPHY,
+	...BACKGROUNDS,
+	...BORDERS,
+]
 
 export const WIND4_STATES: State[] = [
 	["hover", css => `&:hover { @media (hover: hover) { ${css} } }`],
