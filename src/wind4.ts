@@ -1041,6 +1041,7 @@ export const SIZING: Rule[] = [
 	["max-w-min", "max-width: min-content;"],
 	["max-w-max", "max-width: max-content;"],
 	["max-w-fit", "max-width: fit-content;"],
+	["max-w-prose", "max-width: 65ch;"],
 	[/^max-w-\((.+)\)$/, ([, prop]) => `max-width: var(${prop});`],
 	[/^max-w-\[(.+)\]$/, ([, value]) => `max-width: ${value};`],
 
@@ -2508,6 +2509,16 @@ export const WIND4_THEME = {
 	"--text-8xl--line-height": "1",
 	"--text-9xl": "8rem",
 	"--text-9xl--line-height": "1",
+
+	// rounded
+	"--radius-xs": "0.125rem",
+	"--radius-sm": "0.25rem",
+	"--radius-md": "0.375rem",
+	"--radius-lg": "0.5rem",
+	"--radius-xl": "0.75rem",
+	"--radius-2xl": "1rem",
+	"--radius-3xl": "1.5rem",
+	"--radius-4xl": "2rem",
 
 	// tracking
 	"--tracking-tighter": "-0.05em",
