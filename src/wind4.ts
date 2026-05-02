@@ -1668,6 +1668,161 @@ export const TYPOGRAPHY: Rule[] = [
 	["content-none", "content: none;"],
 ]
 
+export const BACKGROUNDS: Rule[] = [
+	// background-attachment
+	["bg-fixed", "background-attachment: fixed;"],
+	["bg-local", "background-attachment: local;"],
+	["bg-scroll", "background-attachment: scroll;"],
+
+	// background-clip
+	["bg-clip-border", "background-clip: border-box;"],
+	["bg-clip-padding", "background-clip: padding-box;"],
+	["bg-clip-content", "background-clip: content-box;"],
+	["bg-clip-text", "background-clip: text;"],
+
+	// background-color
+	["bg-inherit", "background-color: inherit;"],
+	["bg-current", "background-color: currentColor;"],
+	["bg-transparent", "background-color: transparent;"],
+	[
+		/^bg-([a-z]+(?:-\d+)?)$/,
+		([, color]) => `background-color: var(--color-${color});`,
+	],
+	[/^bg-\((.+)\)$/, ([, prop]) => `background-color: var(${prop});`],
+	[/^bg-\[(.+)\]$/, ([, value]) => `background-color: ${value};`],
+
+	// background-image
+	[/^bg-\[(.+)\]$/, ([, value]) => `background-image: ${value};`],
+	[/^bg-\((.+)\)$/, ([, prop]) => `background-image: var(${prop});`],
+	["bg-none", "background-image: none;"],
+	[
+		"bg-linear-to-t",
+		"background-image: linear-gradient(to top, var(--tw-gradient-stops));",
+	],
+	[
+		"bg-linear-to-tr",
+		"background-image: linear-gradient(to top right, var(--tw-gradient-stops));",
+	],
+	[
+		"bg-linear-to-r",
+		"background-image: linear-gradient(to right, var(--tw-gradient-stops));",
+	],
+	[
+		"bg-linear-to-br",
+		"background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));",
+	],
+	[
+		"bg-linear-to-b",
+		"background-image: linear-gradient(to bottom, var(--tw-gradient-stops));",
+	],
+	[
+		"bg-linear-to-bl",
+		"background-image: linear-gradient(to bottom left, var(--tw-gradient-stops));",
+	],
+	[
+		"bg-linear-to-l",
+		"background-image: linear-gradient(to left, var(--tw-gradient-stops));",
+	],
+	[
+		"bg-linear-to-tl",
+		"background-image: linear-gradient(to top left, var(--tw-gradient-stops));",
+	],
+	[
+		/^bg-linear-(\d+deg)$/,
+		([, angle]) =>
+			`background-image: linear-gradient(${angle} in oklab, var(--tw-gradient-stops));`,
+	],
+	[
+		/^-bg-linear-(\d+deg)$/,
+		([, angle]) =>
+			`background-image: linear-gradient(-${angle} in oklab, var(--tw-gradient-stops));`,
+	],
+	[
+		/^bg-linear-\((.+)\)$/,
+		([, prop]) =>
+			`background-image: linear-gradient(var(--tw-gradient-stops, var(${prop})));`,
+	],
+	[
+		/^bg-linear-\[(.+)\]$/,
+		([, value]) =>
+			`background-image: linear-gradient(var(--tw-gradient-stops, ${value}));`,
+	],
+	[
+		"bg-radial",
+		"background-image: radial-gradient(in oklab, var(--tw-gradient-stops));",
+	],
+	[
+		/^bg-radial-\((.+)\)$/,
+		([, prop]) =>
+			`background-image: radial-gradient(var(--tw-gradient-stops, var(${prop})));`,
+	],
+	[
+		/^bg-radial-\[(.+)\]$/,
+		([, value]) =>
+			`background-image: radial-gradient(var(--tw-gradient-stops, ${value}));`,
+	],
+	[
+		/^bg-conic-(\d+deg)$/,
+		([, angle]) =>
+			`background-image: conic-gradient(from ${angle} in oklab, var(--tw-gradient-stops));`,
+	],
+	[
+		/^-bg-conic-(\d+deg)$/,
+		([, angle]) =>
+			`background-image: conic-gradient(from -${angle} in oklab, var(--tw-gradient-stops));`,
+	],
+	[/^bg-conic-\((.+)\)$/, ([, prop]) => `background-image: var(${prop});`],
+	[/^bg-conic-\[(.+)\]$/, ([, value]) => `background-image: ${value};`],
+	[/^from-(\d+%)$/, ([, value]) => `--tw-gradient-from-position: ${value};`],
+	[/^from-(.+)$/, ([, value]) => `--tw-gradient-from: ${value};`],
+	[/^from-\((.+)\)$/, ([, prop]) => `--tw-gradient-from: var(${prop});`],
+	[/^from-\[(.+)\]$/, ([, value]) => `--tw-gradient-from: ${value};`],
+	[/^via-(\d+%)$/, ([, value]) => `--tw-gradient-via-position: ${value};`],
+	[/^via-(.+)$/, ([, value]) => `--tw-gradient-via: ${value};`],
+	[/^via-\((.+)\)$/, ([, prop]) => `--tw-gradient-via: var(${prop});`],
+	[/^via-\[(.+)\]$/, ([, value]) => `--tw-gradient-via: ${value};`],
+	[/^to-(\d+%)$/, ([, value]) => `--tw-gradient-to-position: ${value};`],
+	[/^to-(.+)$/, ([, value]) => `--tw-gradient-to: ${value};`],
+	[/^to-\((.+)\)$/, ([, prop]) => `--tw-gradient-to: var(${prop});`],
+	[/^to-\[(.+)\]$/, ([, value]) => `--tw-gradient-to: ${value};`],
+
+	// background-origin
+	["bg-origin-border", "background-origin: border-box;"],
+	["bg-origin-padding", "background-origin: padding-box;"],
+	["bg-origin-content", "background-origin: content-box;"],
+
+	// background-position
+	["bg-top-left", "background-position: top left;"],
+	["bg-top", "background-position: top;"],
+	["bg-top-right", "background-position: top right;"],
+	["bg-left", "background-position: left;"],
+	["bg-center", "background-position: center;"],
+	["bg-right", "background-position: right;"],
+	["bg-bottom-left", "background-position: bottom left;"],
+	["bg-bottom", "background-position: bottom;"],
+	["bg-bottom-right", "background-position: bottom right;"],
+	[
+		/^bg-position-\((.+)\)$/,
+		([, prop]) => `background-position: var(${prop});`,
+	],
+	[/^bg-position-\[(.+)\]$/, ([, value]) => `background-position: ${value};`],
+
+	// background-repeat
+	["bg-repeat", "background-repeat: repeat;"],
+	["bg-repeat-x", "background-repeat: repeat-x;"],
+	["bg-repeat-y", "background-repeat: repeat-y;"],
+	["bg-repeat-space", "background-repeat: space;"],
+	["bg-repeat-round", "background-repeat: round;"],
+	["bg-no-repeat", "background-repeat: no-repeat;"],
+
+	// background-size
+	["bg-auto", "background-size: auto;"],
+	["bg-cover", "background-size: cover;"],
+	["bg-contain", "background-size: contain;"],
+	[/^bg-size-\((.+)\)$/, ([, prop]) => `background-size: var(${prop});`],
+	[/^bg-size-\[(.+)\]$/, ([, value]) => `background-size: ${value};`],
+]
+
 export const TABLES: Rule[] = []
 
 export const WIND4_RULES: Rule[] = [...LAYOUT, ...FLEXBOX_GRID, ...SPACING]
