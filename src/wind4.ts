@@ -2167,6 +2167,11 @@ export const WIND4_STATES: State[] = [
 	["landscape", css => `@media (orientation: landscape) { ${css} }`],
 	["noscript", css => `@media (scripting: none) { ${css} }`],
 	["print", css => `@media print { ${css} }`],
+
+	[
+		/\[(.*)\]/,
+		(css, [, selector]) => `${selector?.replace("_", " ")} { ${css} }`,
+	],
 ]
 
 export const WIND4_THEME = {
