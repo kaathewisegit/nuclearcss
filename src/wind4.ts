@@ -2043,13 +2043,60 @@ export const WIND4_RULES: Rule[] = [
 	...BORDERS,
 ]
 
+function verbatimState(...names: string[]): State[] {
+	return names.flatMap(name => [
+		[name, css => `&:${name} { ${css} }`],
+		[`not-${name}`, css => `&:not(*:${name}) { ${css} }`],
+	])
+}
+
+function mediaState(pairs: Record<string, string>): State[] {
+	return Object.entries(pairs).flatMap(([name, selector]) => [
+		[name, css => `@media (${selector}) { ${css} }`],
+		[`not-${name}`, css => `@media not (${selector}) { ${css} }`],
+	])
+}
+
 export const WIND4_STATES: State[] = [
 	["hover", css => `&:hover { @media (hover: hover) { ${css} } }`],
-	["focus", css => `&:focus { ${css} }`],
-	["focus-within", css => `&:focus-within { ${css} }`],
-	["focus-visible", css => `&:focus-visible { ${css} }`],
-	["active", css => `&:active { ${css} }`],
-	["target", css => `&:target { ${css} }`],
+	[
+		"not-hover",
+		css => `&:not(*:hover) { ${css} } @media not (hover: hover) { ${css} }`,
+	],
+
+	...verbatimState(
+		"focus",
+		"focus-within",
+		"focus-visible",
+		"active",
+		"target",
+
+		"first",
+		"last",
+		"only",
+
+		"first-of-type",
+		"last-of-type",
+		"only-of-type",
+
+		"empty",
+		"disabled",
+		"enabled",
+		"checked",
+		"indeterminate",
+		"default",
+		"optional",
+		"valid",
+		"invalid",
+		"user-valid",
+		"user-invalid",
+		"in-range",
+		"out-of-range",
+		"placeholder-shown",
+		"details-css",
+		"autofill",
+		"read-only",
+	),
 
 	[/\*/, css => `&:is(& > *) { ${css} }`],
 	[/\*\*/, css => `&:is(& *) { ${css} }`],
@@ -2071,19 +2118,8 @@ export const WIND4_STATES: State[] = [
 			`&:is(:where(.peer):has(*:is(${value})) ~ *) { ${css} }`,
 	],
 
-	["first", css => `&:first-child { ${css} }`],
-	["last", css => `&:last-child { ${css} }`],
-	["only", css => `&:only-child { ${css} }`],
-	["not-first", css => `&:not(*:first-child) { ${css} }`],
-	["not-last", css => `&:not(*:last-child) { ${css} }`],
-	["not-only", css => `&:not(*:only-child) { ${css} }`],
-
 	["odd", css => `&:nth-child(odd) { ${css} }`],
 	["even", css => `&:nth-child(even) { ${css} }`],
-
-	["first-of-type", css => `&:first-of-type { ${css} }`],
-	["last-of-type", css => `&:last-of-type { ${css} }`],
-	["only-of-type", css => `&:only-of-type { ${css} }`],
 
 	[/nth-(\d+)/, (css, [, num]) => `&:nth-child(${num}) { ${css} }`],
 	[/nth-\[(.+)\]/, (css, [, value]) => `&:nth-child(${value}) { ${css} }`],
@@ -2108,24 +2144,6 @@ export const WIND4_STATES: State[] = [
 		(css, [, value]) => `&:nth-last-of-type(${value}) { ${css} }`,
 	],
 
-	["empty", css => `&:empty { ${css} }`],
-	["disabled", css => `&:disabled { ${css} }`],
-	["enabled", css => `&:enabled { ${css} }`],
-	["checked", css => `&:checked { ${css} }`],
-	["indeterminate", css => `&:indeterminate { ${css} }`],
-	["default", css => `&:default { ${css} }`],
-	["optional", css => `&:optional { ${css} }`],
-	["valid", css => `&:valid { ${css} }`],
-	["invalid", css => `&:invalid { ${css} }`],
-	["user-valid", css => `&:user-valid { ${css} }`],
-	["user-invalid", css => `&:user-invalid { ${css} }`],
-	["in-range", css => `&:in-range { ${css} }`],
-	["out-of-range", css => `&:out-of-range { ${css} }`],
-	["placeholder-shown", css => `&:placeholder-shown { ${css} }`],
-	["details-css", css => `&::details-css { ${css} }`],
-	["autofill", css => `&:autofill { ${css} }`],
-	["read-only", css => `&:read-only { ${css} }`],
-
 	// sizes
 	["sm", css => `@media (width >= 40rem) { ${css} }`],
 	["md", css => `@media (width >= 48rem) { ${css} }`],
@@ -2147,28 +2165,25 @@ export const WIND4_STATES: State[] = [
 		(css, [, value]) => `@media (width < ${value}) { ${css} }`,
 	],
 
-	["dark", css => `@media (prefers-color-scheme: dark) { ${css} }`],
-	[
-		"motion-safe",
-		css => `@media (prefers-reduced-motion: no-preference) { ${css} }`,
-	],
-	[
-		"motion-reduce",
-		css => `@media (prefers-reduced-motion: reduce) { ${css} }`,
-	],
-	["contrast-more", css => `@media (prefers-contrast: more) { ${css} }`],
-	["contrast-less", css => `@media (prefers-contrast: less) { ${css} }`],
-	["forced-colors", css => `@media (forced-colors: active) { ${css} }`],
-	["inverted-colors", css => `@media (inverted-colors: inverted) { ${css} }`],
-	["pointer-fine", css => `@media (pointer: fine) { ${css} }`],
-	["pointer-coarse", css => `@media (pointer: coarse) { ${css} }`],
-	["pointer-none", css => `@media (pointer: none) { ${css} }`],
-	["any-pointer-fine", css => `@media (any-pointer: fine) { ${css} }`],
-	["any-pointer-coarse", css => `@media (any-pointer: coarse) { ${css} }`],
-	["any-pointer-none", css => `@media (any-pointer: none) { ${css} }`],
-	["portrait", css => `@media (orientation: portrait) { ${css} }`],
-	["landscape", css => `@media (orientation: landscape) { ${css} }`],
-	["noscript", css => `@media (scripting: none) { ${css} }`],
+	...mediaState({
+		dark: "prefers-color-scheme: dark",
+		"motion-safe": "prefers-reduced-motion: no-preference",
+		"motion-reduce": "prefers-reduced-motion: reduce",
+		"contrast-more": "prefers-contrast: more",
+		"contrast-less": "prefers-contrast: less",
+		"forced-colors": "forced-colors: active",
+		"inverted-colors": "inverted-colors: inverted",
+
+		"pointer-fine": "pointer: fine",
+		"pointer-coarse": "pointer: coarse",
+		"pointer-none": "pointer: none",
+		"any-pointer-fine": "any-pointer: fine",
+		"any-pointer-coarse": "any-pointer: coarse",
+		"any-pointer-none": "any-pointer: none",
+		portrait: "orientation: portrait",
+		landscape: "orientation: landscape",
+		noscript: "scripting: none",
+	}),
 	["print", css => `@media print { ${css} }`],
 
 	[
