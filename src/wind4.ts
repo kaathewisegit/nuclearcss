@@ -2074,6 +2074,9 @@ export const WIND4_STATES: State[] = [
 	["first", css => `&:first-child { ${css} }`],
 	["last", css => `&:last-child { ${css} }`],
 	["only", css => `&:only-child { ${css} }`],
+	["not-first", css => `&:not(*:first-child) { ${css} }`],
+	["not-last", css => `&:not(*:last-child) { ${css} }`],
+	["not-only", css => `&:not(*:only-child) { ${css} }`],
 
 	["odd", css => `&:nth-child(odd) { ${css} }`],
 	["even", css => `&:nth-child(even) { ${css} }`],
