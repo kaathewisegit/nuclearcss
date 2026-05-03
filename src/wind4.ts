@@ -163,12 +163,12 @@ export const LAYOUT: Rule[] = [
 	// top / right / bottom / left
 	// inset
 	[
-		/^(-)?inset-(\d+)/,
+		/(-)?inset-(\d+)/,
 		([, neg, num]) =>
 			`inset: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
 	[
-		/^(-)?inset-(\d+\/\d+)/,
+		/(-)?inset-(\d+\/\d+)/,
 		([, neg, frac]) => `inset: calc(${frac} * ${neg ? "-" : ""}100%);`,
 	],
 	["inset-px", "inset: 1px;"],
@@ -181,12 +181,12 @@ export const LAYOUT: Rule[] = [
 
 	// inset-x (inline)
 	[
-		/^(-)?inset-x-(\d+)/,
+		/(-)?inset-x-(\d+)/,
 		([, neg, num]) =>
 			`inset-inline: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
 	[
-		/^(-)?inset-x-(\d+\/\d+)/,
+		/(-)?inset-x-(\d+\/\d+)/,
 		([, neg, frac]) =>
 			`inset-inline: calc(${frac} * ${neg ? "-" : ""}100%);`,
 	],
@@ -200,12 +200,12 @@ export const LAYOUT: Rule[] = [
 
 	// inset-y (block)
 	[
-		/^(-)?inset-y-(\d+)/,
+		/(-)?inset-y-(\d+)/,
 		([, neg, num]) =>
 			`inset-block: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
 	[
-		/^(-)?inset-y-(\d+\/\d+)/,
+		/(-)?inset-y-(\d+\/\d+)/,
 		([, neg, frac]) =>
 			`inset-block: calc(${frac} * ${neg ? "-" : ""}100%);`,
 	],
@@ -219,12 +219,12 @@ export const LAYOUT: Rule[] = [
 
 	// inset-s (inline-start)
 	[
-		/^(-)?inset-s-(\d+)/,
+		/(-)?inset-s-(\d+)/,
 		([, neg, num]) =>
 			`inset-inline-start: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
 	[
-		/^(-)?inset-s-(\d+\/\d+)/,
+		/(-)?inset-s-(\d+\/\d+)/,
 		([, neg, frac]) =>
 			`inset-inline-start: calc(${frac} * ${neg ? "-" : ""}100%);`,
 	],
@@ -238,12 +238,12 @@ export const LAYOUT: Rule[] = [
 
 	// inset-e (inline-end)
 	[
-		/^(-)?inset-e-(\d+)/,
+		/(-)?inset-e-(\d+)/,
 		([, neg, num]) =>
 			`inset-inline-end: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
 	[
-		/^(-)?inset-e-(\d+\/\d+)/,
+		/(-)?inset-e-(\d+\/\d+)/,
 		([, neg, frac]) =>
 			`inset-inline-end: calc(${frac} * ${neg ? "-" : ""}100%);`,
 	],
@@ -257,12 +257,12 @@ export const LAYOUT: Rule[] = [
 
 	// inset-bs (block-start)
 	[
-		/^(-)?inset-bs-(\d+)/,
+		/(-)?inset-bs-(\d+)/,
 		([, neg, num]) =>
 			`inset-block-start: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
 	[
-		/^(-)?inset-bs-(\d+\/\d+)/,
+		/(-)?inset-bs-(\d+\/\d+)/,
 		([, neg, frac]) =>
 			`inset-block-start: calc(${frac} * ${neg ? "-" : ""}100%);`,
 	],
@@ -276,12 +276,12 @@ export const LAYOUT: Rule[] = [
 
 	// inset-be (block-end)
 	[
-		/^(-)?inset-be-(\d+)/,
+		/(-)?inset-be-(\d+)/,
 		([, neg, num]) =>
 			`inset-block-end: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
 	[
-		/^(-)?inset-be-(\d+\/\d+)/,
+		/(-)?inset-be-(\d+\/\d+)/,
 		([, neg, frac]) =>
 			`inset-block-end: calc(${frac} * ${neg ? "-" : ""}100%);`,
 	],
@@ -295,12 +295,12 @@ export const LAYOUT: Rule[] = [
 
 	// top
 	[
-		/^(-)?top-(\d+)/,
+		/(-)?top-(\d+)/,
 		([, neg, num]) =>
 			`top: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
 	[
-		/^(-)?top-(\d+\/\d+)/,
+		/(-)?top-(\d+\/\d+)/,
 		([, neg, frac]) => `top: calc(${frac} * ${neg ? "-" : ""}100%);`,
 	],
 	["top-px", "top: 1px;"],
@@ -313,12 +313,12 @@ export const LAYOUT: Rule[] = [
 
 	// right
 	[
-		/^(-)?right-(\d+)/,
+		/(-)?right-(\d+)/,
 		([, neg, num]) =>
 			`right: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
 	[
-		/^(-)?right-(\d+\/\d+)/,
+		/(-)?right-(\d+\/\d+)/,
 		([, neg, frac]) => `right: calc(${frac} * ${neg ? "-" : ""}100%);`,
 	],
 	["right-px", "right: 1px;"],
@@ -331,12 +331,12 @@ export const LAYOUT: Rule[] = [
 
 	// bottom
 	[
-		/^(-)?bottom-(\d+)/,
+		/(-)?bottom-(\d+)/,
 		([, neg, num]) =>
 			`bottom: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
 	[
-		/^(-)?bottom-(\d+\/\d+)/,
+		/(-)?bottom-(\d+\/\d+)/,
 		([, neg, frac]) => `bottom: calc(${frac} * ${neg ? "-" : ""}100%);`,
 	],
 	["bottom-px", "bottom: 1px;"],
@@ -349,12 +349,12 @@ export const LAYOUT: Rule[] = [
 
 	// left
 	[
-		/^(-)?left-(\d+)/,
+		/(-)?left-(\d+)/,
 		([, neg, num]) =>
 			`left: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
 	[
-		/^(-)?left-(\d+\/\d+)/,
+		/(-)?left-(\d+\/\d+)/,
 		([, neg, frac]) => `left: calc(${frac} * ${neg ? "-" : ""}100%);`,
 	],
 	["left-px", "left: 1px;"],
@@ -371,7 +371,7 @@ export const LAYOUT: Rule[] = [
 	["collapse", "visibility: collapse;"],
 
 	// z-index
-	[/^(-)?z-(\d+)/, ([, neg, num]) => `z-index: ${neg ? "-" : ""}${num};`],
+	[/(-)?z-(\d+)/, ([, neg, num]) => `z-index: ${neg ? "-" : ""}${num};`],
 	["z-auto", "z-index: auto;"],
 	[/z-\((.+)\)/, ([, prop]) => `z-index: var(${prop});`],
 	[/z-\[(.+)\]/, ([, value]) => `z-index: ${value};`],
@@ -433,7 +433,7 @@ export const FLEXBOX_GRID: Rule[] = [
 
 	// order
 	[
-		/^(-)?order-(\d+)/,
+		/(-)?order-(\d+)/,
 		([, neg, num]) => `order: ${neg ? `calc(${num} * -1)` : num};`,
 	],
 	["order-first", "order: -9999;"],
@@ -468,7 +468,7 @@ export const FLEXBOX_GRID: Rule[] = [
 	],
 
 	[
-		/^(-)?col-start-(\d+)/,
+		/(-)?col-start-(\d+)/,
 		([, neg, num]) =>
 			`grid-column-start: ${neg ? `calc(${num} * -1)` : num};`,
 	],
@@ -477,7 +477,7 @@ export const FLEXBOX_GRID: Rule[] = [
 	[/col-start-\[(.+)\]/, ([, value]) => `grid-column-start: ${value};`],
 
 	[
-		/^(-)?col-end-(\d+)/,
+		/(-)?col-end-(\d+)/,
 		([, neg, num]) =>
 			`grid-column-end: ${neg ? `calc(${num} * -1)` : num};`,
 	],
@@ -487,7 +487,7 @@ export const FLEXBOX_GRID: Rule[] = [
 
 	["col-auto", "grid-column: auto;"],
 	[
-		/^(-)?col-(\d+)/,
+		/(-)?col-(\d+)/,
 		([, neg, num]) => `grid-column: ${neg ? `calc(${num} * -1)` : num};`,
 	],
 	[/col-\((.+)\)/, ([, prop]) => `grid-column: var(${prop});`],
@@ -516,7 +516,7 @@ export const FLEXBOX_GRID: Rule[] = [
 	],
 
 	[
-		/^(-)?row-start-(\d+)/,
+		/(-)?row-start-(\d+)/,
 		([, neg, num]) => `grid-row-start: ${neg ? `calc(${num} * -1)` : num};`,
 	],
 	["row-start-auto", "grid-row-start: auto;"],
@@ -524,7 +524,7 @@ export const FLEXBOX_GRID: Rule[] = [
 	[/row-start-\[(.+)\]/, ([, value]) => `grid-row-start: ${value};`],
 
 	[
-		/^(-)?row-end-(\d+)/,
+		/(-)?row-end-(\d+)/,
 		([, neg, num]) => `grid-row-end: ${neg ? `calc(${num} * -1)` : num};`,
 	],
 	["row-end-auto", "grid-row-end: auto;"],
@@ -533,7 +533,7 @@ export const FLEXBOX_GRID: Rule[] = [
 
 	["row-auto", "grid-row: auto;"],
 	[
-		/^(-)?row-(\d+)/,
+		/(-)?row-(\d+)/,
 		([, neg, num]) => `grid-row: ${neg ? `calc(${num} * -1)` : num};`,
 	],
 	[/row-\((.+)\)/, ([, prop]) => `grid-row: var(${prop});`],
@@ -740,7 +740,7 @@ export const SPACING: Rule[] = [
 
 	// margin
 	[
-		/^(-)?m-(\d+)/,
+		/(-)?m-(\d+)/,
 		([, neg, num]) =>
 			`margin: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
@@ -751,7 +751,7 @@ export const SPACING: Rule[] = [
 	[/m-\[(.+)\]/, ([, value]) => `margin: ${value};`],
 
 	[
-		/^(-)?mx-(\d+)/,
+		/(-)?mx-(\d+)/,
 		([, neg, num]) =>
 			`margin-inline: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
@@ -762,7 +762,7 @@ export const SPACING: Rule[] = [
 	[/mx-\[(.+)\]/, ([, value]) => `margin-inline: ${value};`],
 
 	[
-		/^(-)?my-(\d+)/,
+		/(-)?my-(\d+)/,
 		([, neg, num]) =>
 			`margin-block: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
@@ -773,7 +773,7 @@ export const SPACING: Rule[] = [
 	[/my-\[(.+)\]/, ([, value]) => `margin-block: ${value};`],
 
 	[
-		/^(-)?ms-(\d+)/,
+		/(-)?ms-(\d+)/,
 		([, neg, num]) =>
 			`margin-inline-start: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
@@ -784,7 +784,7 @@ export const SPACING: Rule[] = [
 	[/ms-\[(.+)\]/, ([, value]) => `margin-inline-start: ${value};`],
 
 	[
-		/^(-)?me-(\d+)/,
+		/(-)?me-(\d+)/,
 		([, neg, num]) =>
 			`margin-inline-end: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
@@ -795,7 +795,7 @@ export const SPACING: Rule[] = [
 	[/me-\[(.+)\]/, ([, value]) => `margin-inline-end: ${value};`],
 
 	[
-		/^(-)?mbs-(\d+)/,
+		/(-)?mbs-(\d+)/,
 		([, neg, num]) =>
 			`margin-block-start: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
@@ -806,7 +806,7 @@ export const SPACING: Rule[] = [
 	[/mbs-\[(.+)\]/, ([, value]) => `margin-block-start: ${value};`],
 
 	[
-		/^(-)?mbe-(\d+)/,
+		/(-)?mbe-(\d+)/,
 		([, neg, num]) =>
 			`margin-block-end: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
@@ -817,7 +817,7 @@ export const SPACING: Rule[] = [
 	[/mbe-\[(.+)\]/, ([, value]) => `margin-block-end: ${value};`],
 
 	[
-		/^(-)?mt-(\d+)/,
+		/(-)?mt-(\d+)/,
 		([, neg, num]) =>
 			`margin-top: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
@@ -828,7 +828,7 @@ export const SPACING: Rule[] = [
 	[/mt-\[(.+)\]/, ([, value]) => `margin-top: ${value};`],
 
 	[
-		/^(-)?mr-(\d+)/,
+		/(-)?mr-(\d+)/,
 		([, neg, num]) =>
 			`margin-right: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
@@ -839,7 +839,7 @@ export const SPACING: Rule[] = [
 	[/mr-\[(.+)\]/, ([, value]) => `margin-right: ${value};`],
 
 	[
-		/^(-)?mb-(\d+)/,
+		/(-)?mb-(\d+)/,
 		([, neg, num]) =>
 			`margin-bottom: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
@@ -850,7 +850,7 @@ export const SPACING: Rule[] = [
 	[/mb-\[(.+)\]/, ([, value]) => `margin-bottom: ${value};`],
 
 	[
-		/^(-)?ml-(\d+)/,
+		/(-)?ml-(\d+)/,
 		([, neg, num]) =>
 			`margin-left: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
 	],
@@ -862,7 +862,7 @@ export const SPACING: Rule[] = [
 
 	// space-between
 	[
-		/^(-)?space-x-(\d+)/,
+		/(-)?space-x-(\d+)/,
 		([, neg, num]) =>
 			`& > :not(:last-child) { --tw-space-x-reverse: 0; margin-inline-start: calc(calc(var(--spacing) * ${neg ? "-" : ""}${num}) * var(--tw-space-x-reverse)); margin-inline-end: calc(calc(var(--spacing) * ${neg ? "-" : ""}${num}) * calc(1 - var(--tw-space-x-reverse))); }`,
 	],
@@ -887,7 +887,7 @@ export const SPACING: Rule[] = [
 	["space-x-reverse", "& > :not(:last-child) { --tw-space-x-reverse: 1; }"],
 
 	[
-		/^(-)?space-y-(\d+)/,
+		/(-)?space-y-(\d+)/,
 		([, neg, num]) =>
 			`& > :not(:last-child) { --tw-space-y-reverse: 0; margin-block-start: calc(calc(var(--spacing) * ${neg ? "-" : ""}${num}) * var(--tw-space-y-reverse)); margin-block-end: calc(calc(var(--spacing) * ${neg ? "-" : ""}${num}) * calc(1 - var(--tw-space-y-reverse))); }`,
 	],
@@ -914,8 +914,8 @@ export const SPACING: Rule[] = [
 
 export const SIZING: Rule[] = [
 	// width
-	[/^w-(\d+)$/, ([, num]) => `width: calc(var(--spacing) * ${num});`],
-	[/^w-(\d+\/\d+)$/, ([, fraction]) => `width: calc(${fraction} * 100%);`],
+	[/w-(\d+)/, ([, num]) => `width: calc(var(--spacing) * ${num});`],
+	[/w-(\d+\/\d+)/, ([, fraction]) => `width: calc(${fraction} * 100%);`],
 	["w-3xs", "width: var(--container-3xs);"],
 	["w-2xs", "width: var(--container-2xs);"],
 	["w-xs", "width: var(--container-xs);"],
@@ -942,17 +942,17 @@ export const SIZING: Rule[] = [
 	["w-min", "width: min-content;"],
 	["w-max", "width: max-content;"],
 	["w-fit", "width: fit-content;"],
-	[/^w-\((.+)\)$/, ([, prop]) => `width: var(${prop});`],
-	[/^w-\[(.+)\]$/, ([, value]) => `width: ${value};`],
+	[/w-\((.+)\)/, ([, prop]) => `width: var(${prop});`],
+	[/w-\[(.+)\]/, ([, value]) => `width: ${value};`],
 
 	// size
 	[
-		/^size-(\d+)$/,
+		/size-(\d+)/,
 		([, num]) =>
 			`width: calc(var(--spacing) * ${num}); height: calc(var(--spacing) * ${num});`,
 	],
 	[
-		/^size-(\d+\/\d+)$/,
+		/size-(\d+\/\d+)/,
 		([, fraction]) =>
 			`width: calc(${fraction} * 100%); height: calc(${fraction} * 100%);`,
 	],
@@ -969,15 +969,15 @@ export const SIZING: Rule[] = [
 	["size-max", "width: max-content; height: max-content;"],
 	["size-fit", "width: fit-content; height: fit-content;"],
 	[
-		/^size-\((.+)\)$/,
+		/size-\((.+)\)/,
 		([, prop]) => `width: var(${prop}); height: var(${prop});`,
 	],
-	[/^size-\[(.+)\]$/, ([, value]) => `width: ${value}; height: ${value};`],
+	[/size-\[(.+)\]/, ([, value]) => `width: ${value}; height: ${value};`],
 
 	// min-width
-	[/^min-w-(\d+)$/, ([, num]) => `min-width: calc(var(--spacing) * ${num});`],
+	[/min-w-(\d+)/, ([, num]) => `min-width: calc(var(--spacing) * ${num});`],
 	[
-		/^min-w-(\d+\/\d+)$/,
+		/min-w-(\d+\/\d+)/,
 		([, fraction]) => `min-width: calc(${fraction} * 100%);`,
 	],
 	["min-w-3xs", "min-width: var(--container-3xs);"],
@@ -1006,13 +1006,13 @@ export const SIZING: Rule[] = [
 	["min-w-min", "min-width: min-content;"],
 	["min-w-max", "min-width: max-content;"],
 	["min-w-fit", "min-width: fit-content;"],
-	[/^min-w-\((.+)\)$/, ([, prop]) => `min-width: var(${prop});`],
-	[/^min-w-\[(.+)\]$/, ([, value]) => `min-width: ${value};`],
+	[/min-w-\((.+)\)/, ([, prop]) => `min-width: var(${prop});`],
+	[/min-w-\[(.+)\]/, ([, value]) => `min-width: ${value};`],
 
 	// max-width
-	[/^max-w-(\d+)$/, ([, num]) => `max-width: calc(var(--spacing) * ${num});`],
+	[/max-w-(\d+)/, ([, num]) => `max-width: calc(var(--spacing) * ${num});`],
 	[
-		/^max-w-(\d+\/\d+)$/,
+		/max-w-(\d+\/\d+)/,
 		([, fraction]) => `max-width: calc(${fraction} * 100%);`,
 	],
 	["max-w-3xs", "max-width: var(--container-3xs);"],
@@ -1042,8 +1042,8 @@ export const SIZING: Rule[] = [
 	["max-w-max", "max-width: max-content;"],
 	["max-w-fit", "max-width: fit-content;"],
 	["max-w-prose", "max-width: 65ch;"],
-	[/^max-w-\((.+)\)$/, ([, prop]) => `max-width: var(${prop});`],
-	[/^max-w-\[(.+)\]$/, ([, value]) => `max-width: ${value};`],
+	[/max-w-\((.+)\)/, ([, prop]) => `max-width: var(${prop});`],
+	[/max-w-\[(.+)\]/, ([, value]) => `max-width: ${value};`],
 
 	// container
 	[
@@ -1052,8 +1052,8 @@ export const SIZING: Rule[] = [
 	],
 
 	// height
-	[/^h-(\d+)$/, ([, num]) => `height: calc(var(--spacing) * ${num});`],
-	[/^h-(\d+\/\d+)$/, ([, fraction]) => `height: calc(${fraction} * 100%);`],
+	[/h-(\d+)/, ([, num]) => `height: calc(var(--spacing) * ${num});`],
+	[/h-(\d+\/\d+)/, ([, fraction]) => `height: calc(${fraction} * 100%);`],
 	["h-auto", "height: auto;"],
 	["h-px", "height: 1px;"],
 	["h-full", "height: 100%;"],
@@ -1068,16 +1068,13 @@ export const SIZING: Rule[] = [
 	["h-max", "height: max-content;"],
 	["h-fit", "height: fit-content;"],
 	["h-lh", "height: 1lh;"],
-	[/^h-\((.+)\)$/, ([, prop]) => `height: var(${prop});`],
-	[/^h-\[(.+)\]$/, ([, value]) => `height: ${value};`],
+	[/h-\((.+)\)/, ([, prop]) => `height: var(${prop});`],
+	[/h-\[(.+)\]/, ([, value]) => `height: ${value};`],
 
 	// min-height
+	[/min-h-(\d+)/, ([, num]) => `min-height: calc(var(--spacing) * ${num});`],
 	[
-		/^min-h-(\d+)$/,
-		([, num]) => `min-height: calc(var(--spacing) * ${num});`,
-	],
-	[
-		/^min-h-(\d+\/\d+)$/,
+		/min-h-(\d+\/\d+)/,
 		([, fraction]) => `min-height: calc(${fraction} * 100%);`,
 	],
 	["min-h-px", "min-height: 1px;"],
@@ -1094,16 +1091,13 @@ export const SIZING: Rule[] = [
 	["min-h-max", "min-height: max-content;"],
 	["min-h-fit", "min-height: fit-content;"],
 	["min-h-lh", "min-height: 1lh;"],
-	[/^min-h-\((.+)\)$/, ([, prop]) => `min-height: var(${prop});`],
-	[/^min-h-\[(.+)\]$/, ([, value]) => `min-height: ${value};`],
+	[/min-h-\((.+)\)/, ([, prop]) => `min-height: var(${prop});`],
+	[/min-h-\[(.+)\]/, ([, value]) => `min-height: ${value};`],
 
 	// max-height
+	[/max-h-(\d+)/, ([, num]) => `max-height: calc(var(--spacing) * ${num});`],
 	[
-		/^max-h-(\d+)$/,
-		([, num]) => `max-height: calc(var(--spacing) * ${num});`,
-	],
-	[
-		/^max-h-(\d+\/\d+)$/,
+		/max-h-(\d+\/\d+)/,
 		([, fraction]) => `max-height: calc(${fraction} * 100%);`,
 	],
 	["max-h-none", "max-height: none;"],
@@ -1120,16 +1114,16 @@ export const SIZING: Rule[] = [
 	["max-h-max", "max-height: max-content;"],
 	["max-h-fit", "max-height: fit-content;"],
 	["max-h-lh", "max-height: 1lh;"],
-	[/^max-h-\((.+)\)$/, ([, prop]) => `max-height: var(${prop});`],
-	[/^max-h-\[(.+)\]$/, ([, value]) => `max-height: ${value};`],
+	[/max-h-\((.+)\)/, ([, prop]) => `max-height: var(${prop});`],
+	[/max-h-\[(.+)\]/, ([, value]) => `max-height: ${value};`],
 
 	// inline-size
 	[
-		/^inline-(\d+)$/,
+		/inline-(\d+)/,
 		([, num]) => `inline-size: calc(var(--spacing) * ${num});`,
 	],
 	[
-		/^inline-(\d+\/\d+)$/,
+		/inline-(\d+\/\d+)/,
 		([, fraction]) => `inline-size: calc(${fraction} * 100%);`,
 	],
 	["inline-3xs", "inline-size: var(--container-3xs);"],
@@ -1158,16 +1152,16 @@ export const SIZING: Rule[] = [
 	["inline-min", "inline-size: min-content;"],
 	["inline-max", "inline-size: max-content;"],
 	["inline-fit", "inline-size: fit-content;"],
-	[/^inline-\((.+)\)$/, ([, prop]) => `inline-size: var(${prop});`],
-	[/^inline-\[(.+)\]$/, ([, value]) => `inline-size: ${value};`],
+	[/inline-\((.+)\)/, ([, prop]) => `inline-size: var(${prop});`],
+	[/inline-\[(.+)\]/, ([, value]) => `inline-size: ${value};`],
 
 	// min-inline-size
 	[
-		/^min-inline-(\d+)$/,
+		/min-inline-(\d+)/,
 		([, num]) => `min-inline-size: calc(var(--spacing) * ${num});`,
 	],
 	[
-		/^min-inline-(\d+\/\d+)$/,
+		/min-inline-(\d+\/\d+)/,
 		([, fraction]) => `min-inline-size: calc(${fraction} * 100%);`,
 	],
 	["min-inline-3xs", "min-inline-size: var(--container-3xs);"],
@@ -1196,16 +1190,16 @@ export const SIZING: Rule[] = [
 	["min-inline-min", "min-inline-size: min-content;"],
 	["min-inline-max", "min-inline-size: max-content;"],
 	["min-inline-fit", "min-inline-size: fit-content;"],
-	[/^min-inline-\((.+)\)$/, ([, prop]) => `min-inline-size: var(${prop});`],
-	[/^min-inline-\[(.+)\]$/, ([, value]) => `min-inline-size: ${value};`],
+	[/min-inline-\((.+)\)/, ([, prop]) => `min-inline-size: var(${prop});`],
+	[/min-inline-\[(.+)\]/, ([, value]) => `min-inline-size: ${value};`],
 
 	// max-inline-size
 	[
-		/^max-inline-(\d+)$/,
+		/max-inline-(\d+)/,
 		([, num]) => `max-inline-size: calc(var(--spacing) * ${num});`,
 	],
 	[
-		/^max-inline-(\d+\/\d+)$/,
+		/max-inline-(\d+\/\d+)/,
 		([, fraction]) => `max-inline-size: calc(${fraction} * 100%);`,
 	],
 	["max-inline-3xs", "max-inline-size: var(--container-3xs);"],
@@ -1234,16 +1228,13 @@ export const SIZING: Rule[] = [
 	["max-inline-min", "max-inline-size: min-content;"],
 	["max-inline-max", "max-inline-size: max-content;"],
 	["max-inline-fit", "max-inline-size: fit-content;"],
-	[/^max-inline-\((.+)\)$/, ([, prop]) => `max-inline-size: var(${prop});`],
-	[/^max-inline-\[(.+)\]$/, ([, value]) => `max-inline-size: ${value};`],
+	[/max-inline-\((.+)\)/, ([, prop]) => `max-inline-size: var(${prop});`],
+	[/max-inline-\[(.+)\]/, ([, value]) => `max-inline-size: ${value};`],
 
 	// block-size
+	[/block-(\d+)/, ([, num]) => `block-size: calc(var(--spacing) * ${num});`],
 	[
-		/^block-(\d+)$/,
-		([, num]) => `block-size: calc(var(--spacing) * ${num});`,
-	],
-	[
-		/^block-(\d+\/\d+)$/,
+		/block-(\d+\/\d+)/,
 		([, fraction]) => `block-size: calc(${fraction} * 100%);`,
 	],
 	["block-auto", "block-size: auto;"],
@@ -1260,16 +1251,16 @@ export const SIZING: Rule[] = [
 	["block-max", "block-size: max-content;"],
 	["block-fit", "block-size: fit-content;"],
 	["block-lh", "block-size: 1lh;"],
-	[/^block-\((.+)\)$/, ([, prop]) => `block-size: var(${prop});`],
-	[/^block-\[(.+)\]$/, ([, value]) => `block-size: ${value};`],
+	[/block-\((.+)\)/, ([, prop]) => `block-size: var(${prop});`],
+	[/block-\[(.+)\]/, ([, value]) => `block-size: ${value};`],
 
 	// min-block-size
 	[
-		/^min-block-(\d+)$/,
+		/min-block-(\d+)/,
 		([, num]) => `min-block-size: calc(var(--spacing) * ${num});`,
 	],
 	[
-		/^min-block-(\d+\/\d+)$/,
+		/min-block-(\d+\/\d+)/,
 		([, fraction]) => `min-block-size: calc(${fraction} * 100%);`,
 	],
 	["min-block-px", "min-block-size: 1px;"],
@@ -1286,16 +1277,16 @@ export const SIZING: Rule[] = [
 	["min-block-max", "min-block-size: max-content;"],
 	["min-block-fit", "min-block-size: fit-content;"],
 	["min-block-lh", "min-block-size: 1lh;"],
-	[/^min-block-\((.+)\)$/, ([, prop]) => `min-block-size: var(${prop});`],
-	[/^min-block-\[(.+)\]$/, ([, value]) => `min-block-size: ${value};`],
+	[/min-block-\((.+)\)/, ([, prop]) => `min-block-size: var(${prop});`],
+	[/min-block-\[(.+)\]/, ([, value]) => `min-block-size: ${value};`],
 
 	// max-block-size
 	[
-		/^max-block-(\d+)$/,
+		/max-block-(\d+)/,
 		([, num]) => `max-block-size: calc(var(--spacing) * ${num});`,
 	],
 	[
-		/^max-block-(\d+\/\d+)$/,
+		/max-block-(\d+\/\d+)/,
 		([, fraction]) => `max-block-size: calc(${fraction} * 100%);`,
 	],
 	["max-block-none", "max-block-size: none;"],
@@ -1312,8 +1303,8 @@ export const SIZING: Rule[] = [
 	["max-block-max", "max-block-size: max-content;"],
 	["max-block-fit", "max-block-size: fit-content;"],
 	["max-block-lh", "max-block-size: 1lh;"],
-	[/^max-block-\((.+)\)$/, ([, prop]) => `max-block-size: var(${prop});`],
-	[/^max-block-\[(.+)\]$/, ([, value]) => `max-block-size: ${value};`],
+	[/max-block-\((.+)\)/, ([, prop]) => `max-block-size: var(${prop});`],
+	[/max-block-\[(.+)\]/, ([, value]) => `max-block-size: ${value};`],
 ]
 
 export const TYPOGRAPHY: Rule[] = [
@@ -1321,8 +1312,8 @@ export const TYPOGRAPHY: Rule[] = [
 	["font-sans", "font-family: var(--font-sans);"],
 	["font-serif", "font-family: var(--font-serif);"],
 	["font-mono", "font-family: var(--font-mono);"],
-	[/^font-\((.+)\)$/, ([, prop]) => `font-family: var(${prop});`],
-	[/^font-\[(.+)\]$/, ([, value]) => `font-family: ${value};`],
+	[/font-\((.+)\)/, ([, prop]) => `font-family: var(${prop});`],
+	[/font-\[(.+)\]/, ([, value]) => `font-family: ${value};`],
 
 	// font-size
 	[
@@ -1330,8 +1321,8 @@ export const TYPOGRAPHY: Rule[] = [
 		([, size]) =>
 			`font-size: var(--text-${size}); line-height: var(--text-${size}--line-height);`,
 	],
-	[/^text-\((.+)\)$/, ([, prop]) => `font-size: var(${prop});`],
-	[/^text-\[(.+)\]$/, ([, value]) => `font-size: ${value};`],
+	[/text-\((.+)\)/, ([, prop]) => `font-size: var(${prop});`],
+	[/text-\[(.+)\]/, ([, value]) => `font-size: ${value};`],
 
 	// font-smoothing
 	[
@@ -1357,8 +1348,8 @@ export const TYPOGRAPHY: Rule[] = [
 	["font-bold", "font-weight: 700;"],
 	["font-extrabold", "font-weight: 800;"],
 	["font-black", "font-weight: 900;"],
-	[/^font-\((.+)\)$/, ([, prop]) => `font-weight: var(${prop});`],
-	[/^font-\[(.+)\]$/, ([, value]) => `font-weight: ${value};`],
+	[/font-\((.+)\)/, ([, prop]) => `font-weight: var(${prop});`],
+	[/font-\[(.+)\]/, ([, value]) => `font-weight: ${value};`],
 
 	// font-stretch
 	["font-stretch-ultra-condensed", "font-stretch: ultra-condensed;"],
@@ -1370,9 +1361,9 @@ export const TYPOGRAPHY: Rule[] = [
 	["font-stretch-expanded", "font-stretch: expanded;"],
 	["font-stretch-extra-expanded", "font-stretch: extra-expanded;"],
 	["font-stretch-ultra-expanded", "font-stretch: ultra-expanded;"],
-	[/^font-stretch-(\d+%)$/, ([, pct]) => `font-stretch: ${pct};`],
-	[/^font-stretch-\((.+)\)$/, ([, prop]) => `font-stretch: var(${prop});`],
-	[/^font-stretch-\[(.+)\]$/, ([, value]) => `font-stretch: ${value};`],
+	[/font-stretch-(\d+%)/, ([, pct]) => `font-stretch: ${pct};`],
+	[/font-stretch-\((.+)\)/, ([, prop]) => `font-stretch: var(${prop});`],
+	[/font-stretch-\[(.+)\]/, ([, value]) => `font-stretch: ${value};`],
 
 	// font-variant-numeric
 	["normal-nums", "font-variant-numeric: normal;"],
@@ -1387,11 +1378,11 @@ export const TYPOGRAPHY: Rule[] = [
 
 	// font-feature-settings
 	[
-		/^font-features-\[(.+)\]$/,
+		/font-features-\[(.+)\]/,
 		([, value]) => `font-feature-settings: ${value};`,
 	],
 	[
-		/^font-features-\((.+)\)$/,
+		/font-features-\((.+)\)/,
 		([, prop]) => `font-feature-settings: var(${prop});`,
 	],
 
@@ -1402,12 +1393,12 @@ export const TYPOGRAPHY: Rule[] = [
 	["tracking-wide", "letter-spacing: var(--tracking-wide);"],
 	["tracking-wider", "letter-spacing: var(--tracking-wider);"],
 	["tracking-widest", "letter-spacing: var(--tracking-widest);"],
-	[/^tracking-\((.+)\)$/, ([, prop]) => `letter-spacing: var(${prop});`],
-	[/^tracking-\[(.+)\]$/, ([, value]) => `letter-spacing: ${value};`],
+	[/tracking-\((.+)\)/, ([, prop]) => `letter-spacing: var(${prop});`],
+	[/tracking-\[(.+)\]/, ([, value]) => `letter-spacing: ${value};`],
 
 	// line-clamp
 	[
-		/^line-clamp-(\d+)$/,
+		/line-clamp-(\d+)/,
 		([, num]) =>
 			`overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: ${num};`,
 	],
@@ -1416,43 +1407,43 @@ export const TYPOGRAPHY: Rule[] = [
 		"overflow: visible; display: block; -webkit-box-orient: horizontal; -webkit-line-clamp: unset;",
 	],
 	[
-		/^line-clamp-\((.+)\)$/,
+		/line-clamp-\((.+)\)/,
 		([, prop]) =>
 			`overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: var(${prop});`,
 	],
 	[
-		/^line-clamp-\[(.+)\]$/,
+		/line-clamp-\[(.+)\]/,
 		([, value]) =>
 			`overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: ${value};`,
 	],
 
 	// line-height
 	[
-		/^leading-(\d+)$/,
+		/leading-(\d+)/,
 		([, num]) => `line-height: calc(var(--spacing) * ${num});`,
 	],
 	["leading-none", "line-height: 1;"],
-	[/^leading-\((.+)\)$/, ([, prop]) => `line-height: var(${prop});`],
-	[/^leading-\[(.+)\]$/, ([, value]) => `line-height: ${value};`],
+	[/leading-\((.+)\)/, ([, prop]) => `line-height: var(${prop});`],
+	[/leading-\[(.+)\]/, ([, value]) => `line-height: ${value};`],
 	[
-		/^text-(xs|sm|md|lg|xl|2xl|3xl|4xl)\/(\d+)$/,
+		/text-(xs|sm|md|lg|xl|2xl|3xl|4xl)\/(\d+)/,
 		([, size, num]) =>
 			`font-size: var(--text-${size}); line-height: calc(var(--spacing) * ${num});`,
 	],
 	[
-		/^text-(xs|sm|md|lg|xl|2xl|3xl|4xl)\/\((.+)\)$/,
+		/text-(xs|sm|md|lg|xl|2xl|3xl|4xl)\/\((.+)\)/,
 		([, size, prop]) =>
 			`font-size: var(--text-${size}); line-height: var(${prop});`,
 	],
 	[
-		/^text-(xs|sm|md|lg|xl|2xl|3xl|4xl)\/\[(.+)\]$/,
+		/text-(xs|sm|md|lg|xl|2xl|3xl|4xl)\/\[(.+)\]/,
 		([, size, value]) =>
 			`font-size: var(--text-${size}); line-height: ${value};`,
 	],
 
 	// list-style-image
-	[/^list-image-\[(.+)\]$/, ([, value]) => `list-style-image: ${value};`],
-	[/^list-image-\((.+)\)$/, ([, prop]) => `list-style-image: var(${prop});`],
+	[/list-image-\[(.+)\]/, ([, value]) => `list-style-image: ${value};`],
+	[/list-image-\((.+)\)/, ([, prop]) => `list-style-image: var(${prop});`],
 	["list-image-none", "list-style-image: none;"],
 
 	// list-style-position
@@ -1463,8 +1454,8 @@ export const TYPOGRAPHY: Rule[] = [
 	["list-disc", "list-style-type: disc;"],
 	["list-decimal", "list-style-type: decimal;"],
 	["list-none", "list-style-type: none;"],
-	[/^list-\((.+)\)$/, ([, prop]) => `list-style-type: var(${prop});`],
-	[/^list-\[(.+)\]$/, ([, value]) => `list-style-type: ${value};`],
+	[/list-\((.+)\)/, ([, prop]) => `list-style-type: var(${prop});`],
+	[/list-\[(.+)\]/, ([, value]) => `list-style-type: ${value};`],
 
 	// text-align
 	["text-left", "text-align: left;"],
@@ -1478,12 +1469,9 @@ export const TYPOGRAPHY: Rule[] = [
 	["text-inherit", "color: inherit;"],
 	["text-current", "color: currentColor;"],
 	["text-transparent", "color: transparent;"],
-	[
-		/^text-([a-z]+(?:-\d+)?)$/,
-		([, color]) => `color: var(--color-${color});`,
-	],
-	[/^text-\((.+)\)$/, ([, prop]) => `color: var(${prop});`],
-	[/^text-\[(.+)\]$/, ([, value]) => `color: ${value};`],
+	[/text-([a-z]+(?:-\d+)?)/, ([, color]) => `color: var(--color-${color});`],
+	[/text-\((.+)\)/, ([, prop]) => `color: var(${prop});`],
+	[/text-\[(.+)\]/, ([, value]) => `color: ${value};`],
 
 	// text-decoration-line
 	["underline", "text-decoration-line: underline;"],
@@ -1496,17 +1484,14 @@ export const TYPOGRAPHY: Rule[] = [
 	["decoration-current", "text-decoration-color: currentColor;"],
 	["decoration-transparent", "text-decoration-color: transparent;"],
 	[
-		/^decoration-([a-z]+(?:-\d+)?)$/,
+		/decoration-([a-z]+(?:-\d+)?)/,
 		([, color]) => `text-decoration-color: var(--color-${color});`,
 	],
 	[
-		/^decoration-\((.+)\)$/,
+		/decoration-\((.+)\)/,
 		([, prop]) => `text-decoration-color: var(${prop});`,
 	],
-	[
-		/^decoration-\[(.+)\]$/,
-		([, value]) => `text-decoration-color: ${value};`,
-	],
+	[/decoration-\[(.+)\]/, ([, value]) => `text-decoration-color: ${value};`],
 
 	// text-decoration-style
 	["decoration-solid", "text-decoration-style: solid;"],
@@ -1516,34 +1501,31 @@ export const TYPOGRAPHY: Rule[] = [
 	["decoration-wavy", "text-decoration-style: wavy;"],
 
 	// text-decoration-thickness
-	[/^decoration-(\d+)$/, ([, num]) => `text-decoration-thickness: ${num}px;`],
+	[/decoration-(\d+)/, ([, num]) => `text-decoration-thickness: ${num}px;`],
 	["decoration-from-font", "text-decoration-thickness: from-font;"],
 	["decoration-auto", "text-decoration-thickness: auto;"],
 	[
-		/^decoration-\((.+)\)$/,
+		/decoration-\((.+)\)/,
 		([, prop]) => `text-decoration-thickness: var(${prop});`,
 	],
 	[
-		/^decoration-\[(.+)\]$/,
+		/decoration-\[(.+)\]/,
 		([, value]) => `text-decoration-thickness: ${value};`,
 	],
 
 	// text-underline-offset
+	[/underline-offset-(\d+)/, ([, num]) => `text-underline-offset: ${num}px;`],
 	[
-		/^underline-offset-(\d+)$/,
-		([, num]) => `text-underline-offset: ${num}px;`,
-	],
-	[
-		/^-underline-offset-(\d+)$/,
+		/-underline-offset-(\d+)/,
 		([, num]) => `text-underline-offset: calc(${num}px * -1);`,
 	],
 	["underline-offset-auto", "text-underline-offset: auto;"],
 	[
-		/^underline-offset-\((.+)\)$/,
+		/underline-offset-\((.+)\)/,
 		([, prop]) => `text-underline-offset: var(${prop});`,
 	],
 	[
-		/^underline-offset-\[(.+)\]$/,
+		/underline-offset-\[(.+)\]/,
 		([, value]) => `text-underline-offset: ${value};`,
 	],
 
@@ -1569,17 +1551,17 @@ export const TYPOGRAPHY: Rule[] = [
 
 	// text-indent
 	[
-		/^indent-(\d+)$/,
+		/indent-(\d+)/,
 		([, num]) => `text-indent: calc(var(--spacing) * ${num});`,
 	],
 	[
-		/^-indent-(\d+)$/,
+		/-indent-(\d+)/,
 		([, num]) => `text-indent: calc(var(--spacing) * -${num});`,
 	],
 	["indent-px", "text-indent: 1px;"],
 	["-indent-px", "text-indent: -1px;"],
-	[/^indent-\((.+)\)$/, ([, prop]) => `text-indent: var(${prop});`],
-	[/^indent-\[(.+)\]$/, ([, value]) => `text-indent: ${value};`],
+	[/indent-\((.+)\)/, ([, prop]) => `text-indent: var(${prop});`],
+	[/indent-\[(.+)\]/, ([, value]) => `text-indent: ${value};`],
 
 	// vertical-align
 	["align-baseline", "vertical-align: baseline;"],
@@ -1590,8 +1572,8 @@ export const TYPOGRAPHY: Rule[] = [
 	["align-text-bottom", "vertical-align: text-bottom;"],
 	["align-sub", "vertical-align: sub;"],
 	["align-super", "vertical-align: super;"],
-	[/^align-\((.+)\)$/, ([, prop]) => `vertical-align: var(${prop});`],
-	[/^align-\[(.+)\]$/, ([, value]) => `vertical-align: ${value};`],
+	[/align-\((.+)\)/, ([, prop]) => `vertical-align: var(${prop});`],
+	[/align-\[(.+)\]/, ([, value]) => `vertical-align: ${value};`],
 
 	// white-space
 	["whitespace-normal", "white-space: normal;"],
@@ -1617,8 +1599,8 @@ export const TYPOGRAPHY: Rule[] = [
 	["hyphens-auto", "hyphens: auto;"],
 
 	// content
-	[/^content-\[(.+)\]$/, ([, value]) => `content: ${value};`],
-	[/^content-\((.+)\)$/, ([, prop]) => `content: var(${prop});`],
+	[/content-\[(.+)\]/, ([, value]) => `content: ${value};`],
+	[/content-\((.+)\)/, ([, prop]) => `content: var(${prop});`],
 	["content-none", "content: none;"],
 ]
 
@@ -1639,15 +1621,15 @@ export const BACKGROUNDS: Rule[] = [
 	["bg-current", "background-color: currentColor;"],
 	["bg-transparent", "background-color: transparent;"],
 	[
-		/^bg-([a-z]+(?:-\d+)?)$/,
+		/bg-([a-z]+(?:-\d+)?)/,
 		([, color]) => `background-color: var(--color-${color});`,
 	],
-	[/^bg-\((.+)\)$/, ([, prop]) => `background-color: var(${prop});`],
-	[/^bg-\[(.+)\]$/, ([, value]) => `background-color: ${value};`],
+	[/bg-\((.+)\)/, ([, prop]) => `background-color: var(${prop});`],
+	[/bg-\[(.+)\]/, ([, value]) => `background-color: ${value};`],
 
 	// background-image
-	[/^bg-\[(.+)\]$/, ([, value]) => `background-image: ${value};`],
-	[/^bg-\((.+)\)$/, ([, prop]) => `background-image: var(${prop});`],
+	[/bg-\[(.+)\]/, ([, value]) => `background-image: ${value};`],
+	[/bg-\((.+)\)/, ([, prop]) => `background-image: var(${prop});`],
 	["bg-none", "background-image: none;"],
 	[
 		"bg-linear-to-t",
@@ -1682,22 +1664,22 @@ export const BACKGROUNDS: Rule[] = [
 		"background-image: linear-gradient(to top left, var(--tw-gradient-stops));",
 	],
 	[
-		/^bg-linear-(\d+deg)$/,
+		/bg-linear-(\d+deg)/,
 		([, angle]) =>
 			`background-image: linear-gradient(${angle} in oklab, var(--tw-gradient-stops));`,
 	],
 	[
-		/^-bg-linear-(\d+deg)$/,
+		/-bg-linear-(\d+deg)/,
 		([, angle]) =>
 			`background-image: linear-gradient(-${angle} in oklab, var(--tw-gradient-stops));`,
 	],
 	[
-		/^bg-linear-\((.+)\)$/,
+		/bg-linear-\((.+)\)/,
 		([, prop]) =>
 			`background-image: linear-gradient(var(--tw-gradient-stops, var(${prop})));`,
 	],
 	[
-		/^bg-linear-\[(.+)\]$/,
+		/bg-linear-\[(.+)\]/,
 		([, value]) =>
 			`background-image: linear-gradient(var(--tw-gradient-stops, ${value}));`,
 	],
@@ -1706,39 +1688,39 @@ export const BACKGROUNDS: Rule[] = [
 		"background-image: radial-gradient(in oklab, var(--tw-gradient-stops));",
 	],
 	[
-		/^bg-radial-\((.+)\)$/,
+		/bg-radial-\((.+)\)/,
 		([, prop]) =>
 			`background-image: radial-gradient(var(--tw-gradient-stops, var(${prop})));`,
 	],
 	[
-		/^bg-radial-\[(.+)\]$/,
+		/bg-radial-\[(.+)\]/,
 		([, value]) =>
 			`background-image: radial-gradient(var(--tw-gradient-stops, ${value}));`,
 	],
 	[
-		/^bg-conic-(\d+deg)$/,
+		/bg-conic-(\d+deg)/,
 		([, angle]) =>
 			`background-image: conic-gradient(from ${angle} in oklab, var(--tw-gradient-stops));`,
 	],
 	[
-		/^-bg-conic-(\d+deg)$/,
+		/-bg-conic-(\d+deg)/,
 		([, angle]) =>
 			`background-image: conic-gradient(from -${angle} in oklab, var(--tw-gradient-stops));`,
 	],
-	[/^bg-conic-\((.+)\)$/, ([, prop]) => `background-image: var(${prop});`],
-	[/^bg-conic-\[(.+)\]$/, ([, value]) => `background-image: ${value};`],
-	[/^from-(\d+%)$/, ([, value]) => `--tw-gradient-from-position: ${value};`],
-	[/^from-(.+)$/, ([, value]) => `--tw-gradient-from: ${value};`],
-	[/^from-\((.+)\)$/, ([, prop]) => `--tw-gradient-from: var(${prop});`],
-	[/^from-\[(.+)\]$/, ([, value]) => `--tw-gradient-from: ${value};`],
-	[/^via-(\d+%)$/, ([, value]) => `--tw-gradient-via-position: ${value};`],
-	[/^via-(.+)$/, ([, value]) => `--tw-gradient-via: ${value};`],
-	[/^via-\((.+)\)$/, ([, prop]) => `--tw-gradient-via: var(${prop});`],
-	[/^via-\[(.+)\]$/, ([, value]) => `--tw-gradient-via: ${value};`],
-	[/^to-(\d+%)$/, ([, value]) => `--tw-gradient-to-position: ${value};`],
-	[/^to-(.+)$/, ([, value]) => `--tw-gradient-to: ${value};`],
-	[/^to-\((.+)\)$/, ([, prop]) => `--tw-gradient-to: var(${prop});`],
-	[/^to-\[(.+)\]$/, ([, value]) => `--tw-gradient-to: ${value};`],
+	[/bg-conic-\((.+)\)/, ([, prop]) => `background-image: var(${prop});`],
+	[/bg-conic-\[(.+)\]/, ([, value]) => `background-image: ${value};`],
+	[/from-(\d+%)/, ([, value]) => `--tw-gradient-from-position: ${value};`],
+	[/from-(.+)/, ([, value]) => `--tw-gradient-from: ${value};`],
+	[/from-\((.+)\)/, ([, prop]) => `--tw-gradient-from: var(${prop});`],
+	[/from-\[(.+)\]/, ([, value]) => `--tw-gradient-from: ${value};`],
+	[/via-(\d+%)/, ([, value]) => `--tw-gradient-via-position: ${value};`],
+	[/via-(.+)/, ([, value]) => `--tw-gradient-via: ${value};`],
+	[/via-\((.+)\)/, ([, prop]) => `--tw-gradient-via: var(${prop});`],
+	[/via-\[(.+)\]/, ([, value]) => `--tw-gradient-via: ${value};`],
+	[/to-(\d+%)/, ([, value]) => `--tw-gradient-to-position: ${value};`],
+	[/to-(.+)/, ([, value]) => `--tw-gradient-to: ${value};`],
+	[/to-\((.+)\)/, ([, prop]) => `--tw-gradient-to: var(${prop});`],
+	[/to-\[(.+)\]/, ([, value]) => `--tw-gradient-to: ${value};`],
 
 	// background-origin
 	["bg-origin-border", "background-origin: border-box;"],
@@ -1756,10 +1738,10 @@ export const BACKGROUNDS: Rule[] = [
 	["bg-bottom", "background-position: bottom;"],
 	["bg-bottom-right", "background-position: bottom right;"],
 	[
-		/^bg-position-\((.+)\)$/,
+		/bg-position-\((.+)\)/,
 		([, prop]) => `background-position: var(${prop});`,
 	],
-	[/^bg-position-\[(.+)\]$/, ([, value]) => `background-position: ${value};`],
+	[/bg-position-\[(.+)\]/, ([, value]) => `background-position: ${value};`],
 
 	// background-repeat
 	["bg-repeat", "background-repeat: repeat;"],
@@ -1773,8 +1755,8 @@ export const BACKGROUNDS: Rule[] = [
 	["bg-auto", "background-size: auto;"],
 	["bg-cover", "background-size: cover;"],
 	["bg-contain", "background-size: contain;"],
-	[/^bg-size-\((.+)\)$/, ([, prop]) => `background-size: var(${prop});`],
-	[/^bg-size-\[(.+)\]$/, ([, value]) => `background-size: ${value};`],
+	[/bg-size-\((.+)\)/, ([, prop]) => `background-size: var(${prop});`],
+	[/bg-size-\[(.+)\]/, ([, value]) => `background-size: ${value};`],
 ]
 
 function borderSide(side: string | undefined): string[] {
@@ -1836,130 +1818,130 @@ function borderSideBlock(side: string | undefined): string {
 export const BORDERS: Rule[] = [
 	// border-radius (base)
 	[
-		/^rounded-(xs|sm|md|lg|xl|2xl|3xl|4xl)$/,
+		/rounded-(xs|sm|md|lg|xl|2xl|3xl|4xl)/,
 		([, size]) => `border-radius: var(--radius-${size});`,
 	],
 	["rounded-none", "border-radius: 0;"],
 	["rounded-full", "border-radius: calc(infinity * 1px);"],
-	[/^rounded-\((.+)\)$/, ([, prop]) => `border-radius: var(${prop});`],
-	[/^rounded-\[(.+)\]$/, ([, value]) => `border-radius: ${value};`],
+	[/rounded-\((.+)\)/, ([, prop]) => `border-radius: var(${prop});`],
+	[/rounded-\[(.+)\]/, ([, value]) => `border-radius: ${value};`],
 	[
-		/^rounded-([setrbl])-none$/,
+		/rounded-([setrbl])-none/,
 		([, side]) =>
 			borderSide(side)
 				.map(p => `border-${p}-radius: 0;`)
 				.join(" "),
 	],
 	[
-		/^rounded-([setrbl])-full$/,
+		/rounded-([setrbl])-full/,
 		([, side]) =>
 			borderSide(side)
 				.map(p => `border-${p}-radius: calc(infinity * 1px);`)
 				.join(" "),
 	],
 	[
-		/^rounded-([setrbl])-(xs|sm|md|lg|xl|2xl|3xl|4xl)$/,
+		/rounded-([setrbl])-(xs|sm|md|lg|xl|2xl|3xl|4xl)/,
 		([, side, size]) =>
 			borderSide(side)
 				.map(p => `border-${p}-radius: var(--radius-${size});`)
 				.join(" "),
 	],
 	[
-		/^rounded-([setrbl])-\((.+)\)$/,
+		/rounded-([setrbl])-\((.+)\)/,
 		([, side, prop]) =>
 			borderSide(side)
 				.map(p => `border-${p}-radius: var(${prop});`)
 				.join(" "),
 	],
 	[
-		/^rounded-([setrbl])-\[(.+)\]$/,
+		/rounded-([setrbl])-\[(.+)\]/,
 		([, side, value]) =>
 			borderSide(side)
 				.map(p => `border-${p}-radius: ${value};`)
 				.join(" "),
 	],
 	[
-		/^rounded-(ss|se|ee|es|tl|tr|br|bl)-none$/,
+		/rounded-(ss|se|ee|es|tl|tr|br|bl)-none/,
 		([, br]) => `border-${borderRadius(br)}-radius: 0;`,
 	],
 	[
-		/^rounded-(ss|se|ee|es|tl|tr|br|bl)-full$/,
+		/rounded-(ss|se|ee|es|tl|tr|br|bl)-full/,
 		([, br]) => `border-${borderRadius(br)}-radius: calc(infinity * 1px);`,
 	],
 	[
-		/^rounded-(ss|se|ee|es|tl|tr|br|bl)-(xs|sm|md|lg|xl|2xl|3xl|4xl)$/,
+		/rounded-(ss|se|ee|es|tl|tr|br|bl)-(xs|sm|md|lg|xl|2xl|3xl|4xl)/,
 		([, br, size]) =>
 			`border-${borderRadius(br)}-radius: var(--radius-${size});`,
 	],
 	[
-		/^rounded-(ss|se|ee|es|tl|tr|br|bl)-\((.+)\)$/,
+		/rounded-(ss|se|ee|es|tl|tr|br|bl)-\((.+)\)/,
 		([, br, prop]) => `border-${borderRadius(br)}-radius: var(${prop});`,
 	],
 	[
-		/^rounded-(ss|se|ee|es|tl|tr|br|bl)-\[(.+)\]$/,
+		/rounded-(ss|se|ee|es|tl|tr|br|bl)-\[(.+)\]/,
 		([, br, value]) => `border-${borderRadius(br)}-radius: ${value};`,
 	],
 
 	// border-width
 	["border", "border-width: 1px;"],
-	[/^border-(\d+)$/, ([, num]) => `border-width: ${num}px;`],
-	[/^border-\((.+)\)$/, ([, prop]) => `border-width: var(${prop});`],
-	[/^border-\[(.+)\]$/, ([, value]) => `border-width: ${value};`],
+	[/border-(\d+)/, ([, num]) => `border-width: ${num}px;`],
+	[/border-\((.+)\)/, ([, prop]) => `border-width: var(${prop});`],
+	[/border-\[(.+)\]/, ([, value]) => `border-width: ${value};`],
 	[
-		/^border-([xyse])(?:-(\d+))?$/,
+		/border-([xyse])(?:-(\d+))?/,
 		([, side, num]) =>
 			`border-${borderSideDir(side)}-width: ${num ? `${num}px` : "1px"};`,
 	],
 	[
-		/^border-([xyse])-\((.+)\)$/,
+		/border-([xyse])-\((.+)\)/,
 		([, side, prop]) =>
 			`border-${borderSideDir(side)}-width: var(${prop});`,
 	],
 	[
-		/^border-([xyse])-\[(.+)\]$/,
+		/border-([xyse])-\[(.+)\]/,
 		([, side, value]) => `border-${borderSideDir(side)}-width: ${value};`,
 	],
 	[
-		/^border-(bs|be|t|r|b|l)(?:-(\d+))?$/,
+		/border-(bs|be|t|r|b|l)(?:-(\d+))?/,
 		([, side, num]) =>
 			`border-${borderSideBlock(side)}-width: ${num ? `${num}px` : "1px"};`,
 	],
 	[
-		/^border-(bs|be|t|r|b|l)-\((.+)\)$/,
+		/border-(bs|be|t|r|b|l)-\((.+)\)/,
 		([, side, prop]) =>
 			`border-${borderSideBlock(side)}-width: var(${prop});`,
 	],
 	[
-		/^border-(bs|be|t|r|b|l)-\[(.+)\]$/,
+		/border-(bs|be|t|r|b|l)-\[(.+)\]/,
 		([, side, value]) => `border-${borderSideBlock(side)}-width: ${value};`,
 	],
 	[
-		/^divide-x(?:-(\d+))?$/,
+		/divide-x(?:-(\d+))?/,
 		([, num]) =>
 			`& > :not(:last-child) { border-inline-start-width: 0px; border-inline-end-width: ${num || 1}px; }`,
 	],
 	[
-		/^divide-x-\((.+)\)$/,
+		/divide-x-\((.+)\)/,
 		([, prop]) =>
 			`& > :not(:last-child) { border-inline-start-width: 0px; border-inline-end-width: var(${prop}); }`,
 	],
 	[
-		/^divide-x-\[(.+)\]$/,
+		/divide-x-\[(.+)\]/,
 		([, value]) =>
 			`& > :not(:last-child) { border-inline-start-width: 0px; border-inline-end-width: ${value}; }`,
 	],
 	[
-		/^divide-y(?:-(\d+))?$/,
+		/divide-y(?:-(\d+))?/,
 		([, num]) =>
 			`& > :not(:last-child) { border-top-width: 0px; border-bottom-width: ${num || 1}px; }`,
 	],
 	[
-		/^divide-y-\((.+)\)$/,
+		/divide-y-\((.+)\)/,
 		([, prop]) =>
 			`& > :not(:last-child) { border-top-width: 0px; border-bottom-width: var(${prop}); }`,
 	],
 	[
-		/^divide-y-\[(.+)\]$/,
+		/divide-y-\[(.+)\]/,
 		([, value]) =>
 			`& > :not(:last-child) { border-top-width: 0px; border-bottom-width: ${value}; }`,
 	],
@@ -1971,11 +1953,11 @@ export const BORDERS: Rule[] = [
 	["border-current", "border-color: currentColor;"],
 	["border-transparent", "border-color: transparent;"],
 	[
-		/^border-([a-z]+(?:-\d+)?)$/,
+		/border-([a-z]+(?:-\d+)?)/,
 		([, color]) => `border-color: var(--color-${color});`,
 	],
-	[/^border-\((.+)\)$/, ([, prop]) => `border-color: var(${prop});`],
-	[/^border-\[(.+)\]$/, ([, value]) => `border-color: ${value};`],
+	[/border-\((.+)\)/, ([, prop]) => `border-color: var(${prop});`],
+	[/border-\[(.+)\]/, ([, value]) => `border-color: ${value};`],
 
 	// border-style
 	["border-solid", "border-style: solid;"],
@@ -1995,20 +1977,20 @@ export const BORDERS: Rule[] = [
 
 	// outline-width
 	["outline", "outline-width: 1px;"],
-	[/^outline-(\d+)$/, ([, num]) => `outline-width: ${num}px;`],
-	[/^outline-\((.+)\)$/, ([, prop]) => `outline-width: var(${prop});`],
-	[/^outline-\[(.+)\]$/, ([, value]) => `outline-width: ${value};`],
+	[/outline-(\d+)/, ([, num]) => `outline-width: ${num}px;`],
+	[/outline-\((.+)\)/, ([, prop]) => `outline-width: var(${prop});`],
+	[/outline-\[(.+)\]/, ([, value]) => `outline-width: ${value};`],
 
 	// outline-color
 	["outline-inherit", "outline-color: inherit;"],
 	["outline-current", "outline-color: currentColor;"],
 	["outline-transparent", "outline-color: transparent;"],
 	[
-		/^outline-([a-z]+(?:-\d+)?)$/,
+		/outline-([a-z]+(?:-\d+)?)/,
 		([, color]) => `outline-color: var(--color-${color});`,
 	],
-	[/^outline-\((.+)\)$/, ([, prop]) => `outline-color: var(${prop});`],
-	[/^outline-\[(.+)\]$/, ([, value]) => `outline-color: ${value};`],
+	[/outline-\((.+)\)/, ([, prop]) => `outline-color: var(${prop});`],
+	[/outline-\[(.+)\]/, ([, value]) => `outline-color: ${value};`],
 
 	// outline-style
 	["outline-solid", "outline-style: solid;"],
@@ -2019,16 +2001,13 @@ export const BORDERS: Rule[] = [
 	["outline-hidden", "outline: 2px solid transparent; outline-offset: 2px;"],
 
 	// outline-offset
-	[/^outline-offset-(\d+)$/, ([, num]) => `outline-offset: ${num}px;`],
+	[/outline-offset-(\d+)/, ([, num]) => `outline-offset: ${num}px;`],
 	[
-		/^-outline-offset-(\d+)$/,
+		/-outline-offset-(\d+)/,
 		([, num]) => `outline-offset: calc(${num}px * -1);`,
 	],
-	[
-		/^outline-offset-\((.+)\)$/,
-		([, prop]) => `outline-offset: var(${prop});`,
-	],
-	[/^outline-offset-\[(.+)\]$/, ([, value]) => `outline-offset: ${value};`],
+	[/outline-offset-\((.+)\)/, ([, prop]) => `outline-offset: var(${prop});`],
+	[/outline-offset-\[(.+)\]/, ([, value]) => `outline-offset: ${value};`],
 ]
 
 export const TABLES: Rule[] = [
