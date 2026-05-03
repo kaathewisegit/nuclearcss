@@ -2031,7 +2031,21 @@ export const BORDERS: Rule[] = [
 	[/^outline-offset-\[(.+)\]$/, ([, value]) => `outline-offset: ${value};`],
 ]
 
-export const TABLES: Rule[] = []
+export const TABLES: Rule[] = [
+	// border-collapse
+	["border-collapse", "border-collapse: collapse;"],
+	["border-separate", "border-collapse: separate;"],
+
+	// TODO: border-spacing
+
+	// table-layout
+	["table-auto", "table-layout: auto;"],
+	["table-fixed", "table-layout: fixed;"],
+
+	// caption-side
+	["caption-top", "caption-side: top;"],
+	["caption-bottom", "caption-side: bottom;"],
+]
 
 export const WIND4_RULES: Rule[] = [
 	...LAYOUT,
@@ -2041,6 +2055,7 @@ export const WIND4_RULES: Rule[] = [
 	...TYPOGRAPHY,
 	...BACKGROUNDS,
 	...BORDERS,
+	...TABLES,
 ]
 
 function verbatimState(...names: string[]): State[] {
