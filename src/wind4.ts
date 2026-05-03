@@ -3,6 +3,14 @@ import { unreachable } from "./utils.ts"
 
 function directionRules(): Rule[] {
 	return ["top", "bottom", "right", "left"].flatMap(dir => [
+		[
+			`${dir}-([\\d.]+)`,
+			([, num]) => `${dir}: calc(var(--spacing) * ${num});`,
+		],
+		[
+			`-${dir}-([\\d.]+)`,
+			([, num]) => `${dir}: calc(var(--spacing) * -${num});`,
+		],
 		[`${dir}-px`, `${dir}: 1px;`],
 		[`-${dir}-px`, `${dir}: -1px;`],
 		[`${dir}-full`, `${dir}: 100%;`],
