@@ -1,6 +1,18 @@
 import type { ConfigOptions, Rule, State } from "./config.ts"
 import { unreachable } from "./utils.ts"
 
+function directionRules(): Rule[] {
+	return ["top", "bottom", "right", "left"].flatMap(dir => [
+		[`${dir}-px`, `${dir}: 1px;`],
+		[`-${dir}-px`, `${dir}: -1px;`],
+		[`${dir}-full`, `${dir}: 100%;`],
+		[`-${dir}-full`, `${dir}: -100%;`],
+		[`${dir}-auto`, `${dir}: auto;`],
+		[RegExp(`${dir}-\\((.+)\\)`), ([, prop]) => `${dir}: var(${prop});`],
+		[RegExp(`${dir}-\\[(.+)\\]`), ([, value]) => `${dir}: ${value};`],
+	])
+}
+
 export const LAYOUT: Rule[] = [
 	// aspect-ratio
 	[/aspect-(\d+\/\d+)/, ([, ratio]) => `aspect-ratio: ${ratio};`],
@@ -293,77 +305,8 @@ export const LAYOUT: Rule[] = [
 	[/inset-be-\((.+)\)/, ([, prop]) => `inset-block-end: var(${prop});`],
 	[/inset-be-\[(.+)\]/, ([, value]) => `inset-block-end: ${value};`],
 
-	// top
-	[
-		/(-)?top-(\d+)/,
-		([, neg, num]) =>
-			`top: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	[
-		/(-)?top-(\d+\/\d+)/,
-		([, neg, frac]) => `top: calc(${frac} * ${neg ? "-" : ""}100%);`,
-	],
-	["top-px", "top: 1px;"],
-	["-top-px", "top: -1px;"],
-	["top-full", "top: 100%;"],
-	["-top-full", "top: -100%;"],
-	["top-auto", "top: auto;"],
-	[/top-\((.+)\)/, ([, prop]) => `top: var(${prop});`],
-	[/top-\[(.+)\]/, ([, value]) => `top: ${value};`],
-
-	// right
-	[
-		/(-)?right-(\d+)/,
-		([, neg, num]) =>
-			`right: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	[
-		/(-)?right-(\d+\/\d+)/,
-		([, neg, frac]) => `right: calc(${frac} * ${neg ? "-" : ""}100%);`,
-	],
-	["right-px", "right: 1px;"],
-	["-right-px", "right: -1px;"],
-	["right-full", "right: 100%;"],
-	["-right-full", "right: -100%;"],
-	["right-auto", "right: auto;"],
-	[/right-\((.+)\)/, ([, prop]) => `right: var(${prop});`],
-	[/right-\[(.+)\]/, ([, value]) => `right: ${value};`],
-
-	// bottom
-	[
-		/(-)?bottom-(\d+)/,
-		([, neg, num]) =>
-			`bottom: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	[
-		/(-)?bottom-(\d+\/\d+)/,
-		([, neg, frac]) => `bottom: calc(${frac} * ${neg ? "-" : ""}100%);`,
-	],
-	["bottom-px", "bottom: 1px;"],
-	["-bottom-px", "bottom: -1px;"],
-	["bottom-full", "bottom: 100%;"],
-	["-bottom-full", "bottom: -100%;"],
-	["bottom-auto", "bottom: auto;"],
-	[/bottom-\((.+)\)/, ([, prop]) => `bottom: var(${prop});`],
-	[/bottom-\[(.+)\]/, ([, value]) => `bottom: ${value};`],
-
-	// left
-	[
-		/(-)?left-(\d+)/,
-		([, neg, num]) =>
-			`left: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	[
-		/(-)?left-(\d+\/\d+)/,
-		([, neg, frac]) => `left: calc(${frac} * ${neg ? "-" : ""}100%);`,
-	],
-	["left-px", "left: 1px;"],
-	["-left-px", "left: -1px;"],
-	["left-full", "left: 100%;"],
-	["-left-full", "left: -100%;"],
-	["left-auto", "left: auto;"],
-	[/left-\((.+)\)/, ([, prop]) => `left: var(${prop});`],
-	[/left-\[(.+)\]/, ([, value]) => `left: ${value};`],
+	// top/bottom/right/left
+	...directionRules(),
 
 	// visibility
 	["visible", "visibility: visible;"],
