@@ -1,5 +1,5 @@
-import test from "node:test"
 import assert from "node:assert"
+import test from "node:test"
 
 import { Generator } from "../dist/index.js"
 import WIND4 from "../dist/wind4.js"
