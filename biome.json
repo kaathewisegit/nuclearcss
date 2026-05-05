@@ -2,8 +2,9 @@
 	"files": {
 		"includes": [
 			"*.json",
+			"scripts/*.json",
 			"src/**/*.ts",
-			"scripts/*.js",
+			"scripts/*.ts",
 			"test/*.ts"
 		]
 	},

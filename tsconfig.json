@@ -25,5 +25,5 @@
 		"allowArbitraryExtensions": true,
 		"rewriteRelativeImportExtensions": true
 	},
-	"include": ["./src"]
+	"include": ["./src/"]
 }
