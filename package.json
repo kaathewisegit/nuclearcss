@@ -20,7 +20,7 @@
 		"check": "biome check && tsc --noEmit",
 		"fix": "biome check --fix",
 		"build": "tsc",
-		"test": "npm run build && node --test"
+		"test": "npm run build && node --experimental-strip-types --test"
 	},
 	"main": "./dist/index.js",
 	"exports": {

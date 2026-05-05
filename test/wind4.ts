@@ -4,13 +4,13 @@ import test from "node:test"
 import { Generator } from "../dist/index.js"
 import WIND4 from "../dist/wind4.js"
 
-function generate(classes) {
+function generate(classes: string) {
 	const generator = Generator.from_options(WIND4)
 	generator.addContent(classes)
 	return generator.generate()
 }
 
-function includes(classes, ...includes) {
+function includes(classes: string, ...includes: string[]) {
 	const css = generate(classes)
 
 	for (const include of includes) {

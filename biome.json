@@ -4,7 +4,7 @@
 			"*.json",
 			"src/**/*.ts",
 			"scripts/*.js",
-			"test/*.js"
+			"test/*.ts"
 		]
 	},
 	"javascript": {
