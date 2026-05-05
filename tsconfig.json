@@ -12,7 +12,11 @@
 		"noImplicitOverride": true,
 		"allowImportingTsExtensions": true,
 		"verbatimModuleSyntax": true,
+
+		// interop
+		"erasableSyntaxOnly": true,
 		"isolatedDeclarations": true,
+		"isolatedModules": true,
 
 		// building
 		"outDir": "./dist",
