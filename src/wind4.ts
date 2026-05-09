@@ -620,247 +620,96 @@ export const FLEXBOX_GRID: Rule[] = [
 	["place-self-stretch", "place-self: stretch;"],
 ]
 
+function paddingRules(): Rule[] {
+	return [
+		["p", "padding"],
+		["px", "padding-inline"],
+		["py", "padding-block"],
+		["ps", "padding-inline-start"],
+		["pe", "padding-inline-end"],
+		["pbs", "padding-block-start"],
+		["pbe", "padding-block-end"],
+		["pt", "padding-top"],
+		["pr", "padding-right"],
+		["pb", "padding-bottom"],
+		["pl", "padding-left"],
+	].flatMap(([abbr, prop]) => [
+		[
+			`${abbr}-(\\d(\\.\\d+)?)`,
+			([, num]) => `${prop}: calc(var(--spacing) * ${num});`,
+		],
+		[`${abbr}-px`, `${prop}: 1px;`],
+		[`${abbr}-\\((.+)\\)`, ([, varbl]) => `${prop}: var(${varbl});`],
+		[`${abbr}-\\[(.+)\\]`, ([, value]) => `${prop}: ${value};`],
+	])
+}
+
+function marginRules(): Rule[] {
+	return [
+		["m", "margin"],
+		["mx", "margin-inline"],
+		["my", "margin-block"],
+		["ms", "margin-inline-start"],
+		["me", "margin-inline-end"],
+		["mbs", "margin-block-start"],
+		["mbe", "margin-block-end"],
+		["mt", "margin-top"],
+		["mr", "margin-right"],
+		["mb", "margin-bottom"],
+		["ml", "margin-left"],
+	].flatMap(([abbr, prop]) => [
+		[
+			`(-)?${abbr}-(\\d+)`,
+			([, neg, num]) =>
+				`${prop}: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
+		],
+		[`${abbr}-auto`, `${prop}: auto;`],
+		[`${abbr}-px`, `${prop}: 1px;`],
+		[`-${abbr}-px`, `${prop}: -1px;`],
+		[`${abbr}-\\((.+)\\)`, ([, p]) => `${prop}: var(${p});`],
+		[`${abbr}-\\[(.+)\\]`, ([, value]) => `${prop}: ${value};`],
+	])
+}
+
+function spaceRules(): Rule[] {
+	return [
+		["x", "inline"],
+		["y", "block"],
+	].flatMap(([axis, logical]) => [
+		[
+			`(-)?space-${axis}-(\\d+)`,
+			([, neg, num]) =>
+				`& > :not(:last-child) { --tw-space-${axis}-reverse: 0; margin-${logical}-start: calc(calc(var(--spacing) * ${neg ? "-" : ""}${num}) * var(--tw-space-${axis}-reverse)); margin-${logical}-end: calc(calc(var(--spacing) * ${neg ? "-" : ""}${num}) * calc(1 - var(--tw-space-${axis}-reverse))); }`,
+		],
+		[
+			`space-${axis}-px`,
+			`& > :not(:last-child) { --tw-space-${axis}-reverse: 0; margin-${logical}-start: calc(1px * var(--tw-space-${axis}-reverse)); margin-${logical}-end: calc(1px * calc(1 - var(--tw-space-${axis}-reverse))); }`,
+		],
+		[
+			`-space-${axis}-px`,
+			`& > :not(:last-child) { --tw-space-${axis}-reverse: 0; margin-${logical}-start: calc(-1px * var(--tw-space-${axis}-reverse)); margin-${logical}-end: calc(-1px * calc(1 - var(--tw-space-${axis}-reverse))); }`,
+		],
+		[
+			`space-${axis}-\\((.+)\\)`,
+			([, prop]) =>
+				`& > :not(:last-child) { --tw-space-${axis}-reverse: 0; margin-${logical}-start: calc(var(${prop}) * var(--tw-space-${axis}-reverse)); margin-${logical}-end: calc(var(${prop}) * calc(1 - var(--tw-space-${axis}-reverse))); }`,
+		],
+		[
+			`space-${axis}-\\[(.+)\\]`,
+			([, value]) =>
+				`& > :not(:last-child) { --tw-space-${axis}-reverse: 0; margin-${logical}-start: calc(${value} * var(--tw-space-${axis}-reverse)); margin-${logical}-end: calc(${value} * calc(1 - var(--tw-space-${axis}-reverse))); }`,
+		],
+		[
+			`space-${axis}-reverse`,
+			`& > :not(:last-child) { --tw-space-${axis}-reverse: 1; }`,
+		],
+	])
+}
+
 export const SPACING: Rule[] = [
-	// padding
-	[/p-(\d+)/, ([, num]) => `padding: calc(var(--spacing) * ${num});`],
-	["p-px", "padding: 1px;"],
-	[/p-\((.+)\)/, ([, prop]) => `padding: var(${prop});`],
-	[/p-\[(.+)\]/, ([, value]) => `padding: ${value};`],
-
-	[/px-(\d+)/, ([, num]) => `padding-inline: calc(var(--spacing) * ${num});`],
-	["px-px", "padding-inline: 1px;"],
-	[/px-\((.+)\)/, ([, prop]) => `padding-inline: var(${prop});`],
-	[/px-\[(.+)\]/, ([, value]) => `padding-inline: ${value};`],
-
-	[/py-(\d+)/, ([, num]) => `padding-block: calc(var(--spacing) * ${num});`],
-	["py-px", "padding-block: 1px;"],
-	[/py-\((.+)\)/, ([, prop]) => `padding-block: var(${prop});`],
-	[/py-\[(.+)\]/, ([, value]) => `padding-block: ${value};`],
-
-	[
-		/ps-(\d+)/,
-		([, num]) => `padding-inline-start: calc(var(--spacing) * ${num});`,
-	],
-	["ps-px", "padding-inline-start: 1px;"],
-	[/ps-\((.+)\)/, ([, prop]) => `padding-inline-start: var(${prop});`],
-	[/ps-\[(.+)\]/, ([, value]) => `padding-inline-start: ${value};`],
-
-	[
-		/pe-(\d+)/,
-		([, num]) => `padding-inline-end: calc(var(--spacing) * ${num});`,
-	],
-	["pe-px", "padding-inline-end: 1px;"],
-	[/pe-\((.+)\)/, ([, prop]) => `padding-inline-end: var(${prop});`],
-	[/pe-\[(.+)\]/, ([, value]) => `padding-inline-end: ${value};`],
-
-	[
-		/pbs-(\d+)/,
-		([, num]) => `padding-block-start: calc(var(--spacing) * ${num});`,
-	],
-	["pbs-px", "padding-block-start: 1px;"],
-	[/pbs-\((.+)\)/, ([, prop]) => `padding-block-start: var(${prop});`],
-	[/pbs-\[(.+)\]/, ([, value]) => `padding-block-start: ${value};`],
-
-	[
-		/pbe-(\d+)/,
-		([, num]) => `padding-block-end: calc(var(--spacing) * ${num});`,
-	],
-	["pbe-px", "padding-block-end: 1px;"],
-	[/pbe-\((.+)\)/, ([, prop]) => `padding-block-end: var(${prop});`],
-	[/pbe-\[(.+)\]/, ([, value]) => `padding-block-end: ${value};`],
-
-	[/pt-(\d+)/, ([, num]) => `padding-top: calc(var(--spacing) * ${num});`],
-	["pt-px", "padding-top: 1px;"],
-	[/pt-\((.+)\)/, ([, prop]) => `padding-top: var(${prop});`],
-	[/pt-\[(.+)\]/, ([, value]) => `padding-top: ${value};`],
-
-	[/pr-(\d+)/, ([, num]) => `padding-right: calc(var(--spacing) * ${num});`],
-	["pr-px", "padding-right: 1px;"],
-	[/pr-\((.+)\)/, ([, prop]) => `padding-right: var(${prop});`],
-	[/pr-\[(.+)\]/, ([, value]) => `padding-right: ${value};`],
-
-	[/pb-(\d+)/, ([, num]) => `padding-bottom: calc(var(--spacing) * ${num});`],
-	["pb-px", "padding-bottom: 1px;"],
-	[/pb-\((.+)\)/, ([, prop]) => `padding-bottom: var(${prop});`],
-	[/pb-\[(.+)\]/, ([, value]) => `padding-bottom: ${value};`],
-
-	[/pl-(\d+)/, ([, num]) => `padding-left: calc(var(--spacing) * ${num});`],
-	["pl-px", "padding-left: 1px;"],
-	[/pl-\((.+)\)/, ([, prop]) => `padding-left: var(${prop});`],
-	[/pl-\[(.+)\]/, ([, value]) => `padding-left: ${value};`],
-
-	// margin
-	[
-		/(-)?m-(\d+)/,
-		([, neg, num]) =>
-			`margin: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	["m-auto", "margin: auto;"],
-	["m-px", "margin: 1px;"],
-	["-m-px", "margin: -1px;"],
-	[/m-\((.+)\)/, ([, prop]) => `margin: var(${prop});`],
-	[/m-\[(.+)\]/, ([, value]) => `margin: ${value};`],
-
-	[
-		/(-)?mx-(\d+)/,
-		([, neg, num]) =>
-			`margin-inline: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	["mx-auto", "margin-inline: auto;"],
-	["mx-px", "margin-inline: 1px;"],
-	["-mx-px", "margin-inline: -1px;"],
-	[/mx-\((.+)\)/, ([, prop]) => `margin-inline: var(${prop});`],
-	[/mx-\[(.+)\]/, ([, value]) => `margin-inline: ${value};`],
-
-	[
-		/(-)?my-(\d+)/,
-		([, neg, num]) =>
-			`margin-block: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	["my-auto", "margin-block: auto;"],
-	["my-px", "margin-block: 1px;"],
-	["-my-px", "margin-block: -1px;"],
-	[/my-\((.+)\)/, ([, prop]) => `margin-block: var(${prop});`],
-	[/my-\[(.+)\]/, ([, value]) => `margin-block: ${value};`],
-
-	[
-		/(-)?ms-(\d+)/,
-		([, neg, num]) =>
-			`margin-inline-start: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	["ms-auto", "margin-inline-start: auto;"],
-	["ms-px", "margin-inline-start: 1px;"],
-	["-ms-px", "margin-inline-start: -1px;"],
-	[/ms-\((.+)\)/, ([, prop]) => `margin-inline-start: var(${prop});`],
-	[/ms-\[(.+)\]/, ([, value]) => `margin-inline-start: ${value};`],
-
-	[
-		/(-)?me-(\d+)/,
-		([, neg, num]) =>
-			`margin-inline-end: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	["me-auto", "margin-inline-end: auto;"],
-	["me-px", "margin-inline-end: 1px;"],
-	["-me-px", "margin-inline-end: -1px;"],
-	[/me-\((.+)\)/, ([, prop]) => `margin-inline-end: var(${prop});`],
-	[/me-\[(.+)\]/, ([, value]) => `margin-inline-end: ${value};`],
-
-	[
-		/(-)?mbs-(\d+)/,
-		([, neg, num]) =>
-			`margin-block-start: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	["mbs-auto", "margin-block-start: auto;"],
-	["mbs-px", "margin-block-start: 1px;"],
-	["-mbs-px", "margin-block-start: -1px;"],
-	[/mbs-\((.+)\)/, ([, prop]) => `margin-block-start: var(${prop});`],
-	[/mbs-\[(.+)\]/, ([, value]) => `margin-block-start: ${value};`],
-
-	[
-		/(-)?mbe-(\d+)/,
-		([, neg, num]) =>
-			`margin-block-end: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	["mbe-auto", "margin-block-end: auto;"],
-	["mbe-px", "margin-block-end: 1px;"],
-	["-mbe-px", "margin-block-end: -1px;"],
-	[/mbe-\((.+)\)/, ([, prop]) => `margin-block-end: var(${prop});`],
-	[/mbe-\[(.+)\]/, ([, value]) => `margin-block-end: ${value};`],
-
-	[
-		/(-)?mt-(\d+)/,
-		([, neg, num]) =>
-			`margin-top: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	["mt-auto", "margin-top: auto;"],
-	["mt-px", "margin-top: 1px;"],
-	["-mt-px", "margin-top: -1px;"],
-	[/mt-\((.+)\)/, ([, prop]) => `margin-top: var(${prop});`],
-	[/mt-\[(.+)\]/, ([, value]) => `margin-top: ${value};`],
-
-	[
-		/(-)?mr-(\d+)/,
-		([, neg, num]) =>
-			`margin-right: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	["mr-auto", "margin-right: auto;"],
-	["mr-px", "margin-right: 1px;"],
-	["-mr-px", "margin-right: -1px;"],
-	[/mr-\((.+)\)/, ([, prop]) => `margin-right: var(${prop});`],
-	[/mr-\[(.+)\]/, ([, value]) => `margin-right: ${value};`],
-
-	[
-		/(-)?mb-(\d+)/,
-		([, neg, num]) =>
-			`margin-bottom: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	["mb-auto", "margin-bottom: auto;"],
-	["mb-px", "margin-bottom: 1px;"],
-	["-mb-px", "margin-bottom: -1px;"],
-	[/mb-\((.+)\)/, ([, prop]) => `margin-bottom: var(${prop});`],
-	[/mb-\[(.+)\]/, ([, value]) => `margin-bottom: ${value};`],
-
-	[
-		/(-)?ml-(\d+)/,
-		([, neg, num]) =>
-			`margin-left: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	["ml-auto", "margin-left: auto;"],
-	["ml-px", "margin-left: 1px;"],
-	["-ml-px", "margin-left: -1px;"],
-	[/ml-\((.+)\)/, ([, prop]) => `margin-left: var(${prop});`],
-	[/ml-\[(.+)\]/, ([, value]) => `margin-left: ${value};`],
-
-	// space-between
-	[
-		/(-)?space-x-(\d+)/,
-		([, neg, num]) =>
-			`& > :not(:last-child) { --tw-space-x-reverse: 0; margin-inline-start: calc(calc(var(--spacing) * ${neg ? "-" : ""}${num}) * var(--tw-space-x-reverse)); margin-inline-end: calc(calc(var(--spacing) * ${neg ? "-" : ""}${num}) * calc(1 - var(--tw-space-x-reverse))); }`,
-	],
-	[
-		"space-x-px",
-		"& > :not(:last-child) { --tw-space-x-reverse: 0; margin-inline-start: calc(1px * var(--tw-space-x-reverse)); margin-inline-end: calc(1px * calc(1 - var(--tw-space-x-reverse))); }",
-	],
-	[
-		"-space-x-px",
-		"& > :not(:last-child) { --tw-space-x-reverse: 0; margin-inline-start: calc(-1px * var(--tw-space-x-reverse)); margin-inline-end: calc(-1px * calc(1 - var(--tw-space-x-reverse))); }",
-	],
-	[
-		/space-x-\((.+)\)/,
-		([, prop]) =>
-			`& > :not(:last-child) { --tw-space-x-reverse: 0; margin-inline-start: calc(var(${prop}) * var(--tw-space-x-reverse)); margin-inline-end: calc(var(${prop}) * calc(1 - var(--tw-space-x-reverse))); }`,
-	],
-	[
-		/space-x-\[(.+)\]/,
-		([, value]) =>
-			`& > :not(:last-child) { --tw-space-x-reverse: 0; margin-inline-start: calc(${value} * var(--tw-space-x-reverse)); margin-inline-end: calc(${value} * calc(1 - var(--tw-space-x-reverse))); }`,
-	],
-	["space-x-reverse", "& > :not(:last-child) { --tw-space-x-reverse: 1; }"],
-
-	[
-		/(-)?space-y-(\d+)/,
-		([, neg, num]) =>
-			`& > :not(:last-child) { --tw-space-y-reverse: 0; margin-block-start: calc(calc(var(--spacing) * ${neg ? "-" : ""}${num}) * var(--tw-space-y-reverse)); margin-block-end: calc(calc(var(--spacing) * ${neg ? "-" : ""}${num}) * calc(1 - var(--tw-space-y-reverse))); }`,
-	],
-	[
-		"space-y-px",
-		"& > :not(:last-child) { --tw-space-y-reverse: 0; margin-block-start: calc(1px * var(--tw-space-y-reverse)); margin-block-end: calc(1px * calc(1 - var(--tw-space-y-reverse))); }",
-	],
-	[
-		"-space-y-px",
-		"& > :not(:last-child) { --tw-space-y-reverse: 0; margin-block-start: calc(-1px * var(--tw-space-y-reverse)); margin-block-end: calc(-1px * calc(1 - var(--tw-space-y-reverse))); }",
-	],
-	[
-		/space-y-\((.+)\)/,
-		([, prop]) =>
-			`& > :not(:last-child) { --tw-space-y-reverse: 0; margin-block-start: calc(var(${prop}) * var(--tw-space-y-reverse)); margin-block-end: calc(var(${prop}) * calc(1 - var(--tw-space-y-reverse))); }`,
-	],
-	[
-		/space-y-\[(.+)\]/,
-		([, value]) =>
-			`& > :not(:last-child) { --tw-space-y-reverse: 0; margin-block-start: calc(${value} * var(--tw-space-y-reverse)); margin-block-end: calc(${value} * calc(1 - var(--tw-space-y-reverse))); }`,
-	],
-	["space-y-reverse", "& > :not(:last-child) { --tw-space-y-reverse: 1; }"],
+	...paddingRules(),
+	...marginRules(),
+	...spaceRules(),
 ]
 
 export const SIZING: Rule[] = [
