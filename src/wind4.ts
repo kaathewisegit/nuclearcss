@@ -1815,7 +1815,45 @@ export const TABLES: Rule[] = [
 	["border-collapse", "border-collapse: collapse;"],
 	["border-separate", "border-collapse: separate;"],
 
-	// TODO: border-spacing
+	// border-spacing
+	[
+		/border-spacing-(\d+)/,
+		([, num]) => `border-spacing: calc(var(--spacing) * ${num});`,
+	],
+	[/border-spacing-\((.+)\)/, ([, prop]) => `border-spacing: var(${prop});`],
+	[/border-spacing-\[(.+)\]/, ([, value]) => `border-spacing: ${value};`],
+
+	[
+		/border-spacing-x-(\d+)/,
+		([, num]) =>
+			`--tw-border-spacing-x: calc(var(--spacing) * ${num}); border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);`,
+	],
+	[
+		/border-spacing-x-\((.+)\)/,
+		([, prop]) =>
+			`--tw-border-spacing-x: var(${prop}); border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);`,
+	],
+	[
+		/border-spacing-x-\[(.+)\]/,
+		([, value]) =>
+			`--tw-border-spacing-x: ${value}; border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);`,
+	],
+
+	[
+		/border-spacing-y-(\d+)/,
+		([, num]) =>
+			`--tw-border-spacing-y: calc(var(--spacing) * ${num}); border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);`,
+	],
+	[
+		/border-spacing-y-\((.+)\)/,
+		([, prop]) =>
+			`--tw-border-spacing-y: var(${prop}); border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);`,
+	],
+	[
+		/border-spacing-y-\[(.+)\]/,
+		([, value]) =>
+			`--tw-border-spacing-y: ${value}; border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);`,
+	],
 
 	// table-layout
 	["table-auto", "table-layout: auto;"],
@@ -1833,8 +1871,8 @@ export const WIND4_RULES: Rule[] = [
 	...SIZING,
 	...TYPOGRAPHY,
 	...BACKGROUNDS,
-	...BORDERS,
 	...TABLES,
+	...BORDERS,
 ]
 
 function verbatimState(...names: string[]): State[] {
@@ -1993,6 +2031,9 @@ export const WIND4_THEME = {
 		"ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
 
 	"--spacing": "0.25rem",
+
+	"--tw-border-spacing-x": "0",
+	"--tw-border-spacing-y": "0",
 
 	// colors
 	"--color-red-50": "oklch(97.1% 0.013 17.38)",

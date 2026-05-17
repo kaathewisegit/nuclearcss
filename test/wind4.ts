@@ -190,3 +190,47 @@ test("space", () => {
 		)
 	}
 })
+
+test("border-spacing", () => {
+	includes("border-collapse", "border-collapse: collapse;")
+	includes("border-separate", "border-collapse: separate;")
+
+	includes("border-spacing-2", "border-spacing: calc(var(--spacing) * 2);")
+	includes(
+		"border-spacing-(--my-spacing)",
+		"border-spacing: var(--my-spacing);",
+	)
+	includes("border-spacing-[8px]", "border-spacing: 8px;")
+
+	includes(
+		"border-spacing-x-2",
+		"--tw-border-spacing-x: calc(var(--spacing) * 2);",
+		"border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);",
+	)
+	includes(
+		"border-spacing-x-(--my-spacing)",
+		"--tw-border-spacing-x: var(--my-spacing);",
+		"border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);",
+	)
+	includes(
+		"border-spacing-x-[8px]",
+		"--tw-border-spacing-x: 8px;",
+		"border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);",
+	)
+
+	includes(
+		"border-spacing-y-3",
+		"--tw-border-spacing-y: calc(var(--spacing) * 3);",
+		"border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);",
+	)
+	includes(
+		"border-spacing-y-(--my-spacing)",
+		"--tw-border-spacing-y: var(--my-spacing);",
+		"border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);",
+	)
+	includes(
+		"border-spacing-y-[12px]",
+		"--tw-border-spacing-y: 12px;",
+		"border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);",
+	)
+})
