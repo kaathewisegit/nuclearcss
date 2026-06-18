@@ -1,6 +1,6 @@
 {
 	"name": "@kaathewise/nuclearcss",
-	"version": "0.1.0-alpha.5",
+	"version": "0.1.0-alpha.6",
 	"description": "Basic atomic CSS engine",
 	"license": "MPL-2.0",
 	"author": "Andrej Kolčin",
