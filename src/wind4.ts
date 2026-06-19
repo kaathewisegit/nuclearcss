@@ -1864,6 +1864,247 @@ export const TABLES: Rule[] = [
 	["caption-bottom", "caption-side: bottom;"],
 ]
 
+function scrollMarginRules(): Rule[] {
+	return [
+		["scroll-m", "scroll-margin"],
+		["scroll-mx", "scroll-margin-inline"],
+		["scroll-my", "scroll-margin-block"],
+		["scroll-ms", "scroll-margin-inline-start"],
+		["scroll-me", "scroll-margin-inline-end"],
+		["scroll-mbs", "scroll-margin-block-start"],
+		["scroll-mbe", "scroll-margin-block-end"],
+		["scroll-mt", "scroll-margin-top"],
+		["scroll-mr", "scroll-margin-right"],
+		["scroll-mb", "scroll-margin-bottom"],
+		["scroll-ml", "scroll-margin-left"],
+	].flatMap(([abbr, prop]) => [
+		[
+			`(-)?${abbr}-(\\d+)`,
+			([, neg, num]) =>
+				`${prop}: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
+		],
+		[`${abbr}-\\((.+)\\)`, ([, p]) => `${prop}: var(${p});`],
+		[`${abbr}-\\[(.+)\\]`, ([, value]) => `${prop}: ${value};`],
+	])
+}
+
+function scrollPaddingRules(): Rule[] {
+	return [
+		["scroll-p", "scroll-padding"],
+		["scroll-px", "scroll-padding-inline"],
+		["scroll-py", "scroll-padding-block"],
+		["scroll-ps", "scroll-padding-inline-start"],
+		["scroll-pe", "scroll-padding-inline-end"],
+		["scroll-pbs", "scroll-padding-block-start"],
+		["scroll-pbe", "scroll-padding-block-end"],
+		["scroll-pt", "scroll-padding-top"],
+		["scroll-pr", "scroll-padding-right"],
+		["scroll-pb", "scroll-padding-bottom"],
+		["scroll-pl", "scroll-padding-left"],
+	].flatMap(([abbr, prop]) => [
+		[
+			`(-)?${abbr}-(\\d+)`,
+			([, neg, num]) =>
+				`${prop}: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
+		],
+		[`${abbr}-\\((.+)\\)`, ([, p]) => `${prop}: var(${p});`],
+		[`${abbr}-\\[(.+)\\]`, ([, value]) => `${prop}: ${value};`],
+	])
+}
+
+export const INTERACTIVITY: Rule[] = [
+	// accent-color
+	["accent-inherit", "accent-color: inherit;"],
+	["accent-current", "accent-color: currentColor;"],
+	["accent-transparent", "accent-color: transparent;"],
+	[
+		/accent-([a-z]+(?:-\d+)?)/,
+		([, color]) => `accent-color: var(--color-${color});`,
+	],
+	[/accent-\((.+)\)/, ([, prop]) => `accent-color: var(${prop});`],
+	[/accent-\[(.+)\]/, ([, value]) => `accent-color: ${value};`],
+
+	// appearance
+	["appearance-none", "appearance: none;"],
+	["appearance-auto", "appearance: auto;"],
+
+	// caret-color
+	["caret-inherit", "caret-color: inherit;"],
+	["caret-current", "caret-color: currentColor;"],
+	["caret-transparent", "caret-color: transparent;"],
+	[
+		/caret-([a-z]+(?:-\d+)?)/,
+		([, color]) => `caret-color: var(--color-${color});`,
+	],
+	[/caret-\((.+)\)/, ([, prop]) => `caret-color: var(${prop});`],
+	[/caret-\[(.+)\]/, ([, value]) => `caret-color: ${value};`],
+
+	// color-scheme
+	["scheme-normal", "color-scheme: normal;"],
+	["scheme-dark", "color-scheme: dark;"],
+	["scheme-light", "color-scheme: light;"],
+	["scheme-light-dark", "color-scheme: light dark;"],
+	["scheme-only-dark", "color-scheme: only dark;"],
+	["scheme-only-light", "color-scheme: only light;"],
+
+	// cursor
+	["cursor-auto", "cursor: auto;"],
+	["cursor-default", "cursor: default;"],
+	["cursor-pointer", "cursor: pointer;"],
+	["cursor-wait", "cursor: wait;"],
+	["cursor-text", "cursor: text;"],
+	["cursor-move", "cursor: move;"],
+	["cursor-help", "cursor: help;"],
+	["cursor-not-allowed", "cursor: not-allowed;"],
+	["cursor-none", "cursor: none;"],
+	["cursor-context-menu", "cursor: context-menu;"],
+	["cursor-progress", "cursor: progress;"],
+	["cursor-cell", "cursor: cell;"],
+	["cursor-crosshair", "cursor: crosshair;"],
+	["cursor-vertical-text", "cursor: vertical-text;"],
+	["cursor-alias", "cursor: alias;"],
+	["cursor-copy", "cursor: copy;"],
+	["cursor-no-drop", "cursor: no-drop;"],
+	["cursor-grab", "cursor: grab;"],
+	["cursor-grabbing", "cursor: grabbing;"],
+	["cursor-all-scroll", "cursor: all-scroll;"],
+	["cursor-col-resize", "cursor: col-resize;"],
+	["cursor-row-resize", "cursor: row-resize;"],
+	["cursor-n-resize", "cursor: n-resize;"],
+	["cursor-e-resize", "cursor: e-resize;"],
+	["cursor-s-resize", "cursor: s-resize;"],
+	["cursor-w-resize", "cursor: w-resize;"],
+	["cursor-ne-resize", "cursor: ne-resize;"],
+	["cursor-nw-resize", "cursor: nw-resize;"],
+	["cursor-se-resize", "cursor: se-resize;"],
+	["cursor-sw-resize", "cursor: sw-resize;"],
+	["cursor-ew-resize", "cursor: ew-resize;"],
+	["cursor-ns-resize", "cursor: ns-resize;"],
+	["cursor-nesw-resize", "cursor: nesw-resize;"],
+	["cursor-nwse-resize", "cursor: nwse-resize;"],
+	["cursor-zoom-in", "cursor: zoom-in;"],
+	["cursor-zoom-out", "cursor: zoom-out;"],
+	[/cursor-\((.+)\)/, ([, prop]) => `cursor: var(${prop});`],
+	[/cursor-\[(.+)\]/, ([, value]) => `cursor: ${value};`],
+
+	// field-sizing
+	["field-sizing-fixed", "field-sizing: fixed;"],
+	["field-sizing-content", "field-sizing: content;"],
+
+	// pointer-events
+	["pointer-events-auto", "pointer-events: auto;"],
+	["pointer-events-none", "pointer-events: none;"],
+
+	// resize
+	["resize-none", "resize: none;"],
+	["resize", "resize: both;"],
+	["resize-y", "resize: vertical;"],
+	["resize-x", "resize: horizontal;"],
+
+	// scroll-behavior
+	["scroll-auto", "scroll-behavior: auto;"],
+	["scroll-smooth", "scroll-behavior: smooth;"],
+
+	// scrollbar-color
+	[
+		"scrollbar-thumb-inherit",
+		"--tw-scrollbar-thumb: inherit; scrollbar-color: var(--tw-scrollbar-thumb) var(--tw-scrollbar-track);",
+	],
+	[
+		"scrollbar-thumb-current",
+		"--tw-scrollbar-thumb: currentColor; scrollbar-color: var(--tw-scrollbar-thumb) var(--tw-scrollbar-track);",
+	],
+	[
+		"scrollbar-thumb-transparent",
+		"--tw-scrollbar-thumb: transparent; scrollbar-color: var(--tw-scrollbar-thumb) var(--tw-scrollbar-track);",
+	],
+	[
+		/scrollbar-thumb-([a-z]+(?:-\d+)?)/,
+		([, color]) =>
+			`--tw-scrollbar-thumb: var(--color-${color}); scrollbar-color: var(--tw-scrollbar-thumb) var(--tw-scrollbar-track);`,
+	],
+	[
+		/scrollbar-thumb-\((.+)\)/,
+		([, prop]) =>
+			`--tw-scrollbar-thumb: var(${prop}); scrollbar-color: var(--tw-scrollbar-thumb) var(--tw-scrollbar-track);`,
+	],
+	[
+		/scrollbar-thumb-\[(.+)\]/,
+		([, value]) =>
+			`--tw-scrollbar-thumb: ${value}; scrollbar-color: var(--tw-scrollbar-thumb) var(--tw-scrollbar-track);`,
+	],
+	[
+		/scrollbar-track-\((.+)\)/,
+		([, prop]) =>
+			`--tw-scrollbar-track: var(${prop}); scrollbar-color: var(--tw-scrollbar-thumb) var(--tw-scrollbar-track);`,
+	],
+	[
+		/scrollbar-track-\[(.+)\]/,
+		([, value]) =>
+			`--tw-scrollbar-track: ${value}; scrollbar-color: var(--tw-scrollbar-thumb) var(--tw-scrollbar-track);`,
+	],
+
+	// scrollbar-width
+	["scrollbar-auto", "scrollbar-width: auto;"],
+	["scrollbar-thin", "scrollbar-width: thin;"],
+	["scrollbar-none", "scrollbar-width: none;"],
+
+	// scrollbar-gutter
+	["scrollbar-gutter-auto", "scrollbar-gutter: auto;"],
+	["scrollbar-gutter-stable", "scrollbar-gutter: stable;"],
+	["scrollbar-gutter-both", "scrollbar-gutter: stable both-edges;"],
+
+	// scroll-margin
+	...scrollMarginRules(),
+
+	// scroll-padding
+	...scrollPaddingRules(),
+
+	// scroll-snap-align
+	["snap-start", "scroll-snap-align: start;"],
+	["snap-end", "scroll-snap-align: end;"],
+	["snap-center", "scroll-snap-align: center;"],
+	["snap-align-none", "scroll-snap-align: none;"],
+
+	// scroll-snap-stop
+	["snap-normal", "scroll-snap-stop: normal;"],
+	["snap-always", "scroll-snap-stop: always;"],
+
+	// scroll-snap-type
+	["snap-none", "scroll-snap-type: none;"],
+	["snap-x", "scroll-snap-type: x var(--tw-scroll-snap-strictness);"],
+	["snap-y", "scroll-snap-type: y var(--tw-scroll-snap-strictness);"],
+	["snap-both", "scroll-snap-type: both var(--tw-scroll-snap-strictness);"],
+	["snap-mandatory", "--tw-scroll-snap-strictness: mandatory;"],
+	["snap-proximity", "--tw-scroll-snap-strictness: proximity;"],
+
+	// touch-action
+	["touch-auto", "touch-action: auto;"],
+	["touch-none", "touch-action: none;"],
+	["touch-pan-x", "touch-action: pan-x;"],
+	["touch-pan-left", "touch-action: pan-left;"],
+	["touch-pan-right", "touch-action: pan-right;"],
+	["touch-pan-y", "touch-action: pan-y;"],
+	["touch-pan-up", "touch-action: pan-up;"],
+	["touch-pan-down", "touch-action: pan-down;"],
+	["touch-pinch-zoom", "touch-action: pinch-zoom;"],
+	["touch-manipulation", "touch-action: manipulation;"],
+
+	// user-select
+	["select-none", "user-select: none;"],
+	["select-text", "user-select: text;"],
+	["select-all", "user-select: all;"],
+	["select-auto", "user-select: auto;"],
+
+	// will-change
+	["will-change-auto", "will-change: auto;"],
+	["will-change-scroll", "will-change: scroll-position;"],
+	["will-change-contents", "will-change: contents;"],
+	["will-change-transform", "will-change: transform;"],
+	[/will-change-\((.+)\)/, ([, prop]) => `will-change: var(${prop});`],
+	[/will-change-\[(.+)\]/, ([, value]) => `will-change: ${value};`],
+]
+
 export const WIND4_RULES: Rule[] = [
 	...LAYOUT,
 	...FLEXBOX_GRID,
@@ -1873,6 +2114,7 @@ export const WIND4_RULES: Rule[] = [
 	...BACKGROUNDS,
 	...TABLES,
 	...BORDERS,
+	...INTERACTIVITY,
 ]
 
 function verbatimState(...names: string[]): State[] {
