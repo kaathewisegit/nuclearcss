@@ -557,3 +557,253 @@ test("inline-size", () => {
 		includes(`${abbr}-[10px]`, `${property}: 10px;`)
 	}
 })
+
+test("box-shadow", () => {
+	for (const size of ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"]) {
+		includes(`shadow-${size}`, `box-shadow: var(--shadow-${size});`)
+	}
+	includes("shadow-none", "box-shadow: 0 0 #0000;")
+	includes("shadow-(--my-shadow)", "box-shadow: var(--my-shadow);")
+	includes("shadow-(color:--my-color)", "--tw-shadow-color: var(--my-color);")
+	includes("shadow-[1px_2px]", "box-shadow: 1px_2px;")
+	includes("shadow-inherit", "--tw-shadow-color: inherit;")
+	includes("shadow-current", "--tw-shadow-color: currentColor;")
+	includes("shadow-transparent", "--tw-shadow-color: transparent;")
+	includes("shadow-red-500", "--tw-shadow-color: var(--color-red-500);")
+	includes("shadow-black", "--tw-shadow-color: var(--color-black);")
+})
+
+test("inset-shadow", () => {
+	for (const size of ["2xs", "xs", "sm"]) {
+		includes(
+			`inset-shadow-${size}`,
+			`box-shadow: var(--inset-shadow-${size});`,
+		)
+	}
+	includes("inset-shadow-none", "box-shadow: inset 0 0 #0000;")
+	includes("inset-shadow-(--my-shadow)", "box-shadow: var(--my-shadow);")
+	includes("inset-shadow-[1px_2px]", "box-shadow: 1px_2px;")
+	includes("inset-shadow-inherit", "--tw-inset-shadow-color: inherit;")
+	includes("inset-shadow-current", "--tw-inset-shadow-color: currentColor;")
+	includes(
+		"inset-shadow-transparent",
+		"--tw-inset-shadow-color: transparent;",
+	)
+	includes(
+		"inset-shadow-red-500",
+		"--tw-inset-shadow-color: var(--color-red-500);",
+	)
+})
+
+test("ring", () => {
+	includes("ring", "--tw-ring-shadow: 0 0 0 1px;")
+	includes("ring-4", "--tw-ring-shadow: 0 0 0 4px;")
+	includes("ring-2.5", "--tw-ring-shadow: 0 0 0 2.5px;")
+	includes("ring-(--my-ring)", "--tw-ring-shadow: 0 0 0 var(--my-ring);")
+	includes("ring-[2px]", "--tw-ring-shadow: 0 0 0 2px;")
+	includes("ring-inherit", "--tw-ring-color: inherit;")
+	includes("ring-current", "--tw-ring-color: currentColor;")
+	includes("ring-transparent", "--tw-ring-color: transparent;")
+	includes("ring-red-500", "--tw-ring-color: var(--color-red-500);")
+})
+
+test("text-shadow", () => {
+	for (const size of ["2xs", "xs", "sm", "md", "lg"]) {
+		includes(
+			`text-shadow-${size}`,
+			`text-shadow: var(--text-shadow-${size});`,
+		)
+	}
+	includes("text-shadow-none", "text-shadow: none;")
+	includes("text-shadow-(--my-shadow)", "text-shadow: var(--my-shadow);")
+	includes(
+		"text-shadow-(color:--my-color)",
+		"--tw-text-shadow-color: var(--my-color);",
+	)
+	includes("text-shadow-[1px_2px]", "text-shadow: 1px_2px;")
+	includes("text-shadow-inherit", "--tw-text-shadow-color: inherit;")
+	includes("text-shadow-current", "--tw-text-shadow-color: currentColor;")
+	includes("text-shadow-transparent", "--tw-text-shadow-color: transparent;")
+	includes(
+		"text-shadow-red-500",
+		"--tw-text-shadow-color: var(--color-red-500);",
+	)
+})
+
+test("opacity", () => {
+	includes("opacity-50", "opacity: 50%;")
+	includes("opacity-100", "opacity: 100%;")
+	includes("opacity-33.3", "opacity: 33.3%;")
+	includes("opacity-(--my-opacity)", "opacity: var(--my-opacity);")
+	includes("opacity-[0.5]", "opacity: 0.5;")
+})
+
+test("mix-blend-mode", () => {
+	const modes = [
+		"normal",
+		"multiply",
+		"screen",
+		"overlay",
+		"darken",
+		"lighten",
+		"color-dodge",
+		"color-burn",
+		"hard-light",
+		"soft-light",
+		"difference",
+		"exclusion",
+		"hue",
+		"saturation",
+		"color",
+		"luminosity",
+		"plus-darker",
+		"plus-lighter",
+	]
+	for (const mode of modes) {
+		includes(`mix-blend-${mode}`, `mix-blend-mode: ${mode};`)
+	}
+})
+
+test("background-blend-mode", () => {
+	const modes = [
+		"normal",
+		"multiply",
+		"screen",
+		"overlay",
+		"darken",
+		"lighten",
+		"color-dodge",
+		"color-burn",
+		"hard-light",
+		"soft-light",
+		"difference",
+		"exclusion",
+		"hue",
+		"saturation",
+		"color",
+		"luminosity",
+	]
+	for (const mode of modes) {
+		includes(`bg-blend-${mode}`, `background-blend-mode: ${mode};`)
+	}
+})
+
+test("mask-clip", () => {
+	includes("mask-clip-border", "mask-clip: border-box;")
+	includes("mask-clip-padding", "mask-clip: padding-box;")
+	includes("mask-clip-content", "mask-clip: content-box;")
+	includes("mask-clip-fill", "mask-clip: fill-box;")
+	includes("mask-clip-stroke", "mask-clip: stroke-box;")
+	includes("mask-clip-view", "mask-clip: view-box;")
+	includes("mask-no-clip", "mask-clip: no-clip;")
+})
+
+test("mask-composite", () => {
+	includes("mask-add", "mask-composite: add;")
+	includes("mask-subtract", "mask-composite: subtract;")
+	includes("mask-intersect", "mask-composite: intersect;")
+	includes("mask-exclude", "mask-composite: exclude;")
+})
+
+test("mask-image base", () => {
+	includes("mask-none", "mask-image: none;")
+	includes("mask-(--my-mask)", "mask-image: var(--my-mask);")
+	includes("mask-[url(pic.png)]", "mask-image: url(pic.png);")
+})
+
+test("mask-image linear", () => {
+	includes(
+		"mask-linear-90",
+		"mask-image: linear-gradient(90deg, black var(--tw-mask-linear-from), transparent var(--tw-mask-linear-to));",
+	)
+	includes(
+		"-mask-linear-90",
+		"mask-image: linear-gradient(calc(90deg * -1), black var(--tw-mask-linear-from), transparent var(--tw-mask-linear-to));",
+	)
+	includes(
+		"mask-linear-from-50",
+		"mask-image: linear-gradient(var(--tw-mask-linear-position), black calc(var(--spacing) * 50), transparent var(--tw-mask-linear-to));",
+	)
+	includes(
+		"mask-linear-from-50%",
+		"mask-image: linear-gradient(var(--tw-mask-linear-position), black 50%, transparent var(--tw-mask-linear-to));",
+	)
+	includes(
+		"mask-linear-from-red",
+		"mask-image: linear-gradient(var(--tw-mask-linear-position), red var(--tw-mask-linear-from), transparent var(--tw-mask-linear-to));",
+	)
+	includes(
+		"mask-linear-from-(--my-pos)",
+		"mask-image: linear-gradient(var(--tw-mask-linear-position), black var(--my-pos), transparent var(--tw-mask-linear-to));",
+	)
+	includes(
+		"mask-linear-to-50",
+		"mask-image: linear-gradient(var(--tw-mask-linear-position), black var(--tw-mask-linear-from), transparent calc(var(--spacing) * 50));",
+	)
+	includes(
+		"mask-linear-to-red",
+		"mask-image: linear-gradient(var(--tw-mask-linear-position), black var(--tw-mask-linear-from), red var(--tw-mask-linear-to));",
+	)
+})
+
+test("mask-image directional", () => {
+	includes(
+		"mask-t-from-50",
+		"mask-image: linear-gradient(to top, black calc(var(--spacing) * 50), transparent var(--tw-mask-top-to));",
+	)
+	includes(
+		"mask-r-to-50%",
+		"mask-image: linear-gradient(to right, black var(--tw-mask-right-from), transparent 50%);",
+	)
+	includes(
+		"mask-b-from-red",
+		"mask-image: linear-gradient(to bottom, red var(--tw-mask-bottom-from), transparent var(--tw-mask-bottom-to));",
+	)
+	includes(
+		"mask-l-to-(--p)",
+		"mask-image: linear-gradient(to left, black var(--tw-mask-left-from), transparent var(--p));",
+	)
+})
+
+test("mask-image y/x", () => {
+	includes(
+		"mask-y-from-50",
+		"mask-image: linear-gradient(to top, black calc(var(--spacing) * 50), transparent var(--tw-mask-top-to)), linear-gradient(to bottom, black calc(var(--spacing) * 50), transparent var(--tw-mask-bottom-to)); mask-composite: intersect;",
+	)
+	includes(
+		"mask-x-to-red",
+		"mask-image: linear-gradient(to right, black var(--tw-mask-right-from), red var(--tw-mask-right-to)), linear-gradient(to left, black var(--tw-mask-left-from), red var(--tw-mask-left-to)); mask-composite: intersect;",
+	)
+})
+
+test("mask-image radial", () => {
+	includes(
+		"mask-radial-from-50",
+		"mask-image: radial-gradient(var(--tw-mask-radial-shape) var(--tw-mask-radial-size) at var(--tw-mask-radial-position), black calc(var(--spacing) * 50), transparent var(--tw-mask-radial-to));",
+	)
+	includes(
+		"mask-radial-to-red",
+		"radial-gradient(var(--tw-mask-radial-shape) var(--tw-mask-radial-size) at var(--tw-mask-radial-position), black var(--tw-mask-radial-from), red var(--tw-mask-radial-to))",
+	)
+	includes("mask-radial-[foo]", "mask-image: radial-gradient(foo);")
+	includes("mask-circle", "--tw-mask-radial-shape: circle;")
+	includes("mask-ellipse", "--tw-mask-radial-shape: ellipse;")
+	includes("mask-radial-closest-side", "--tw-mask-radial-size: closest-side;")
+	includes("mask-radial-at-center", "--tw-mask-radial-position: center;")
+	includes("mask-radial-at-top-left", "--tw-mask-radial-position: top left;")
+})
+
+test("mask-image conic", () => {
+	includes(
+		"mask-conic-90",
+		"mask-image: conic-gradient(from 90deg, black var(--tw-mask-conic-from), transparent var(--tw-mask-conic-to));",
+	)
+	includes(
+		"-mask-conic-90",
+		"mask-image: conic-gradient(from calc(90deg * -1), black var(--tw-mask-conic-from), transparent var(--tw-mask-conic-to));",
+	)
+	includes(
+		"mask-conic-from-50",
+		"mask-image: conic-gradient(from var(--tw-mask-conic-position), black calc(var(--spacing) * 50), transparent var(--tw-mask-conic-to));",
+	)
+})

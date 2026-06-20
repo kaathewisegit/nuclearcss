@@ -1655,6 +1655,336 @@ export const BORDERS: Rule[] = [
 	[/outline-offset-\[(.+)\]/, ([, value]) => `outline-offset: ${value};`],
 ]
 
+function maskImageRules(): Rule[] {
+	const valueTypes = [
+		["(\\d+)", (v: string) => `calc(var(--spacing) * ${v})`, false],
+		["(\\d+%)", (v: string) => v, false],
+		["([a-z]+(?:-\\d+)?)", (v: string) => v, true],
+		["\\((.+)\\)", (v: string) => `var(${v})`, false],
+		["\\[(.+)\\]", (v: string) => v, false],
+	] as const
+
+	// single axes: [prefix, gradient fn, direction, from var, to var]
+	const singleAxes = [
+		[
+			"linear",
+			"linear-gradient",
+			"var(--tw-mask-linear-position)",
+			"--tw-mask-linear-from",
+			"--tw-mask-linear-to",
+		],
+		[
+			"t",
+			"linear-gradient",
+			"to top",
+			"--tw-mask-top-from",
+			"--tw-mask-top-to",
+		],
+		[
+			"r",
+			"linear-gradient",
+			"to right",
+			"--tw-mask-right-from",
+			"--tw-mask-right-to",
+		],
+		[
+			"b",
+			"linear-gradient",
+			"to bottom",
+			"--tw-mask-bottom-from",
+			"--tw-mask-bottom-to",
+		],
+		[
+			"l",
+			"linear-gradient",
+			"to left",
+			"--tw-mask-left-from",
+			"--tw-mask-left-to",
+		],
+		[
+			"radial",
+			"radial-gradient",
+			"var(--tw-mask-radial-shape) var(--tw-mask-radial-size) at var(--tw-mask-radial-position)",
+			"--tw-mask-radial-from",
+			"--tw-mask-radial-to",
+		],
+		[
+			"conic",
+			"conic-gradient",
+			"from var(--tw-mask-conic-position)",
+			"--tw-mask-conic-from",
+			"--tw-mask-conic-to",
+		],
+	] as const
+
+	const single = singleAxes.flatMap(([p, fn, dir, fv, tv]) =>
+		valueTypes.flatMap(([matcher, core, isColor]) => [
+			[
+				`mask-${p}-from-${matcher}`,
+				([, v]: RegExpMatchArray) =>
+					`mask-image: ${fn}(${dir}, ${isColor ? `${v} var(${fv})` : `black ${core(v as string)}`}, transparent var(${tv}));`,
+			] as Rule,
+			[
+				`mask-${p}-to-${matcher}`,
+				([, v]: RegExpMatchArray) =>
+					`mask-image: ${fn}(${dir}, black var(${fv}), ${isColor ? `${v} var(${tv})` : `transparent ${core(v as string)}`});`,
+			] as Rule,
+		]),
+	)
+
+	const dualAxes = [
+		[
+			"y",
+			[
+				["to top", "--tw-mask-top-from", "--tw-mask-top-to"],
+				["to bottom", "--tw-mask-bottom-from", "--tw-mask-bottom-to"],
+			],
+		],
+		[
+			"x",
+			[
+				["to right", "--tw-mask-right-from", "--tw-mask-right-to"],
+				["to left", "--tw-mask-left-from", "--tw-mask-left-to"],
+			],
+		],
+	] as const
+
+	const dual = dualAxes.flatMap(([p, subs]) =>
+		valueTypes.flatMap(([matcher, core, isColor]) => [
+			[
+				`mask-${p}-from-${matcher}`,
+				([, v]: RegExpMatchArray) =>
+					`mask-image: ${subs
+						.map(
+							([d, sfv, stv]) =>
+								`linear-gradient(${d}, ${isColor ? `${v} var(${sfv})` : `black ${core(v as string)}`}, transparent var(${stv}))`,
+						)
+						.join(", ")}; mask-composite: intersect;`,
+			] as Rule,
+			[
+				`mask-${p}-to-${matcher}`,
+				([, v]: RegExpMatchArray) =>
+					`mask-image: ${subs
+						.map(
+							([d, sfv, stv]) =>
+								`linear-gradient(${d}, black var(${sfv}), ${isColor ? `${v} var(${stv})` : `transparent ${core(v as string)}`})`,
+						)
+						.join(", ")}; mask-composite: intersect;`,
+			] as Rule,
+		]),
+	)
+
+	return [...single, ...dual]
+}
+
+export const EFFECTS: Rule[] = [
+	// box-shadow
+	[
+		/shadow-(2xs|xs|sm|md|lg|xl|2xl)/,
+		([, size]) => `box-shadow: var(--shadow-${size});`,
+	],
+	["shadow-none", "box-shadow: 0 0 #0000;"],
+	[/shadow-\(color:(.+)\)/, ([, prop]) => `--tw-shadow-color: var(${prop});`],
+	[/shadow-\((.+)\)/, ([, prop]) => `box-shadow: var(${prop});`],
+	[/shadow-\[(.+)\]/, ([, value]) => `box-shadow: ${value};`],
+	["shadow-inherit", "--tw-shadow-color: inherit;"],
+	["shadow-current", "--tw-shadow-color: currentColor;"],
+	["shadow-transparent", "--tw-shadow-color: transparent;"],
+	[
+		/shadow-([a-z]+(?:-\d+)?)/,
+		([, color]) => `--tw-shadow-color: var(--color-${color});`,
+	],
+
+	// inset-shadow
+	[
+		/inset-shadow-(2xs|xs|sm)/,
+		([, size]) => `box-shadow: var(--inset-shadow-${size});`,
+	],
+	["inset-shadow-none", "box-shadow: inset 0 0 #0000;"],
+	[/inset-shadow-\((.+)\)/, ([, prop]) => `box-shadow: var(${prop});`],
+	[/inset-shadow-\[(.+)\]/, ([, value]) => `box-shadow: ${value};`],
+	["inset-shadow-inherit", "--tw-inset-shadow-color: inherit;"],
+	["inset-shadow-current", "--tw-inset-shadow-color: currentColor;"],
+	["inset-shadow-transparent", "--tw-inset-shadow-color: transparent;"],
+	[
+		/inset-shadow-([a-z]+(?:-\d+)?)/,
+		([, color]) => `--tw-inset-shadow-color: var(--color-${color});`,
+	],
+
+	// ring
+	["ring", "--tw-ring-shadow: 0 0 0 1px;"],
+	[/ring-([\d.]+)/, ([, num]) => `--tw-ring-shadow: 0 0 0 ${num}px;`],
+	[/ring-\((.+)\)/, ([, prop]) => `--tw-ring-shadow: 0 0 0 var(${prop});`],
+	[/ring-\[(.+)\]/, ([, value]) => `--tw-ring-shadow: 0 0 0 ${value};`],
+	["ring-inherit", "--tw-ring-color: inherit;"],
+	["ring-current", "--tw-ring-color: currentColor;"],
+	["ring-transparent", "--tw-ring-color: transparent;"],
+	[
+		/ring-([a-z]+(?:-\d+)?)/,
+		([, color]) => `--tw-ring-color: var(--color-${color});`,
+	],
+
+	// text-shadow
+	[
+		/text-shadow-(2xs|xs|sm|md|lg)/,
+		([, size]) => `text-shadow: var(--text-shadow-${size});`,
+	],
+	["text-shadow-none", "text-shadow: none;"],
+	[
+		/text-shadow-\(color:(.+)\)/,
+		([, prop]) => `--tw-text-shadow-color: var(${prop});`,
+	],
+	[/text-shadow-\((.+)\)/, ([, prop]) => `text-shadow: var(${prop});`],
+	[/text-shadow-\[(.+)\]/, ([, value]) => `text-shadow: ${value};`],
+	["text-shadow-inherit", "--tw-text-shadow-color: inherit;"],
+	["text-shadow-current", "--tw-text-shadow-color: currentColor;"],
+	["text-shadow-transparent", "--tw-text-shadow-color: transparent;"],
+	[
+		/text-shadow-([a-z]+(?:-\d+)?)/,
+		([, color]) => `--tw-text-shadow-color: var(--color-${color});`,
+	],
+
+	// opacity
+	[/opacity-([\d.]+)/, ([, num]) => `opacity: ${num}%;`],
+	[/opacity-\((.+)\)/, ([, prop]) => `opacity: var(${prop});`],
+	[/opacity-\[(.+)\]/, ([, value]) => `opacity: ${value};`],
+
+	// mix-blend-mode
+	["mix-blend-normal", "mix-blend-mode: normal;"],
+	["mix-blend-multiply", "mix-blend-mode: multiply;"],
+	["mix-blend-screen", "mix-blend-mode: screen;"],
+	["mix-blend-overlay", "mix-blend-mode: overlay;"],
+	["mix-blend-darken", "mix-blend-mode: darken;"],
+	["mix-blend-lighten", "mix-blend-mode: lighten;"],
+	["mix-blend-color-dodge", "mix-blend-mode: color-dodge;"],
+	["mix-blend-color-burn", "mix-blend-mode: color-burn;"],
+	["mix-blend-hard-light", "mix-blend-mode: hard-light;"],
+	["mix-blend-soft-light", "mix-blend-mode: soft-light;"],
+	["mix-blend-difference", "mix-blend-mode: difference;"],
+	["mix-blend-exclusion", "mix-blend-mode: exclusion;"],
+	["mix-blend-hue", "mix-blend-mode: hue;"],
+	["mix-blend-saturation", "mix-blend-mode: saturation;"],
+	["mix-blend-color", "mix-blend-mode: color;"],
+	["mix-blend-luminosity", "mix-blend-mode: luminosity;"],
+	["mix-blend-plus-darker", "mix-blend-mode: plus-darker;"],
+	["mix-blend-plus-lighter", "mix-blend-mode: plus-lighter;"],
+
+	// background-blend-mode
+	...[
+		"normal",
+		"multiply",
+		"screen",
+		"overlay",
+		"darken",
+		"lighten",
+		"color-dodge",
+		"color-burn",
+		"hard-light",
+		"soft-light",
+		"difference",
+		"exclusion",
+		"hue",
+		"saturation",
+		"color",
+		"luminosity",
+	].map(
+		(mode): Rule => [`bg-blend-${mode}`, `background-blend-mode: ${mode};`],
+	),
+
+	// mask-image
+	["mask-none", "mask-image: none;"],
+	[/mask-\((.+)\)/, ([, prop]) => `mask-image: var(${prop});`],
+	[/mask-\[(.+)\]/, ([, value]) => `mask-image: ${value};`],
+
+	// mask-image linear angle
+	[
+		/mask-linear-(\d+)/,
+		([, n]) =>
+			`mask-image: linear-gradient(${n}deg, black var(--tw-mask-linear-from), transparent var(--tw-mask-linear-to));`,
+	],
+	[
+		/-mask-linear-(\d+)/,
+		([, n]) =>
+			`mask-image: linear-gradient(calc(${n}deg * -1), black var(--tw-mask-linear-from), transparent var(--tw-mask-linear-to));`,
+	],
+
+	// mask-image conic angle
+	[
+		/mask-conic-(\d+)/,
+		([, n]) =>
+			`mask-image: conic-gradient(from ${n}deg, black var(--tw-mask-conic-from), transparent var(--tw-mask-conic-to));`,
+	],
+	[
+		/-mask-conic-(\d+)/,
+		([, n]) =>
+			`mask-image: conic-gradient(from calc(${n}deg * -1), black var(--tw-mask-conic-from), transparent var(--tw-mask-conic-to));`,
+	],
+
+	// mask-image from/to (linear, t/r/b/l, radial, conic, y, x)
+	...maskImageRules(),
+
+	// mask radial shape
+	["mask-circle", "--tw-mask-radial-shape: circle;"],
+	["mask-ellipse", "--tw-mask-radial-shape: ellipse;"],
+
+	// mask radial size
+	...[
+		"closest-corner",
+		"closest-side",
+		"farthest-corner",
+		"farthest-side",
+	].map((s): Rule => [`mask-radial-${s}`, `--tw-mask-radial-size: ${s};`]),
+
+	// mask radial position
+	...(
+		[
+			["at-top-left", "top left"],
+			["at-top", "top"],
+			["at-top-right", "top right"],
+			["at-left", "left"],
+			["at-center", "center"],
+			["at-right", "right"],
+			["at-bottom-left", "bottom left"],
+			["at-bottom", "bottom"],
+			["at-bottom-right", "bottom right"],
+		] as const
+	).map(
+		([s, v]): Rule => [
+			`mask-radial-${s}`,
+			`--tw-mask-radial-position: ${v};`,
+		],
+	),
+
+	// mask radial arbitrary
+	[
+		/mask-radial-\[(.+)\]/,
+		([, value]) => `mask-image: radial-gradient(${value});`,
+	],
+
+	// mask-clip
+	...(
+		[
+			["border", "border-box"],
+			["padding", "padding-box"],
+			["content", "content-box"],
+			["fill", "fill-box"],
+			["stroke", "stroke-box"],
+			["view", "view-box"],
+		] as const
+	).map(([s, v]): Rule => [`mask-clip-${s}`, `mask-clip: ${v};`]),
+	["mask-no-clip", "mask-clip: no-clip;"],
+
+	// mask-composite
+	...(
+		[
+			["mask-add", "add"],
+			["mask-subtract", "subtract"],
+			["mask-intersect", "intersect"],
+			["mask-exclude", "exclude"],
+		] as const
+	).map(([s, v]): Rule => [s, `mask-composite: ${v};`]),
+]
+
 export const TABLES: Rule[] = [
 	// border-collapse
 	["border-collapse", "border-collapse: collapse;"],
@@ -1959,6 +2289,7 @@ export const WIND4_RULES: Rule[] = [
 	...BACKGROUNDS,
 	...TABLES,
 	...BORDERS,
+	...EFFECTS,
 	...INTERACTIVITY,
 ]
 
@@ -2464,6 +2795,32 @@ export const WIND4_THEME = {
 	"--radius-2xl": "1rem",
 	"--radius-3xl": "1.5rem",
 	"--radius-4xl": "2rem",
+
+	// shadows
+	"--shadow-2xs": "0 1px rgb(0 0 0 / 0.05)",
+	"--shadow-xs": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+	"--shadow-sm":
+		"0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+	"--shadow-md":
+		"0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+	"--shadow-lg":
+		"0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+	"--shadow-xl":
+		"0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)",
+	"--shadow-2xl": "0 25px 50px -12px rgb(0 0 0 / 0.25)",
+
+	"--inset-shadow-2xs": "inset 0 1px rgb(0 0 0 / 0.05)",
+	"--inset-shadow-xs": "inset 0 1px 1px rgb(0 0 0 / 0.05)",
+	"--inset-shadow-sm": "inset 0 2px 4px rgb(0 0 0 / 0.05)",
+
+	"--text-shadow-2xs": "0px 1px 0px rgb(0 0 0 / 0.15)",
+	"--text-shadow-xs": "0px 1px 1px rgb(0 0 0 / 0.2)",
+	"--text-shadow-sm":
+		"0px 1px 0px rgb(0 0 0 / 0.075), 0px 1px 1px rgb(0 0 0 / 0.075), 0px 2px 2px rgb(0 0 0 / 0.075)",
+	"--text-shadow-md":
+		"0px 1px 1px rgb(0 0 0 / 0.1), 0px 1px 2px rgb(0 0 0 / 0.1), 0px 2px 4px rgb(0 0 0 / 0.1)",
+	"--text-shadow-lg":
+		"0px 1px 2px rgb(0 0 0 / 0.1), 0px 3px 2px rgb(0 0 0 / 0.1), 0px 4px 8px rgb(0 0 0 / 0.1)",
 
 	// tracking
 	"--tracking-tighter": "-0.05em",
