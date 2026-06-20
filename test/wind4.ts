@@ -505,3 +505,55 @@ test("will-change", () => {
 		"will-change: transform,opacity;",
 	)
 })
+
+test("inset", () => {
+	const configs = [
+		["inset", "inset"],
+		["inset-x", "inset-inline"],
+		["inset-y", "inset-block"],
+		["inset-s", "inset-inline-start"],
+		["inset-e", "inset-inline-end"],
+		["inset-bs", "inset-block-start"],
+		["inset-be", "inset-block-end"],
+	]
+
+	for (const [abbr, property] of configs) {
+		includes(`${abbr}-4`, `${property}: calc(var(--spacing) * 4);`)
+		includes(`-${abbr}-4`, `${property}: calc(var(--spacing) * -4);`)
+		includes(`${abbr}-1/2`, `${property}: calc(1/2 * 100%);`)
+		includes(`-${abbr}-1/2`, `${property}: calc(1/2 * -100%);`)
+		includes(`${abbr}-px`, `${property}: 1px;`)
+		includes(`-${abbr}-px`, `${property}: -1px;`)
+		includes(`${abbr}-full`, `${property}: 100%;`)
+		includes(`-${abbr}-full`, `${property}: -100%;`)
+		includes(`${abbr}-auto`, `${property}: auto;`)
+		includes(`${abbr}-(--custom)`, `${property}: var(--custom);`)
+		includes(`${abbr}-[10px]`, `${property}: 10px;`)
+	}
+})
+
+test("inline-size", () => {
+	const configs = [
+		["inline", "inline-size", "auto"],
+		["min-inline", "min-inline-size", "auto"],
+		["max-inline", "max-inline-size", "none"],
+	]
+
+	for (const [abbr, property, initial] of configs) {
+		includes(`${abbr}-4`, `${property}: calc(var(--spacing) * 4);`)
+		includes(`${abbr}-1/2`, `${property}: calc(1/2 * 100%);`)
+		includes(`${abbr}-3xs`, `${property}: var(--container-3xs);`)
+		includes(`${abbr}-7xl`, `${property}: var(--container-7xl);`)
+		includes(`${abbr}-${initial}`, `${property}: ${initial};`)
+		includes(`${abbr}-px`, `${property}: 1px;`)
+		includes(`${abbr}-full`, `${property}: 100%;`)
+		includes(`${abbr}-screen`, `${property}: 100vw;`)
+		includes(`${abbr}-dvh`, `${property}: 100dvh;`)
+		includes(`${abbr}-svw`, `${property}: 100svw;`)
+		includes(`${abbr}-min`, `${property}: min-content;`)
+		includes(`${abbr}-max`, `${property}: max-content;`)
+		includes(`${abbr}-fit`, `${property}: fit-content;`)
+		includes(`${abbr}-(--custom)`, `${property}: var(--custom);`)
+		includes(`${abbr}-[10px]`, `${property}: 10px;`)
+	}
+})

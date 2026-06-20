@@ -21,6 +21,36 @@ function directionRules(): Rule[] {
 	])
 }
 
+function insetRules(): Rule[] {
+	return [
+		["inset", "inset"],
+		["inset-x", "inset-inline"],
+		["inset-y", "inset-block"],
+		["inset-s", "inset-inline-start"],
+		["inset-e", "inset-inline-end"],
+		["inset-bs", "inset-block-start"],
+		["inset-be", "inset-block-end"],
+	].flatMap(([abbr, prop]) => [
+		[
+			`(-)?${abbr}-(\\d+)`,
+			([, neg, num]) =>
+				`${prop}: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
+		],
+		[
+			`(-)?${abbr}-(\\d+\\/\\d+)`,
+			([, neg, frac]) =>
+				`${prop}: calc(${frac} * ${neg ? "-" : ""}100%);`,
+		],
+		[`${abbr}-px`, `${prop}: 1px;`],
+		[`-${abbr}-px`, `${prop}: -1px;`],
+		[`${abbr}-full`, `${prop}: 100%;`],
+		[`-${abbr}-full`, `${prop}: -100%;`],
+		[`${abbr}-auto`, `${prop}: auto;`],
+		[`${abbr}-\\((.+)\\)`, ([, p]) => `${prop}: var(${p});`],
+		[`${abbr}-\\[(.+)\\]`, ([, value]) => `${prop}: ${value};`],
+	])
+}
+
 export const LAYOUT: Rule[] = [
 	// aspect-ratio
 	[/aspect-(\d+\/\d+)/, ([, ratio]) => `aspect-ratio: ${ratio};`],
@@ -182,136 +212,7 @@ export const LAYOUT: Rule[] = [
 
 	// top / right / bottom / left
 	// inset
-	[
-		/(-)?inset-(\d+)/,
-		([, neg, num]) =>
-			`inset: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	[
-		/(-)?inset-(\d+\/\d+)/,
-		([, neg, frac]) => `inset: calc(${frac} * ${neg ? "-" : ""}100%);`,
-	],
-	["inset-px", "inset: 1px;"],
-	["-inset-px", "inset: -1px;"],
-	["inset-full", "inset: 100%;"],
-	["-inset-full", "inset: -100%;"],
-	["inset-auto", "inset: auto;"],
-	[/inset-\((.+)\)/, ([, prop]) => `inset: var(${prop});`],
-	[/inset-\[(.+)\]/, ([, value]) => `inset: ${value};`],
-
-	// inset-x (inline)
-	[
-		/(-)?inset-x-(\d+)/,
-		([, neg, num]) =>
-			`inset-inline: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	[
-		/(-)?inset-x-(\d+\/\d+)/,
-		([, neg, frac]) =>
-			`inset-inline: calc(${frac} * ${neg ? "-" : ""}100%);`,
-	],
-	["inset-x-px", "inset-inline: 1px;"],
-	["-inset-x-px", "inset-inline: -1px;"],
-	["inset-x-full", "inset-inline: 100%;"],
-	["-inset-x-full", "inset-inline: -100%;"],
-	["inset-x-auto", "inset-inline: auto;"],
-	[/inset-x-\((.+)\)/, ([, prop]) => `inset-inline: var(${prop});`],
-	[/inset-x-\[(.+)\]/, ([, value]) => `inset-inline: ${value};`],
-
-	// inset-y (block)
-	[
-		/(-)?inset-y-(\d+)/,
-		([, neg, num]) =>
-			`inset-block: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	[
-		/(-)?inset-y-(\d+\/\d+)/,
-		([, neg, frac]) =>
-			`inset-block: calc(${frac} * ${neg ? "-" : ""}100%);`,
-	],
-	["inset-y-px", "inset-block: 1px;"],
-	["-inset-y-px", "inset-block: -1px;"],
-	["inset-y-full", "inset-block: 100%;"],
-	["-inset-y-full", "inset-block: -100%;"],
-	["inset-y-auto", "inset-block: auto;"],
-	[/inset-y-\((.+)\)/, ([, prop]) => `inset-block: var(${prop});`],
-	[/inset-y-\[(.+)\]/, ([, value]) => `inset-block: ${value};`],
-
-	// inset-s (inline-start)
-	[
-		/(-)?inset-s-(\d+)/,
-		([, neg, num]) =>
-			`inset-inline-start: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	[
-		/(-)?inset-s-(\d+\/\d+)/,
-		([, neg, frac]) =>
-			`inset-inline-start: calc(${frac} * ${neg ? "-" : ""}100%);`,
-	],
-	["inset-s-px", "inset-inline-start: 1px;"],
-	["-inset-s-px", "inset-inline-start: -1px;"],
-	["inset-s-full", "inset-inline-start: 100%;"],
-	["-inset-s-full", "inset-inline-start: -100%;"],
-	["inset-s-auto", "inset-inline-start: auto;"],
-	[/inset-s-\((.+)\)/, ([, prop]) => `inset-inline-start: var(${prop});`],
-	[/inset-s-\[(.+)\]/, ([, value]) => `inset-inline-start: ${value};`],
-
-	// inset-e (inline-end)
-	[
-		/(-)?inset-e-(\d+)/,
-		([, neg, num]) =>
-			`inset-inline-end: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	[
-		/(-)?inset-e-(\d+\/\d+)/,
-		([, neg, frac]) =>
-			`inset-inline-end: calc(${frac} * ${neg ? "-" : ""}100%);`,
-	],
-	["inset-e-px", "inset-inline-end: 1px;"],
-	["-inset-e-px", "inset-inline-end: -1px;"],
-	["inset-e-full", "inset-inline-end: 100%;"],
-	["-inset-e-full", "inset-inline-end: -100%;"],
-	["inset-e-auto", "inset-inline-end: auto;"],
-	[/inset-e-\((.+)\)/, ([, prop]) => `inset-inline-end: var(${prop});`],
-	[/inset-e-\[(.+)\]/, ([, value]) => `inset-inline-end: ${value};`],
-
-	// inset-bs (block-start)
-	[
-		/(-)?inset-bs-(\d+)/,
-		([, neg, num]) =>
-			`inset-block-start: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	[
-		/(-)?inset-bs-(\d+\/\d+)/,
-		([, neg, frac]) =>
-			`inset-block-start: calc(${frac} * ${neg ? "-" : ""}100%);`,
-	],
-	["inset-bs-px", "inset-block-start: 1px;"],
-	["-inset-bs-px", "inset-block-start: -1px;"],
-	["inset-bs-full", "inset-block-start: 100%;"],
-	["-inset-bs-full", "inset-block-start: -100%;"],
-	["inset-bs-auto", "inset-block-start: auto;"],
-	[/inset-bs-\((.+)\)/, ([, prop]) => `inset-block-start: var(${prop});`],
-	[/inset-bs-\[(.+)\]/, ([, value]) => `inset-block-start: ${value};`],
-
-	// inset-be (block-end)
-	[
-		/(-)?inset-be-(\d+)/,
-		([, neg, num]) =>
-			`inset-block-end: calc(var(--spacing) * ${neg ? "-" : ""}${num});`,
-	],
-	[
-		/(-)?inset-be-(\d+\/\d+)/,
-		([, neg, frac]) =>
-			`inset-block-end: calc(${frac} * ${neg ? "-" : ""}100%);`,
-	],
-	["inset-be-px", "inset-block-end: 1px;"],
-	["-inset-be-px", "inset-block-end: -1px;"],
-	["inset-be-full", "inset-block-end: 100%;"],
-	["-inset-be-full", "inset-block-end: -100%;"],
-	["inset-be-auto", "inset-block-end: auto;"],
-	[/inset-be-\((.+)\)/, ([, prop]) => `inset-block-end: var(${prop});`],
-	[/inset-be-\[(.+)\]/, ([, value]) => `inset-block-end: ${value};`],
+	...insetRules(),
 
 	// top/bottom/right/left
 	...directionRules(),
@@ -712,6 +613,61 @@ export const SPACING: Rule[] = [
 	...spaceRules(),
 ]
 
+function inlineSizeRules(): Rule[] {
+	return (
+		[
+			["inline", "inline-size", "auto"],
+			["min-inline", "min-inline-size", "auto"],
+			["max-inline", "max-inline-size", "none"],
+		] as [string, string, string][]
+	).flatMap(([abbr, prop, initial]) => {
+		const fixed: [string, string][] = [
+			["3xs", "var(--container-3xs)"],
+			["2xs", "var(--container-2xs)"],
+			["xs", "var(--container-xs)"],
+			["sm", "var(--container-sm)"],
+			["md", "var(--container-md)"],
+			["lg", "var(--container-lg)"],
+			["xl", "var(--container-xl)"],
+			["2xl", "var(--container-2xl)"],
+			["3xl", "var(--container-3xl)"],
+			["4xl", "var(--container-4xl)"],
+			["5xl", "var(--container-5xl)"],
+			["6xl", "var(--container-6xl)"],
+			["7xl", "var(--container-7xl)"],
+			[initial, initial],
+			["px", "1px"],
+			["full", "100%"],
+			["screen", "100vw"],
+			["dvw", "100dvw"],
+			["dvh", "100dvh"],
+			["lvw", "100lvw"],
+			["lvh", "100lvh"],
+			["svw", "100svw"],
+			["svh", "100svh"],
+			["min", "min-content"],
+			["max", "max-content"],
+			["fit", "fit-content"],
+		]
+		return [
+			[
+				`${abbr}-(\\d+)`,
+				([, num]) => `${prop}: calc(var(--spacing) * ${num});`,
+			],
+			[
+				`${abbr}-(\\d+\\/\\d+)`,
+				([, frac]) => `${prop}: calc(${frac} * 100%);`,
+			],
+			...fixed.map(
+				([suffix, value]) =>
+					[`${abbr}-${suffix}`, `${prop}: ${value};`] as Rule,
+			),
+			[`${abbr}-\\((.+)\\)`, ([, p]) => `${prop}: var(${p});`],
+			[`${abbr}-\\[(.+)\\]`, ([, val]) => `${prop}: ${val};`],
+		] as Rule[]
+	})
+}
+
 export const SIZING: Rule[] = [
 	// width
 	[/w-(\d+)/, ([, num]) => `width: calc(var(--spacing) * ${num});`],
@@ -917,119 +873,8 @@ export const SIZING: Rule[] = [
 	[/max-h-\((.+)\)/, ([, prop]) => `max-height: var(${prop});`],
 	[/max-h-\[(.+)\]/, ([, value]) => `max-height: ${value};`],
 
-	// inline-size
-	[
-		/inline-(\d+)/,
-		([, num]) => `inline-size: calc(var(--spacing) * ${num});`,
-	],
-	[
-		/inline-(\d+\/\d+)/,
-		([, fraction]) => `inline-size: calc(${fraction} * 100%);`,
-	],
-	["inline-3xs", "inline-size: var(--container-3xs);"],
-	["inline-2xs", "inline-size: var(--container-2xs);"],
-	["inline-xs", "inline-size: var(--container-xs);"],
-	["inline-sm", "inline-size: var(--container-sm);"],
-	["inline-md", "inline-size: var(--container-md);"],
-	["inline-lg", "inline-size: var(--container-lg);"],
-	["inline-xl", "inline-size: var(--container-xl);"],
-	["inline-2xl", "inline-size: var(--container-2xl);"],
-	["inline-3xl", "inline-size: var(--container-3xl);"],
-	["inline-4xl", "inline-size: var(--container-4xl);"],
-	["inline-5xl", "inline-size: var(--container-5xl);"],
-	["inline-6xl", "inline-size: var(--container-6xl);"],
-	["inline-7xl", "inline-size: var(--container-7xl);"],
-	["inline-auto", "inline-size: auto;"],
-	["inline-px", "inline-size: 1px;"],
-	["inline-full", "inline-size: 100%;"],
-	["inline-screen", "inline-size: 100vw;"],
-	["inline-dvw", "inline-size: 100dvw;"],
-	["inline-dvh", "inline-size: 100dvh;"],
-	["inline-lvw", "inline-size: 100lvw;"],
-	["inline-lvh", "inline-size: 100lvh;"],
-	["inline-svw", "inline-size: 100svw;"],
-	["inline-svh", "inline-size: 100svh;"],
-	["inline-min", "inline-size: min-content;"],
-	["inline-max", "inline-size: max-content;"],
-	["inline-fit", "inline-size: fit-content;"],
-	[/inline-\((.+)\)/, ([, prop]) => `inline-size: var(${prop});`],
-	[/inline-\[(.+)\]/, ([, value]) => `inline-size: ${value};`],
-
-	// min-inline-size
-	[
-		/min-inline-(\d+)/,
-		([, num]) => `min-inline-size: calc(var(--spacing) * ${num});`,
-	],
-	[
-		/min-inline-(\d+\/\d+)/,
-		([, fraction]) => `min-inline-size: calc(${fraction} * 100%);`,
-	],
-	["min-inline-3xs", "min-inline-size: var(--container-3xs);"],
-	["min-inline-2xs", "min-inline-size: var(--container-2xs);"],
-	["min-inline-xs", "min-inline-size: var(--container-xs);"],
-	["min-inline-sm", "min-inline-size: var(--container-sm);"],
-	["min-inline-md", "min-inline-size: var(--container-md);"],
-	["min-inline-lg", "min-inline-size: var(--container-lg);"],
-	["min-inline-xl", "min-inline-size: var(--container-xl);"],
-	["min-inline-2xl", "min-inline-size: var(--container-2xl);"],
-	["min-inline-3xl", "min-inline-size: var(--container-3xl);"],
-	["min-inline-4xl", "min-inline-size: var(--container-4xl);"],
-	["min-inline-5xl", "min-inline-size: var(--container-5xl);"],
-	["min-inline-6xl", "min-inline-size: var(--container-6xl);"],
-	["min-inline-7xl", "min-inline-size: var(--container-7xl);"],
-	["min-inline-auto", "min-inline-size: auto;"],
-	["min-inline-px", "min-inline-size: 1px;"],
-	["min-inline-full", "min-inline-size: 100%;"],
-	["min-inline-screen", "min-inline-size: 100vw;"],
-	["min-inline-dvw", "min-inline-size: 100dvw;"],
-	["min-inline-dvh", "min-inline-size: 100dvh;"],
-	["min-inline-lvw", "min-inline-size: 100lvw;"],
-	["min-inline-lvh", "min-inline-size: 100lvh;"],
-	["min-inline-svw", "min-inline-size: 100svw;"],
-	["min-inline-svh", "min-inline-size: 100svh;"],
-	["min-inline-min", "min-inline-size: min-content;"],
-	["min-inline-max", "min-inline-size: max-content;"],
-	["min-inline-fit", "min-inline-size: fit-content;"],
-	[/min-inline-\((.+)\)/, ([, prop]) => `min-inline-size: var(${prop});`],
-	[/min-inline-\[(.+)\]/, ([, value]) => `min-inline-size: ${value};`],
-
-	// max-inline-size
-	[
-		/max-inline-(\d+)/,
-		([, num]) => `max-inline-size: calc(var(--spacing) * ${num});`,
-	],
-	[
-		/max-inline-(\d+\/\d+)/,
-		([, fraction]) => `max-inline-size: calc(${fraction} * 100%);`,
-	],
-	["max-inline-3xs", "max-inline-size: var(--container-3xs);"],
-	["max-inline-2xs", "max-inline-size: var(--container-2xs);"],
-	["max-inline-xs", "max-inline-size: var(--container-xs);"],
-	["max-inline-sm", "max-inline-size: var(--container-sm);"],
-	["max-inline-md", "max-inline-size: var(--container-md);"],
-	["max-inline-lg", "max-inline-size: var(--container-lg);"],
-	["max-inline-xl", "max-inline-size: var(--container-xl);"],
-	["max-inline-2xl", "max-inline-size: var(--container-2xl);"],
-	["max-inline-3xl", "max-inline-size: var(--container-3xl);"],
-	["max-inline-4xl", "max-inline-size: var(--container-4xl);"],
-	["max-inline-5xl", "max-inline-size: var(--container-5xl);"],
-	["max-inline-6xl", "max-inline-size: var(--container-6xl);"],
-	["max-inline-7xl", "max-inline-size: var(--container-7xl);"],
-	["max-inline-none", "max-inline-size: none;"],
-	["max-inline-px", "max-inline-size: 1px;"],
-	["max-inline-full", "max-inline-size: 100%;"],
-	["max-inline-dvw", "max-inline-size: 100dvw;"],
-	["max-inline-dvh", "max-inline-size: 100dvh;"],
-	["max-inline-lvw", "max-inline-size: 100lvw;"],
-	["max-inline-lvh", "max-inline-size: 100lvh;"],
-	["max-inline-svw", "max-inline-size: 100svw;"],
-	["max-inline-svh", "max-inline-size: 100svh;"],
-	["max-inline-screen", "max-inline-size: 100vw;"],
-	["max-inline-min", "max-inline-size: min-content;"],
-	["max-inline-max", "max-inline-size: max-content;"],
-	["max-inline-fit", "max-inline-size: fit-content;"],
-	[/max-inline-\((.+)\)/, ([, prop]) => `max-inline-size: var(${prop});`],
-	[/max-inline-\[(.+)\]/, ([, value]) => `max-inline-size: ${value};`],
+	// inline-size / min-inline-size / max-inline-size
+	...inlineSizeRules(),
 
 	// block-size
 	[/block-(\d+)/, ([, num]) => `block-size: calc(var(--spacing) * ${num});`],
