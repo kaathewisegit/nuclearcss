@@ -36,6 +36,7 @@ function findVariables(content: string, variables: Set<string>) {
 	}
 }
 
+// Core NuclearCSS class which keeps track of a single CSS file
 export class Generator {
 	config: Config
 	#classMatcher: RegExp
@@ -54,16 +55,19 @@ export class Generator {
 		this.#customCSS = ""
 	}
 
+	// Automatically processes `ConfigOptions` into `Config`
 	static from_options(optons: ConfigOptions): Generator {
 		return new Generator(defineConfig(optons))
 	}
 
+	// Parses `content` for utility classes and adds them to the output
 	addContent(content: string): void {
 		for (const chunk of content.split(/[\s'"`]+/)) {
 			this.#processChunk(chunk)
 		}
 	}
 
+	// Inlines `css` into the output, processing directives such as `@apply`
 	addCSS(css: string): void {
 		this.#customCSS += "\n"
 		this.#customCSS += css
@@ -121,7 +125,7 @@ export class Generator {
 		)
 	}
 
-	theme(variables: Set<string>): string {
+	#theme(variables: Set<string>): string {
 		let out = "@layer theme {\n  :root, :host {\n"
 
 		for (const variable of variables.keys()) {
@@ -135,11 +139,11 @@ export class Generator {
 		return out
 	}
 
-	base(): string {
+	#base(): string {
 		return `@layer base {\n${this.config.base}\n}`
 	}
 
-	utilities(): string {
+	#utilities(): string {
 		let out = "@layer utilities {\n"
 
 		for (const [name, value] of this.#cache) {
@@ -167,15 +171,15 @@ export class Generator {
 	generate(): string {
 		const variables: Set<string> = new Set()
 
-		const base = this.base()
-		const utilities = this.utilities()
+		const base = this.#base()
+		const utilities = this.#utilities()
 		const customCSS = this.#transform(this.#customCSS)
 
 		findVariables(base, variables)
 		findVariables(utilities, variables)
 		findVariables(customCSS, variables)
 
-		const theme = this.theme(variables)
+		const theme = this.#theme(variables)
 
 		return `@layer theme, base, utilities;\n${theme}\n${base}\n${utilities}\n${customCSS}`
 	}
