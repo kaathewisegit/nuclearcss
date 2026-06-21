@@ -807,3 +807,54 @@ test("mask-image conic", () => {
 		"mask-image: conic-gradient(from var(--tw-mask-conic-position), black calc(var(--spacing) * 50), transparent var(--tw-mask-conic-to));",
 	)
 })
+
+test("mask-mode", () => {
+	includes("mask-alpha", "mask-mode: alpha;")
+	includes("mask-luminance", "mask-mode: luminance;")
+	includes("mask-match", "mask-mode: match-source;")
+})
+
+test("mask-origin", () => {
+	includes("mask-origin-border", "mask-origin: border-box;")
+	includes("mask-origin-padding", "mask-origin: padding-box;")
+	includes("mask-origin-content", "mask-origin: content-box;")
+	includes("mask-origin-fill", "mask-origin: fill-box;")
+	includes("mask-origin-stroke", "mask-origin: stroke-box;")
+	includes("mask-origin-view", "mask-origin: view-box;")
+})
+
+test("mask-position", () => {
+	includes("mask-top-left", "mask-position: top left;")
+	includes("mask-top", "mask-position: top;")
+	includes("mask-top-right", "mask-position: top right;")
+	includes("mask-left", "mask-position: left;")
+	includes("mask-center", "mask-position: center;")
+	includes("mask-right", "mask-position: right;")
+	includes("mask-bottom-left", "mask-position: bottom left;")
+	includes("mask-bottom", "mask-position: bottom;")
+	includes("mask-bottom-right", "mask-position: bottom right;")
+	includes("mask-position-(--pos)", "mask-position: var(--pos);")
+	includes("mask-position-[50%]", "mask-position: 50%;")
+})
+
+test("mask-repeat", () => {
+	includes("mask-repeat", "mask-repeat: repeat;")
+	includes("mask-no-repeat", "mask-repeat: no-repeat;")
+	includes("mask-repeat-x", "mask-repeat: repeat-x;")
+	includes("mask-repeat-y", "mask-repeat: repeat-y;")
+	includes("mask-repeat-space", "mask-repeat: space;")
+	includes("mask-repeat-round", "mask-repeat: round;")
+})
+
+test("mask-size", () => {
+	includes("mask-auto", "mask-size: auto;")
+	includes("mask-cover", "mask-size: cover;")
+	includes("mask-contain", "mask-size: contain;")
+	includes("mask-size-(--size)", "mask-size: var(--size);")
+	includes("mask-size-[100%]", "mask-size: 100%;")
+})
+
+test("mask-type", () => {
+	includes("mask-type-alpha", "mask-type: alpha;")
+	includes("mask-type-luminance", "mask-type: luminance;")
+})

@@ -1983,6 +1983,59 @@ export const EFFECTS: Rule[] = [
 			["mask-exclude", "exclude"],
 		] as const
 	).map(([s, v]): Rule => [s, `mask-composite: ${v};`]),
+
+	// mask-mode
+	["mask-alpha", "mask-mode: alpha;"],
+	["mask-luminance", "mask-mode: luminance;"],
+	["mask-match", "mask-mode: match-source;"],
+
+	// mask-origin
+	...(
+		[
+			["mask-origin-border", "border-box"],
+			["mask-origin-padding", "padding-box"],
+			["mask-origin-content", "content-box"],
+			["mask-origin-fill", "fill-box"],
+			["mask-origin-stroke", "stroke-box"],
+			["mask-origin-view", "view-box"],
+		] as const
+	).map(([s, v]): Rule => [s, `mask-origin: ${v};`]),
+
+	// mask-position
+	...(
+		[
+			["mask-top-left", "top left"],
+			["mask-top", "top"],
+			["mask-top-right", "top right"],
+			["mask-left", "left"],
+			["mask-center", "center"],
+			["mask-right", "right"],
+			["mask-bottom-left", "bottom left"],
+			["mask-bottom", "bottom"],
+			["mask-bottom-right", "bottom right"],
+		] as const
+	).map(([s, v]): Rule => [s, `mask-position: ${v};`]),
+	[/mask-position-\((.+)\)/, ([, prop]) => `mask-position: var(${prop});`],
+	[/mask-position-\[(.+)\]/, ([, value]) => `mask-position: ${value};`],
+
+	// mask-repeat
+	["mask-repeat", "mask-repeat: repeat;"],
+	["mask-no-repeat", "mask-repeat: no-repeat;"],
+	["mask-repeat-x", "mask-repeat: repeat-x;"],
+	["mask-repeat-y", "mask-repeat: repeat-y;"],
+	["mask-repeat-space", "mask-repeat: space;"],
+	["mask-repeat-round", "mask-repeat: round;"],
+
+	// mask-size
+	["mask-auto", "mask-size: auto;"],
+	["mask-cover", "mask-size: cover;"],
+	["mask-contain", "mask-size: contain;"],
+	[/mask-size-\((.+)\)/, ([, prop]) => `mask-size: var(${prop});`],
+	[/mask-size-\[(.+)\]/, ([, value]) => `mask-size: ${value};`],
+
+	// mask-type
+	["mask-type-alpha", "mask-type: alpha;"],
+	["mask-type-luminance", "mask-type: luminance;"],
 ]
 
 export const TABLES: Rule[] = [
