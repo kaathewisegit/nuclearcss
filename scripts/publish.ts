@@ -3,4 +3,4 @@ import pkg from "../package.json" with { type: "json" }
 
 const tag = pkg.version.includes("-") ? ["--tag", "next"] : []
 
-spawn("npm", ["publish", "--dry-run", ...tag], { stdio: "inherit" })
+spawn("npm", ["publish", ...tag], { stdio: "inherit" })
